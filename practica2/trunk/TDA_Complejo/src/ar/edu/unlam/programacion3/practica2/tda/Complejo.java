@@ -1,4 +1,4 @@
-package ar.unlam.edu.programacion3.practica2.tda;
+package ar.edu.unlam.programacion3.practica2.tda;
 
 // ATENCIÓN: ESTA CLASE, POR COMO ESTÁ IMPLEMENTADA, ES INMUTABLE
 

@@ -15,5 +15,4 @@ public class TestPunto2D {
 			e.printStackTrace();
 		}
 	}
-
 }

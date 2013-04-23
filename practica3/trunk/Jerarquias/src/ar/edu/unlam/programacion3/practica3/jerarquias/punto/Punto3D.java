@@ -1,5 +1,8 @@
 package ar.edu.unlam.programacion3.practica3.jerarquias.punto;
 
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public class Punto3D extends Punto2D implements Cloneable{
 	
 	private double z;
@@ -67,5 +70,27 @@ public class Punto3D extends Punto2D implements Cloneable{
 			throw new AssertionError();
 		}	   
 	   return clon;
-   }	
+   }
+
+	@Override
+   public double distncia(Object obj) {
+	   chequearNulo(obj);
+		Punto3D refPunto3D = (Punto3D) obj;
+		return sqrt(pow(refPunto3D.getX() - getX(), 2) +
+						pow(refPunto3D.getY() - getY(), 2) +
+						pow(refPunto3D.getZ() - getZ(), 2));
+   }
+
+	@Override
+   public double modulo() {
+	   return sqrt(pow(getX(), 2) + pow(getY(), 2) + pow(getZ(), 2));
+   }
+
+	@Override
+   public void desplazamiento(Object obj) {		
+		chequearNulo(obj);
+		super.desplazamiento(obj);
+		Punto3D refPunto3D = (Punto3D) obj;
+		this.z += refPunto3D.getZ();
+   }
 }

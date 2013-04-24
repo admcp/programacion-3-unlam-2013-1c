@@ -47,7 +47,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 		Nodo<T> aux = primerNodo;
         if (aux == null)
             throw new NoSuchElementException();
-		return unlinkFirst(aux);
+		return desenlazarPrimero(aux);
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 		Nodo<T> aux = ultimoNodo;
         if (aux == null)
             throw new NoSuchElementException();
-		return unlinkLast(aux);
+		return desenlazarUltimo(aux);
 	}
 	
     /**
@@ -67,7 +67,7 @@ public class ListaEnlazada<T> implements Lista<T> {
      * @param elemento es el elemento a insertar.
      */
 	public void addFirst(T elemento) {
-		linkFirst(elemento);
+		enlazarPrimero(elemento);
 	}
 	
     /**
@@ -76,7 +76,7 @@ public class ListaEnlazada<T> implements Lista<T> {
      * @param elemento es el elemento a insertar.
      */
 	public void addLast(T elemento) {
-		linkLast(elemento);
+		enlazarUltimo(elemento);
 	}
 	
 	//----------------------------------------------------
@@ -95,7 +95,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 
 	@Override
 	public boolean add(T elemento) {
-		linkLast(elemento);
+		enlazarUltimo(elemento);
 		return true;
 	}
 
@@ -104,14 +104,14 @@ public class ListaEnlazada<T> implements Lista<T> {
 		if(elemento == null) {
 			for(Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente) {
 				if(nodo.elemento == null) {
-					unlink(nodo);
+					desenlazar(nodo);
 					return true;
 				}
 			}
 		} else {
 			for(Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente) {
 				if(elemento.equals(nodo.elemento)) {
-					unlink(nodo);
+					desenlazar(nodo);
 					return true;
 				}
 			}
@@ -141,14 +141,14 @@ public class ListaEnlazada<T> implements Lista<T> {
 
 	@Override
 	public T get(int index) {
-		checkElementIndex(index);
-		return node(index).elemento;
+		chequearIndiceElemento(index);
+		return nodo(index).elemento;
 	}
 
 	@Override
 	public T set(int index, T elemento) {
-		checkElementIndex(index);
-		Nodo<T> aux = node(index);
+		chequearIndiceElemento(index);
+		Nodo<T> aux = nodo(index);
 		T contenidoViejo = aux.elemento;
 		aux.elemento = elemento;
 		return contenidoViejo;
@@ -156,18 +156,18 @@ public class ListaEnlazada<T> implements Lista<T> {
 
 	@Override
 	public void add(int index, T elemento) {
-		checkPositionIndex(index);
+		chequearIndicePosicion(index);
 		if(index == size) {
-			linkLast(elemento);
+			enlazarUltimo(elemento);
 		} else {
-			linkBefore(elemento, node(index));
+			enlazarAntesDe(elemento, nodo(index));
 		}
 	}
 
 	@Override
 	public T remove(int index) {
-		checkElementIndex(index);
-		return unlink(node(index));
+		chequearIndiceElemento(index);
+		return desenlazar(nodo(index));
 	}
 
 	@Override
@@ -234,7 +234,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 	// Métodos de uso interno
 	//------------------------
 	
-	private void linkFirst(T elemento) {
+	private void enlazarPrimero(T elemento) {
 		Nodo<T> aux = primerNodo;
 		Nodo<T> nodoNuevo = new Nodo<T>(null, elemento, aux);
 		primerNodo = nodoNuevo;
@@ -246,7 +246,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 		size++;
 	}
 	
-	private void linkLast(T elemento) {
+	private void enlazarUltimo(T elemento) {
 		Nodo<T> aux = ultimoNodo;
 		Nodo<T> nodoNuevo = new Nodo<T>(aux, elemento, null);
 		ultimoNodo = nodoNuevo;
@@ -259,7 +259,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 		
 	}
 	
-	private T unlinkFirst(Nodo<T> nodo) {
+	private T desenlazarPrimero(Nodo<T> nodo) {
 		T elemento = nodo.elemento;
 		Nodo<T> nodoSiguiente = nodo.siguiente;
 		nodo.elemento = null;
@@ -274,7 +274,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 		return elemento;
 	}
 	
-	private T unlinkLast(Nodo<T> nodo) {
+	private T desenlazarUltimo(Nodo<T> nodo) {
         T elemento = nodo.elemento;
         Nodo<T> nodoAnterior = nodo.anterior;
         nodo.elemento = null;
@@ -289,7 +289,7 @@ public class ListaEnlazada<T> implements Lista<T> {
         return elemento;
 	}
 	
-	private T unlink(Nodo<T> nodo) {
+	private T desenlazar(Nodo<T> nodo) {
         T elemento = nodo.elemento;
         Nodo<T> nodoSiguiente = nodo.siguiente;
         Nodo<T> nodoAnterior = nodo.anterior;
@@ -313,7 +313,7 @@ public class ListaEnlazada<T> implements Lista<T> {
         return elemento;
     }
 	
-	private void linkBefore(T elemento, Nodo<T> nodo) {
+	private void enlazarAntesDe(T elemento, Nodo<T> nodo) {
 		Nodo<T> nodoAnterior = nodo.anterior;
 		Nodo<T> nodoNuevo = new Nodo<T>(nodoAnterior, elemento, nodo);
 		nodo.anterior = nodoNuevo;
@@ -325,7 +325,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 		size++;
 	}
 
-    private Nodo<T> node(int index) {
+    private Nodo<T> nodo(int index) {
     	if(index < (size / 2)) {
     		Nodo<T> aux = primerNodo;
     		for(int i = 0; i < index; i++) {
@@ -341,21 +341,21 @@ public class ListaEnlazada<T> implements Lista<T> {
     	}
     }
 	
-    private boolean isElementIndex(int index) {
+    private boolean isIndiceElemento(int index) {
         return index >= 0 && index < size;
     }
 	
-    private void checkElementIndex(int index) {
-        if (!isElementIndex(index))
+    private void chequearIndiceElemento(int index) {
+        if (!isIndiceElemento(index))
             throw new IndexOutOfBoundsException("Idx: " + index + " - Tam: " + size);
     }
     
-    private boolean isPositionIndex(int index) {
+    private boolean isIndicePosicion(int index) {
         return index >= 0 && index <= size;
     }
 	
-    private void checkPositionIndex(int index) {
-        if (!isPositionIndex(index))
+    private void chequearIndicePosicion(int index) {
+        if (!isIndicePosicion(index))
             throw new IndexOutOfBoundsException("Idx: " + index + " - Tam: " + size);
     }
   

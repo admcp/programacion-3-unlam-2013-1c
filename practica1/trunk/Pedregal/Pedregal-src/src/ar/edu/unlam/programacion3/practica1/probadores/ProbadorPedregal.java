@@ -39,11 +39,39 @@ public class ProbadorPedregal {
 			
 			// LEER ARCHIVOS
 			
+			// LECTURA ARCHIVO .in
+			
+			String buffer;
+			int[][] pedregal;
+			int dimPX, dimPY, dimCasaX, dimCasaY, cantPiedras, i;
+			
+			//Dimension terreno
+			buffer = bufferedReaderEntrada.readLine().split(" ");
+			dimPX = Integer.parseInt(buffer[0]);
+			dimPY = Integer.parseInt(buffer[1]);
+			pedregal = new int[dimPX][dimPY];
+			
+			//Dimension Casa
+			buffer = bufferedReaderEntrada.readLine().split(" "));
+			dimCasaX = Integer.parseInt(buffer[0]);
+			dimCasaY = Integer.parseInt(buffer[1]);
+			
+			//Carga de la matriz con los peñascos
+			
+			buffer = bufferedReaderEntrada.readLine();
+			cantPiedras = Integer.parseInt(buffer);
+			for(i = 0; i < cantPiedras ; i++){
+				buffer = bufferedReaderEntrada.readLine().split(" ");
+				pedregal[Integer.parseInt(buffer[0])][Integer.parseInt(buffer[1])] = 1;
+			}
+			
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		}  
+		} catch (NumberFormatException ex){
+			ex.printStackTrace();
+		}
 		finally {
 			try {
 				if(bufferedReaderEntrada != null) {

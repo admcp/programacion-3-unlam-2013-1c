@@ -37,62 +37,127 @@ public class ProbadorPedregal {
 			bufferedReaderEntrada = new BufferedReader(fileReaderEntrada);
 			bufferedReaderSalida = new BufferedReader(fileReaderSalida);
 			
-			// LEER ARCHIVOS
+			// Para la lectura de archivos
+			String lineBuffer = null;
+			String splitBuffer[] = null;
 			
+			// Para el archivo .in
+			int[][] pedregal;
+			int dimPX = 0, dimPY = 0;
+			int dimCasaX = 0, dimCasaY = 0;
+			int cantPiedras = 0;
+			
+			// Para el archivo .out
+			int posInicialX = 0, posInicialY = 0;
+			String orientSalida = null;
+			
+			// Para la solución
+			boolean solucionValida = false;
+
 			// LECTURA ARCHIVO .in
 			
-			String buffer[];
-			int[][] pedregal;
-			int dimPX, dimPY, dimCasaX, dimCasaY, cantPiedras, i;
-			
-			//Dimension terreno
-			buffer = bufferedReaderEntrada.readLine().split(" ");
-			dimPX = Integer.parseInt(buffer[0]);
-			dimPY = Integer.parseInt(buffer[1]);
+			// Dimension terreno
+			lineBuffer = bufferedReaderEntrada.readLine();
+			splitBuffer = lineBuffer.split(" ");
+			dimPX = Integer.parseInt(splitBuffer[0]);
+			dimPY = Integer.parseInt(splitBuffer[1]);
+			if(splitBuffer.length != 2 || (dimPX < 1 || dimPX > 1000) || (dimPY < 1 || dimPY > 1000)) {
+				throw new FileFormatException(archivoEntrada[0], lineBuffer);
+			}
 			pedregal = new int[dimPX][dimPY];
 			
-			//Dimension Casa
-			buffer = bufferedReaderEntrada.readLine().split(" ");
-			dimCasaX = Integer.parseInt(buffer[0]);
-			dimCasaY = Integer.parseInt(buffer[1]);
-			
-			//Carga de la matriz con los pe�ascos
-			
-			String linea = bufferedReaderEntrada.readLine();
-			cantPiedras = Integer.parseInt(linea);
-			for(i = 0; i < cantPiedras ; i++){
-				buffer = bufferedReaderEntrada.readLine().split(" ");
-				pedregal[Integer.parseInt(buffer[0])-1][Integer.parseInt(buffer[1])-1] = 1;
+			// Dimension Casa
+			lineBuffer = bufferedReaderEntrada.readLine();
+			splitBuffer = lineBuffer.split(" ");
+			dimCasaX = Integer.parseInt(splitBuffer[0]);
+			dimCasaY = Integer.parseInt(splitBuffer[1]);
+			if(splitBuffer.length != 2 || (dimCasaX < 1 || dimCasaX > 100) || (dimCasaY < 1 || dimCasaY > 100)) {
+				throw new FileFormatException(archivoEntrada[0], lineBuffer);
 			}
 			
-			// LEO EL ARCHIVO DE SALIDA
+			// Carga de la matriz con los peñascos
+			lineBuffer = bufferedReaderEntrada.readLine();
+			cantPiedras = Integer.parseInt(lineBuffer);
+			if(cantPiedras < 1 || cantPiedras > 1000) {
+				throw new FileFormatException(archivoEntrada[0], lineBuffer);
+			}
+			for(int i = 0; i < cantPiedras ; i++){
+				splitBuffer = bufferedReaderEntrada.readLine().split(" ");
+				pedregal[Integer.parseInt(splitBuffer[0]) - 1][Integer.parseInt(splitBuffer[1]) - 1] = 1;
+			}
+			
+			// LECTURA ARCHIVO .out
 			
 			// LEO LA PRIMERA LINEA
-			linea = bufferedReaderSalida.readLine();
-			if (linea.toUpperCase().equals("SI")) {
+			lineBuffer = bufferedReaderSalida.readLine();
+			if (lineBuffer.toUpperCase().equals("SI")) {
 				
 				// LEO LA POSICION INICIAL
-				linea = bufferedReaderSalida.readLine();
-				buffer = linea.split(" ");
-				if (buffer.length != 2) {
-					throw new Exception(String.format("Archivo %s mal Formado. Linea: %s",
-							archivoSalida[0].toString(), linea));
+				lineBuffer = bufferedReaderSalida.readLine();
+				splitBuffer = lineBuffer.split(" ");
+				if (splitBuffer.length != 2) {
+					throw new FileFormatException(archivoSalida[0], lineBuffer);
 				}
-				int posInicialX = Integer.parseInt(buffer[0]);
-				int posInicialY = Integer.parseInt(buffer[1]);
+				posInicialX = Integer.parseInt(splitBuffer[0]);
+				posInicialY = Integer.parseInt(splitBuffer[1]);
 				
 				// LEO LA ORIENTACION
-				linea = bufferedReaderSalida.readLine();
-				if ((linea.length() != 1) && ("N,S,E,O".indexOf(linea) < 0)) {
-					throw new Exception(String.format("Archivo %s mal Formado. Linea: %s",
-							archivoSalida[0].toString(), linea));					
+				lineBuffer = bufferedReaderSalida.readLine();
+				if ((lineBuffer.length() != 1) && ("N,S,E,O".indexOf(lineBuffer) < 0)) {
+					throw new FileFormatException(archivoSalida[0], lineBuffer);					
 				}
-				String orientSalida = linea;
+				orientSalida = lineBuffer;
+				
+			} else if(lineBuffer.toUpperCase().equals("NO")) {
+				
+				// NO HAY NADA QUE HACER
+				solucionValida = true;
 				
 			} else {
-				throw new Exception(String.format("Archivo %s mal Formado. Linea: %s",
-						archivoSalida[0].toString(), linea));
+				throw new FileFormatException(archivoSalida[0], lineBuffer);
 			}
+			
+			// Llegado este punto, ambos archivos son válidos: procedemos a probar la solución.
+			// Pero puede que ya sea válida (salida por "NO").
+			
+			if(!solucionValida) {
+			
+				if(posInicialX > dimPX) {
+					System.err.println("Casa fuera del pedregal: " + posInicialX + " > " + dimPX);
+				} else if(posInicialY > dimPY) {
+					System.err.println("Casa fuera del pedregal: " + posInicialY + " > " + dimPY);
+				}
+				
+				// Prueba horizontal
+				for(int i = posInicialX - 1; i < dimCasaX; i++) {
+					for(int j = posInicialY - 1; j < dimCasaY; j++) {
+						if(pedregal[i][j] == 0) {
+							solucionValida = true;
+						} else {
+							solucionValida = false;
+						}
+					}
+				}
+				
+				// Prueba vertical
+				for(int i = posInicialX - 1; i < dimCasaY; i++) {
+					for(int j = posInicialY - 1; j < dimCasaX; j++) {
+						if(pedregal[i][j] == 0) {
+							solucionValida = true;
+						} else {
+							solucionValida = false;
+						}
+					}
+				}
+				
+			}
+			
+			if(solucionValida) {
+				System.out.println("Solución válida.");
+			} else {
+				System.out.println("Solución no válida.");
+			}
+			
 			
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();

@@ -41,7 +41,7 @@ public class ProbadorPedregal {
 			
 			// LECTURA ARCHIVO .in
 			
-			String buffer;
+			String buffer[];
 			int[][] pedregal;
 			int dimPX, dimPY, dimCasaX, dimCasaY, cantPiedras, i;
 			
@@ -52,17 +52,46 @@ public class ProbadorPedregal {
 			pedregal = new int[dimPX][dimPY];
 			
 			//Dimension Casa
-			buffer = bufferedReaderEntrada.readLine().split(" "));
+			buffer = bufferedReaderEntrada.readLine().split(" ");
 			dimCasaX = Integer.parseInt(buffer[0]);
 			dimCasaY = Integer.parseInt(buffer[1]);
 			
 			//Carga de la matriz con los peñascos
 			
-			buffer = bufferedReaderEntrada.readLine();
-			cantPiedras = Integer.parseInt(buffer);
+			String linea = bufferedReaderEntrada.readLine();
+			cantPiedras = Integer.parseInt(linea);
 			for(i = 0; i < cantPiedras ; i++){
 				buffer = bufferedReaderEntrada.readLine().split(" ");
-				pedregal[Integer.parseInt(buffer[0])][Integer.parseInt(buffer[1])] = 1;
+				pedregal[Integer.parseInt(buffer[0])-1][Integer.parseInt(buffer[1])-1] = 1;
+			}
+			
+			// LEO EL ARCHIVO DE SALIDA
+			
+			// LEO LA PRIMERA LINEA
+			linea = bufferedReaderSalida.readLine();
+			if (linea.toUpperCase().equals("SI")) {
+				
+				// LEO LA POSICION INICIAL
+				linea = bufferedReaderSalida.readLine();
+				buffer = linea.split(" ");
+				if (buffer.length != 2) {
+					throw new Exception(String.format("Archivo %s mal Formado. Linea: %s",
+							archivoSalida[0].toString(), linea));
+				}
+				int posInicialX = Integer.parseInt(buffer[0]);
+				int posInicialY = Integer.parseInt(buffer[1]);
+				
+				// LEO LA ORIENTACION
+				linea = bufferedReaderSalida.readLine();
+				if ((linea.length() != 1) && ("N,S,E,O".indexOf(linea) < 0)) {
+					throw new Exception(String.format("Archivo %s mal Formado. Linea: %s",
+							archivoSalida[0].toString(), linea));					
+				}
+				String orientSalida = linea;
+				
+			} else {
+				throw new Exception(String.format("Archivo %s mal Formado. Linea: %s",
+						archivoSalida[0].toString(), linea));
 			}
 			
 		} catch (FileNotFoundException ex) {
@@ -70,6 +99,8 @@ public class ProbadorPedregal {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} catch (NumberFormatException ex){
+			ex.printStackTrace();
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		finally {

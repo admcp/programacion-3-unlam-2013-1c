@@ -64,7 +64,7 @@ public class ProbadorPedregal {
 			if(splitBuffer.length != 2 || (dimPX < 1 || dimPX > 1000) || (dimPY < 1 || dimPY > 1000)) {
 				throw new FileFormatException(archivoEntrada[0], lineBuffer);
 			}
-			pedregal = new int[dimPX][dimPY];
+			pedregal = new int[dimPY][dimPX];
 			
 			// Dimension Casa
 			lineBuffer = bufferedReaderEntrada.readLine();
@@ -83,7 +83,7 @@ public class ProbadorPedregal {
 			}
 			for(int i = 0; i < cantPiedras ; i++){
 				splitBuffer = bufferedReaderEntrada.readLine().split(" ");
-				pedregal[Integer.parseInt(splitBuffer[0]) - 1][Integer.parseInt(splitBuffer[1]) - 1] = 1;
+				pedregal[Integer.parseInt(splitBuffer[1]) - 1][Integer.parseInt(splitBuffer[0]) - 1] = 1;
 			}
 			
 			// LECTURA ARCHIVO .out
@@ -128,24 +128,26 @@ public class ProbadorPedregal {
 					System.err.println("Casa fuera del pedregal: " + posInicialY + " > " + dimPY);
 				}
 				
-				// Prueba horizontal
-				for(int i = posInicialX - 1; i < dimCasaX; i++) {
-					for(int j = posInicialY - 1; j < dimCasaY; j++) {
-						if(pedregal[i][j] == 0) {
-							solucionValida = true;
-						} else {
-							solucionValida = false;
-						}
-					}
+				int dimX;
+				int dimY;
+				if ("S,N".indexOf(orientSalida.toUpperCase()) >= 0) {
+					// Prueba horizontal
+					dimX = dimCasaX;
+					dimY = dimCasaY;				
+				} else {
+					// Prueba Vertical
+					dimX = dimCasaY;
+					dimY = dimCasaX;
 				}
 				
-				// Prueba vertical
-				for(int i = posInicialX - 1; i < dimCasaY; i++) {
-					for(int j = posInicialY - 1; j < dimCasaX; j++) {
-						if(pedregal[i][j] == 0) {
-							solucionValida = true;
+				boolean continuar = true;
+				for(int i = 0;(i < dimX) && (continuar == true); i++) {
+					for(int j = 0; (j < dimY) && (continuar == true); j++) {
+						if(pedregal[posInicialY - 1 + j][ posInicialX - 1 + i] == 0) {
+							solucionValida = true;							
 						} else {
 							solucionValida = false;
+							continuar = false;
 						}
 					}
 				}

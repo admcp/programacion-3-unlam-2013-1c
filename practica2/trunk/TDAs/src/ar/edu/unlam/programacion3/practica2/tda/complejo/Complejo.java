@@ -1,8 +1,11 @@
 package ar.edu.unlam.programacion3.practica2.tda.complejo;
 
-// ATENCIÓN: ESTA CLASE, POR COMO ESTÁ IMPLEMENTADA, ES INMUTABLE
+// import java.util.Arrays;
+// import java.util.Random;
 
-public class Complejo implements Cloneable {
+// ATENCIÃ“N: ESTA CLASE, POR COMO ESTÃ� IMPLEMENTADA, ES INMUTABLE
+
+public class Complejo implements Cloneable, Comparable<Complejo> {
 	
 	private double parteReal;
 	private double parteImaginaria;
@@ -82,17 +85,17 @@ public class Complejo implements Cloneable {
 		return clon;
 	}
 
-	// MÉTODOS UTILITARIOS
+	// MÃ‰TODOS UTILITARIOS
 	
 	public static void chequearNulo(Object obj) {
 		if(obj == null) {
-			throw new IllegalArgumentException("El parámetro no puede ser nulo");
+			throw new IllegalArgumentException("El parÃ¡metro no puede ser nulo");
 		}
 	}
 
 	// OPERACIONES SOBRE COMPLEJOS
 	
-	// MÉTODOS DE INSTANCIA
+	// MÃ‰TODOS DE INSTANCIA
 	
 	// SUMAS:
 	
@@ -134,7 +137,7 @@ public class Complejo implements Cloneable {
 		chequearNulo(operando);
 		
 		if(operando.getParteReal() == 0 && operando.getParteImaginaria() == 0) {
-			throw new IllegalArgumentException("División por cero");
+			throw new IllegalArgumentException("DivisiÃ³n por cero");
 		}
 		
 		double auxReal, auxImg;
@@ -148,7 +151,7 @@ public class Complejo implements Cloneable {
 		return new Complejo(auxReal, auxImg);
 	}
 	
-	// MÉTODOS DE CLASE
+	// MÃ‰TODOS DE CLASE
 	
 	// SUMAS:
 	
@@ -228,7 +231,7 @@ public class Complejo implements Cloneable {
 		chequearNulo(operando2);
 		
 		if(operando2.getParteReal() == 0 && operando2.getParteImaginaria() == 0) {
-			throw new IllegalArgumentException("División por cero");
+			throw new IllegalArgumentException("DivisiÃ³n por cero");
 		}
 		
 		double auxReal, auxImg;
@@ -252,5 +255,43 @@ public class Complejo implements Cloneable {
 	public static double modulo(Complejo operando){		
 		return Math.sqrt(Math.pow(operando.getParteReal(), 2) + Math.pow(operando.getParteImaginaria(), 2));		
 	}
-	
+
+	@Override
+	public int compareTo(Complejo obj) {
+		
+		if	(modulo() > obj.modulo()) {
+			return 1;
+		} else if (modulo() < obj.modulo()) {
+			return -1;
+		}
+		return 0;			
+	}
+
+	// ATENCION: por decreto de la catedra, para realizar las pruebas inmediatas, el main debe escribirse dentro de la misma clase.
+	// Nosotros deberiamos hacer las pruebas e la clase TestComplejo.Java. Comento el main para documentar lo dicho en clase.
+	/*
+	public static void main(String[] args) {
+		
+		Complejo [] vectorComplejo = new Complejo[10];
+		Random random = new Random(System.currentTimeMillis());
+		
+		
+		for(int i = 0; i < 10; i++){
+			vectorComplejo[i] = new Complejo(random.nextDouble() * 10, random.nextDouble() * 10);
+		}
+		
+		// Muestro desordenado
+		for(int i = 0; i < 10; i++){
+			System.out.println(vectorComplejo[i] + " [" + vectorComplejo[i].modulo() + "]");
+		}
+		// Ordeno.
+		Arrays.sort(vectorComplejo);
+		System.out.println();
+		
+		// Muestro ordenado;
+		for(int i = 0; i < 10; i++){
+			System.out.println(vectorComplejo[i] + " [" + vectorComplejo[i].modulo() + "]");
+		}		
+	}
+	*/
 }

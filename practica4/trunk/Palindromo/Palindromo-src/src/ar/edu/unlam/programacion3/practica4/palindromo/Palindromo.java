@@ -30,7 +30,7 @@ public class Palindromo {
 			wordToProcess = textBufferedReader.readLine();
 			
 			// PROCESO Y RECIBO EL RESULTADO UN UN STRING.
-			strResult = processWord(wordToProcess);
+			strResult = processWord2(wordToProcess);
 			
 			// ABRO ARCHVO .OUT
 			textFileOut = new File("palin.out");
@@ -86,7 +86,57 @@ public class Palindromo {
 		}
 		return result;
 	}
+
 	
+	public static String processWord2(String aWord) {
+		String result  = "";
+		String subStr1 = "";
+		String subStr2 = "";
+		String types1  = "";
+		String types2  = "";
+		
+		for (int i = 2; i < aWord.length()-1; i++) {
+			// SEPARO EN DOS PALABRAS
+			subStr1 = aWord.substring(0, i);
+			subStr2 = aWord.substring(i, aWord.length());
+			
+			// ANALIZO CADA SUB CADENA.
+			types1 = getWordTypes(subStr1);
+			types2 = getWordTypes(subStr2);
+			
+			// SI AMBAS SON DE ALGUN TIPO, AGREGO AL RESULTADO.
+			if (!types1.isEmpty() && !types2.isEmpty()) {
+				result += subStr1 + types1 + NEWLINE;
+				result += subStr2 + types2 + NEWLINE;
+			}
+
+			// LIMPIO LOS TIPOS.
+			types1 = "";
+			types2 = "";
+		}
+			
+		return result;
+	}
+	
+	private static String getWordTypes(String aWord) {
+		String types = "";
+		
+		if(esPalindromo(aWord)) {
+			types += " palindromo";
+		} 
+		if (esIPalindromo(aWord)){
+			types += " i-palindromo";
+		} 
+		if (esDPalindromo(aWord)) {
+			types += " d-palindromo";
+		}
+		
+		return types;
+	}
+	
+	// Se comenta este metodo ya que evalua mas posiblidades que las pedidas
+	// en el enunciado del ejercicio. aunque funciona correctamente.
+	/*
 	public static String processWord(String aWord) {
 		String subStr = "";
 		String types = "";
@@ -126,4 +176,5 @@ public class Palindromo {
 		
 		return result;
 	}
+	*/
 }

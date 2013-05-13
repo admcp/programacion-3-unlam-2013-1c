@@ -30,4 +30,32 @@ public class VectorFila extends VectorMath {
 		coeficientes[0][indice] = valor;		
 	}
 
+	@Override
+   public double normaUno() {
+	   double norma = 0;
+		for(int i = 0; i < cantidadColumnas; i++) {
+			norma += Math.abs(coeficientes[0][i]);
+	   }
+	   return norma;
+   }
+	
+	@Override
+   public double normaDos() {
+	   double norma = 0;
+		for(int i = 0; i < cantidadColumnas; i++) {
+			norma += Math.pow(coeficientes[0][i], 2);
+	   }
+	   return Math.sqrt(norma);
+   }
+	
+	@Override
+   public double normaInfinito() {
+		double norma = 0;
+		for(int i = 0; i < cantidadColumnas; i++) {
+			if (coeficientes[0][i] > norma) {
+				norma = Math.abs(coeficientes[0][i]);
+			}
+		}		
+	   return norma;
+   }
 }

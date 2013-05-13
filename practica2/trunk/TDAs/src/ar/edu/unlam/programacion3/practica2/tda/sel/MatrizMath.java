@@ -13,7 +13,7 @@ public class MatrizMath {
 	protected MatrizMath() {
 		/*
 		 * No queremos que el usuario pueda alterar la estructura interna de la
-		 * matriz y controlar la creación desde el principio. Por ende, no se
+		 * matriz y controlar la creaciÃ³n desde el principio. Por ende, no se
 		 * puede usar este constructor desde afuera.
 		 */
 	}
@@ -93,7 +93,7 @@ public class MatrizMath {
 		coeficientes[fila][columna] = valor;
 	}
 	
-	// MÉTODOS ALGEBRÁICOS
+	// MÃ‰TODOS ALGEBRÃ�ICOS
 
 	public static MatrizMath sumar(MatrizMath operando1, MatrizMath operando2) {
 		validarReferencia(operando1);
@@ -159,8 +159,55 @@ public class MatrizMath {
 		
 		return aux;
 	}
+	
+	public double normaUno() {
+		// Es la máxima suma absoluta de las columnas de la matriz.		
+		double norma = 0;
+		double suma;
+		
+		for(int i = 0; i < cantidadColumnas; i++ ) {
+			suma = 0;
+			for (int j = 0; j < cantidadFilas; j++) {
+				suma += Math.abs(coeficientes[j][i]);
+			}
+			
+			if (suma > norma) {
+				norma = suma;
+			}
+		}
+		return norma;
+	} 
 
-	// MÉTODOS UTILITARIOS
+	public double normaDos() {	
+		double norma = 0;
+		
+		for(int i = 0; i < cantidadFilas; i++ ) {
+			for (int j = 0; j < cantidadColumnas; j++) {
+				norma += Math.pow(coeficientes[i][j], 2);
+			}
+		}
+		return Math.sqrt(norma);
+	}
+	
+	public double normaInfinito() {
+		// Es la máxima suma absoluta de las filas de la matriz.		
+		double norma = 0;
+		double suma;
+		
+		for(int i = 0; i < cantidadFilas; i++ ) {
+			suma = 0;
+			for (int j = 0; j < cantidadColumnas; j++) {
+				suma += Math.abs(coeficientes[i][j]);
+			}
+			
+			if (suma > norma) {
+				norma = suma;
+			}
+		}
+		return norma;
+	}
+
+	// MÃ‰TODOS UTILITARIOS
 	
 	protected static void validarReferencia(Object obj) {
 		if(obj == null) {
@@ -181,7 +228,7 @@ public class MatrizMath {
 	}
 	
 	public static void main(String[] args) {
-		// FIXME: Considerar que esto es de guacho p*ja y desafía a la cátedra corregir ANTES de entregar.
+		// FIXME: Considerar que esto es de guacho p*ja y desafÃ­a a la cÃ¡tedra corregir ANTES de entregar.
 		TestMatrizMath.main(null);
 	}
 }

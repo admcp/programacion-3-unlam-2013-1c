@@ -29,4 +29,33 @@ public class VectorColumna extends VectorMath {
 		coeficientes[indice][0] = valor;
 	}
 
+	@Override
+   public double normaUno() {
+	   double norma = 0;
+		for(int i = 0; i < cantidadFilas; i++) {
+			norma += Math.abs(coeficientes[i][0]);
+	   }
+	   return norma;
+   }
+
+	@Override
+   public double normaDos() {
+	   double norma = 0;
+		for(int i = 0; i < cantidadFilas; i++) {
+			norma += Math.pow(coeficientes[i][0], 2);
+	   }
+	   return Math.sqrt(norma);
+   }
+
+	@Override
+   public double normaInfinito() {
+		double norma = 0;
+		for(int i = 0; i < cantidadFilas; i++) {
+			if (coeficientes[i][0] > norma) {
+				norma = Math.abs(coeficientes[0][i]);
+			}
+		}		
+	   return norma;
+   }
+
 }

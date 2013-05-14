@@ -1,51 +1,106 @@
-<class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="false" 
-  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" corner="BOTTOM_RIGHT" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath" 
-    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizMath.java" binary="false">    
-    <position height="401" width="253" x="375" y="52"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath" project="TDAs" 
+    file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizMath.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="699" y="458"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna" 
-    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorColumna.java" binary="false">    
-    <position height="-1" width="-1" x="604" y="785"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+  <class id="2" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna" project="TDAs" 
+    file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorColumna.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="910" y="1221"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorFila" 
-    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorFila.java" binary="false">    
-    <position height="-1" width="-1" x="945" y="785"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+  <class id="3" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorFila" project="TDAs" 
+    file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorFila.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1247" y="1217"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" corner="BOTTOM_RIGHT" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorMath" 
-    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorMath.java" binary="false">    
-    <position height="-1" width="-1" x="773" y="573"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+  <class id="4" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorMath" project="TDAs" 
+    file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorMath.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1085" y="933"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <generalization id="5">    
+  <class id="5" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.RangoInvalidoException" 
+    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/exceptions/RangoInvalidoException.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="248" x="1472" y="429"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" 
+    name="ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.DimensionInvalidaException" project="TDAs" 
+    file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/exceptions/DimensionInvalidaException.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="249" x="1760" y="429"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizCuadrada" project="TDAs" 
+    file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizCuadrada.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="396" y="918"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizIdentidad" project="TDAs" 
+    file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizIdentidad.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="611" y="1145"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <generalization id="9">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="6">    
+  <generalization id="10">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="11">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <generalization id="7">    
+  <generalization id="12">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="13">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-    visibility="true">    
+    accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
     <operations public="true" package="true" protected="true" private="true"/>  
   </classifier-display>  

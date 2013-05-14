@@ -6,8 +6,10 @@ public class MatrizCuadrada extends MatrizMath {
 		super(dimension, dimension);
 	}
 	
-	public MatrizCuadrada(MatrizMath matriz){
-		super.validarDimension(matriz.cantidadColumnas, matriz.cantidadFilas);
+	private MatrizCuadrada(MatrizMath matriz){
+		validarReferencia(matriz);
+		validarDimension(matriz.cantidadColumnas, matriz.cantidadFilas);
+		
 		cantidadFilas = matriz.cantidadFilas;
 		cantidadColumnas = matriz.cantidadColumnas;
 		coeficientes = new double[cantidadFilas][cantidadColumnas];

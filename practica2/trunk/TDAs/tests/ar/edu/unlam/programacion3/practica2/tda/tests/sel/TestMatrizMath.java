@@ -37,57 +37,28 @@ public class TestMatrizMath {
 
 		MatrizMath aux = MatrizMath.sumar(matriz1, matriz2);
 
-		for (int i = 0; i < aux.getCantidadFilas(); i++) {
-			for (int j = 0; j < aux.getCantidadColumnas(); j++) {
-				System.out.print(aux.getValorEn(i, j) + " ");
-			}
-			System.out.println();
-		}
+		System.out.println(aux);
 
 		aux = MatrizMath.restar(matriz1, matriz2);
 
-		for (int i = 0; i < aux.getCantidadFilas(); i++) {
-			for (int j = 0; j < aux.getCantidadColumnas(); j++) {
-				System.out.print(aux.getValorEn(i, j) + " ");
-			}
-			System.out.println();
-		}
+		System.out.println(aux);
 
 		aux = MatrizMath.producto(matriz1, identidad);
 
-		for (int i = 0; i < aux.getCantidadFilas(); i++) {
-			for (int j = 0; j < aux.getCantidadColumnas(); j++) {
-				System.out.print(aux.getValorEn(i, j) + " ");
-			}
-			System.out.println();
-		}
+		System.out.println(aux);
 
 		aux = MatrizMath.productoEscalar(matriz1, 1);
 
-		for (int i = 0; i < aux.getCantidadFilas(); i++) {
-			for (int j = 0; j < aux.getCantidadColumnas(); j++) {
-				System.out.print(aux.getValorEn(i, j) + " ");
-			}
-			System.out.println();
-		}
+		System.out.println(aux);
 
 		aux = MatrizMath.producto(matriz1, vec1);
 
-		for (int i = 0; i < aux.getCantidadFilas(); i++) {
-			for (int j = 0; j < aux.getCantidadColumnas(); j++) {
-				System.out.print(aux.getValorEn(i, j) + " ");
-			}
-			System.out.println();
-		}
+		System.out.println(aux);
 		
 		aux = MatrizMath.producto(vec2, matriz1);
 
-		for (int i = 0; i < aux.getCantidadFilas(); i++) {
-			for (int j = 0; j < aux.getCantidadColumnas(); j++) {
-				System.out.print(aux.getValorEn(i, j) + " ");
-			}
-			System.out.println();
-		}
+		System.out.println(aux);
+
 		
 		// PRUEBO LAS NORMAS.
 		
@@ -106,7 +77,7 @@ public class TestMatrizMath {
 		
 		System.out.println();
 		System.out.println("Norma 1: " + matriz2.normaUno());
-		System.out.println("Norma 2: " + matriz2.normaDos());
+		//System.out.println("Norma 2: " + matriz2.normaDos());
 		System.out.println("Norma i: " + matriz2.normaInfinito());
 		
 		// VECTOR		

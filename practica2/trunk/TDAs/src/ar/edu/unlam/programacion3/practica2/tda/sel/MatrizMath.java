@@ -6,7 +6,7 @@ import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.DimensionInvalida
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.RangoInvalidoException;
 import ar.edu.unlam.programacion3.practica2.tda.tests.sel.TestMatrizMath;
 
-public class MatrizMath {
+public class MatrizMath implements Cloneable {
 
 	protected double[][] coeficientes;
 	protected int cantidadFilas;
@@ -199,7 +199,7 @@ public class MatrizMath {
 		validarDimension(operando1.cantidadColumnas, operando2.cantidadFilas);
 
 		double sumatoria = 0;
-		VectorColumna aux = new VectorColumna(operando2.getCantidadComponentes());
+		VectorColumna aux = new VectorColumna(operando1.cantidadColumnas);
 		for (int i = 0; i < operando1.cantidadFilas; i++) {
 			for (int j = 0; j < operando2.cantidadColumnas; j++) {
 				for (int k = 0; k < operando1.cantidadColumnas; k++) {
@@ -212,14 +212,14 @@ public class MatrizMath {
 
 		return aux;
 	}
-
-	public static VectorFila producto(MatrizMath operando1, VectorFila operando2) {
+	
+	public static VectorFila producto(VectorFila operando1, MatrizMath operando2) {
 		validarReferencia(operando1);
 		validarReferencia(operando2);
 		validarDimension(operando1.cantidadColumnas, operando2.cantidadFilas);
 
 		double sumatoria = 0;
-		VectorFila aux = new VectorFila(operando2.getCantidadComponentes());
+		VectorFila aux = new VectorFila(operando2.cantidadColumnas);
 		for (int i = 0; i < operando1.cantidadFilas; i++) {
 			for (int j = 0; j < operando2.cantidadColumnas; j++) {
 				for (int k = 0; k < operando1.cantidadColumnas; k++) {
@@ -276,19 +276,6 @@ public class MatrizMath {
 		}
 		return norma;
 	}
-
-	/*
-	public double normaDos() {
-		double norma = 0;
-
-		for (int i = 0; i < cantidadFilas; i++) {
-			for (int j = 0; j < cantidadColumnas; j++) {
-				norma += Math.pow(coeficientes[i][j], 2);
-			}
-		}
-		return Math.sqrt(norma);
-	}
-	*/
 
 	public double normaInfinito() {
 		// Es la máxima suma absoluta de las filas de la matriz.
@@ -384,7 +371,25 @@ public class MatrizMath {
 			}
 		}
 		return true;
-	}	
+	}
+	
+	@Override
+	public MatrizMath clone() {
+		MatrizMath clon = null;
+		try {
+			clon = (MatrizMath) super.clone();
+		} catch(CloneNotSupportedException ex) {
+			throw new AssertionError();
+		}
+		
+		for(int i = 0; i < clon.cantidadFilas; i++) {
+			for(int j = 0; j < clon.cantidadColumnas; j++) {
+				clon.coeficientes[i][j] = coeficientes[i][j];
+			}
+		}
+		
+		return clon;
+	}
 
 	// MAIN
 

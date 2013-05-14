@@ -92,6 +92,50 @@ public class MatrizMath {
 
 		coeficientes[fila][columna] = valor;
 	}
+	
+	public VectorColumna getColumna(int columna) {
+		validarRangoDimension(columna, 0, cantidadColumnas - 1);
+		
+		double[] vector = new double[cantidadFilas];
+		
+		for(int i = 0; i < cantidadFilas; i++) {
+			vector[i] = coeficientes[i][columna];
+		}
+		
+		return new VectorColumna(vector);
+	}
+
+	public void setColumna(VectorColumna vector, int columna) {
+		validarReferencia(vector);
+		validarDimension(vector.cantidadFilas, cantidadFilas);
+		validarRangoDimension(columna, 0, cantidadColumnas - 1);
+
+		for (int i = 0; i < cantidadFilas; i++) {
+			coeficientes[i][columna] = vector.getValorEn(i);
+		}
+	}
+	
+	public VectorFila getFila(int fila) {
+		validarRangoDimension(fila, 0, cantidadFilas - 1);
+		
+		double[] vector = new double[cantidadColumnas];
+		
+		for(int i = 0; i < cantidadColumnas; i++) {
+			vector[i] = coeficientes[fila][i];
+		}
+		
+		return new VectorFila(vector);
+	}
+
+	public void setFila(VectorFila vector, int fila) {
+		validarReferencia(vector);
+		validarDimension(vector.cantidadColumnas, cantidadColumnas);
+		validarRangoDimension(fila, 0, cantidadFilas - 1);
+
+		for (int i = 0; i < cantidadColumnas; i++) {
+			coeficientes[fila][i] = vector.getValorEn(i);
+		}
+	}
 
 	// MÉTODOS ALGEBRÁICOS
 
@@ -267,25 +311,7 @@ public class MatrizMath {
 		}
 	}
 
-	// SetColumna, SetFila
-
-	public void setColumna(VectorColumna vec, int columna) {
-		validarDimension(vec.cantidadFilas, cantidadFilas);
-		validarRangoDimension(columna, 0, cantidadColumnas - 1);
-
-		for (int i = 0; i < cantidadFilas; i++) {
-			coeficientes[i][columna] = vec.getValorEn(i);
-		}
-	}
-
-	public void setFila(VectorFila vec, int fila) {
-		validarDimension(vec.cantidadColumnas, cantidadColumnas);
-		validarRangoDimension(fila, 0, cantidadFilas - 1);
-
-		for (int i = 0; i < cantidadColumnas; i++) {
-			coeficientes[fila][i] = vec.getValorEn(i);
-		}
-	}
+	// MAIN
 
 	public static void main(String[] args) {
 		// FIXME: Corregir ANTES de entregar.

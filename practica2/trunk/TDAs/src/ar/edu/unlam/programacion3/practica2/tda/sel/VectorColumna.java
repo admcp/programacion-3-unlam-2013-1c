@@ -10,7 +10,7 @@ public class VectorColumna extends VectorMath {
 		coeficientes = new double[cantidadFilas][cantidadColumnas];
 	}
 
-	public VectorColumna(MatrizMath matriz) {
+	private VectorColumna(MatrizMath matriz) {
 		cantidadFilas = matriz.cantidadFilas;
 		cantidadColumnas = 1;
 		coeficientes = new double[cantidadFilas][cantidadColumnas];
@@ -21,12 +21,15 @@ public class VectorColumna extends VectorMath {
 		}
 	}
 
-	public VectorColumna(double[] vec) {
-		cantidadFilas = vec.length;
+	public VectorColumna(double[] vector) {
+		validarReferencia(vector);
+		validarRangoDimension(vector.length, 1, Integer.MAX_VALUE);
+		
+		cantidadFilas = vector.length;
 		cantidadColumnas = 1;
 		coeficientes = new double[cantidadFilas][cantidadColumnas];
-		for (int i = 0; i < vec.length; i++) {
-			coeficientes[i][0] = vec[i];
+		for (int i = 0; i < vector.length; i++) {
+			coeficientes[i][0] = vector[i];
 		}
 	}
 
@@ -59,35 +62,6 @@ public class VectorColumna extends VectorMath {
 
 	public static VectorColumna productoEscalar(VectorColumna operando, double escalar) {
 		return new VectorColumna(MatrizMath.productoEscalar(operando, escalar));
-	}
-	
-	@Override
-	public double normaUno() {
-		double norma = 0;
-		for (int i = 0; i < cantidadFilas; i++) {
-			norma += Math.abs(coeficientes[i][0]);
-		}
-		return norma;
-	}
-
-	@Override
-	public double normaDos() {
-		double norma = 0;
-		for (int i = 0; i < cantidadFilas; i++) {
-			norma += Math.pow(coeficientes[i][0], 2);
-		}
-		return Math.sqrt(norma);
-	}
-
-	@Override
-	public double normaInfinito() {
-		double norma = 0;
-		for (int i = 0; i < cantidadFilas; i++) {
-			if (coeficientes[i][0] > norma) {
-				norma = Math.abs(coeficientes[0][i]);
-			}
-		}
-		return norma;
 	}
 
 	// MAIN PARA EL TEST

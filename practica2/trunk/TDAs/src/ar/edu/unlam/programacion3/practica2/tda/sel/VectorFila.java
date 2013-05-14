@@ -14,11 +14,11 @@ public class VectorFila extends VectorMath {
 		validarReferencia(vector);
 		validarRangoDimension(vector.length, 1, Integer.MAX_VALUE);
 		
-		cantidadFilas = vector.length;
-		cantidadColumnas = 1;
+		cantidadFilas = 1;
+		cantidadColumnas = vector.length;
 		coeficientes = new double[cantidadFilas][cantidadColumnas];
 		for (int i = 0; i < vector.length; i++) {
-			coeficientes[i][0] = vector[i];
+			coeficientes[0][i] = vector[i];
 		}
 	}
 

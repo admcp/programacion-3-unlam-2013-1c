@@ -51,14 +51,15 @@ public class SistemaLinealDeEcuaciones {
 		factorizarSistema();
 		VectorColumna solucionIntermedia = sustitucionHaciaAdelante(vectorTerminosIndependientes);
 		VectorColumna vectorSolucion = sustitucionHaciaAtras(solucionIntermedia);
+		reiniciarSistemaLineal();
 	
 		return vectorSolucion;
 	}
 	
 	protected void factorizarSistema() {
-		// Si ya está factorizada volver sin hacer nada
+		// Si ya está factorizada reiniciar
 		if(factorizacionLU != null)
-			return;
+			reiniciarSistemaLineal();
 		
 		int cantidadFilasDelSistema = sistemaDeEcuaciones.cantidadFilas;
 		

@@ -6,6 +6,10 @@ public class MatrizCuadrada extends MatrizMath {
 		super(dimension, dimension);
 	}
 	
+	public MatrizCuadrada(double[][] coeficientes) {
+		super(coeficientes);
+	}
+
 	private MatrizCuadrada(MatrizMath matriz){
 		validarReferencia(matriz);
 		validarDimension(matriz.cantidadColumnas, matriz.cantidadFilas);

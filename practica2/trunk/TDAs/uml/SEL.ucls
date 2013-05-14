@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizMath.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="925" y="338"/>    
+    <position height="-1" width="-1" x="1045" y="257"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -13,7 +13,7 @@
   <class id="2" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorColumna.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1136" y="1101"/>    
+    <position height="-1" width="-1" x="1171" y="925"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -22,7 +22,7 @@
   </class>  
   <class id="3" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorFila" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorFila.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1473" y="1097"/>    
+    <position height="-1" width="-1" x="1520" y="926"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -31,7 +31,7 @@
   </class>  
   <class id="4" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.VectorMath" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/VectorMath.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1311" y="813"/>    
+    <position height="-1" width="-1" x="1349" y="623"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -62,7 +62,7 @@
   <class id="7" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizCuadrada" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizCuadrada.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="622" y="798"/>    
+    <position height="-1" width="-1" x="696" y="1101"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -72,7 +72,7 @@
   <class id="8" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizIdentidad" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizIdentidad.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="767" y="1013"/>    
+    <position height="-1" width="-1" x="854" y="1345"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -82,7 +82,7 @@
   <class id="9" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizInvertible" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizInvertible.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="434" y="1018"/>    
+    <position height="-1" width="-1" x="545" y="1360"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -92,43 +92,56 @@
   <class id="10" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.SistemaLinealDeEcuaciones" 
     project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/SistemaLinealDeEcuaciones.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="164" y="798"/>    
+    <position height="-1" width="-1" x="152" y="1100"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <association id="11">    
+  <class id="11" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.Matriz" project="TDAs" 
+    file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/Matriz.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="698" y="682"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <association id="12">    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="12" name="factorizacionLU"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
+      <attribute id="13" name="factorizacionLU"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="14">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
   <generalization id="15">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="16">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="18">    
+  <generalization id="16">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
+  <generalization id="17">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
   <generalization id="19">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="20">    
     <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="21">    
+    <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -47,7 +47,7 @@ public class MatrizMath {
 
 	// GETTERS/SETTERS
 
-	public double[][] getCoeficientes() {
+	public double[][] obtenerComoMatriz() {
 		double[][] copiaCoeficientes = new double[cantidadFilas][cantidadColumnas];
 
 		for (int i = 0; i < cantidadFilas; i++) {
@@ -59,7 +59,7 @@ public class MatrizMath {
 		return copiaCoeficientes;
 	}
 
-	public void setCoeficientes(double[][] coeficientes) {
+	public void inicializarConMatriz(double[][] coeficientes) {
 		validarReferencia(coeficientes);
 		validarRangoDimension(coeficientes.length, 1, cantidadFilas - 1);
 		validarRangoDimension(coeficientes[0].length, 1, cantidadColumnas - 1);

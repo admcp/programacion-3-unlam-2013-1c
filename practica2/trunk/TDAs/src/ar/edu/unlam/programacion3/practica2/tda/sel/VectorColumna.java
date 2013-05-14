@@ -10,17 +10,6 @@ public class VectorColumna extends VectorMath {
 		coeficientes = new double[cantidadFilas][cantidadColumnas];
 	}
 
-	private VectorColumna(MatrizMath matriz) {
-		cantidadFilas = matriz.cantidadFilas;
-		cantidadColumnas = 1;
-		coeficientes = new double[cantidadFilas][cantidadColumnas];
-		for (int i = 0; i < matriz.cantidadFilas; i++) {
-			for (int j = 0; j < 1; j++) {
-				coeficientes[i][j] = matriz.coeficientes[i][j];
-			}
-		}
-	}
-
 	public VectorColumna(double[] vector) {
 		validarReferencia(vector);
 		validarRangoDimension(vector.length, 1, Integer.MAX_VALUE);
@@ -30,6 +19,17 @@ public class VectorColumna extends VectorMath {
 		coeficientes = new double[cantidadFilas][cantidadColumnas];
 		for (int i = 0; i < vector.length; i++) {
 			coeficientes[i][0] = vector[i];
+		}
+	}
+	
+	private VectorColumna(MatrizMath matriz) {
+		cantidadFilas = matriz.cantidadFilas;
+		cantidadColumnas = 1;
+		coeficientes = new double[cantidadFilas][cantidadColumnas];
+		for (int i = 0; i < matriz.cantidadFilas; i++) {
+			for (int j = 0; j < 1; j++) {
+				coeficientes[i][j] = matriz.coeficientes[i][j];
+			}
 		}
 	}
 
@@ -49,6 +49,25 @@ public class VectorColumna extends VectorMath {
 		validarRangoDimension(indice, 0, cantidadFilas - 1);
 
 		coeficientes[indice][0] = valor;
+	}
+	
+	public double[] obtenerComoVector() {
+		double[] copiaCoeficientes = new double[cantidadFilas];
+
+		for (int i = 0; i < cantidadFilas; i++) {
+			copiaCoeficientes[i] = coeficientes[i][0];
+		}
+
+		return copiaCoeficientes;
+	}
+	
+	public void inicializarConVector(double[] vector) {
+		validarReferencia(vector);
+		validarRangoDimension(vector.length, 1, cantidadFilas - 1);
+
+		for (int i = 0; i < cantidadFilas; i++) {
+			this.coeficientes[i][0] = vector[i];
+		}
 	}
 
 	// Suma, Resta, Multiplicacion

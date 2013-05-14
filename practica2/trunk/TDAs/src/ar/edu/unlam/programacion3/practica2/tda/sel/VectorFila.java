@@ -64,7 +64,7 @@ public class VectorFila extends VectorMath {
 	
 	public void inicializarConVector(double[] vector) {
 		validarReferencia(vector);
-		validarRangoDimension(vector.length, 1, cantidadColumnas - 1);
+		validarDimension(vector.length, cantidadColumnas);
 
 		for (int i = 0; i < cantidadColumnas; i++) {
 			this.coeficientes[0][i] = vector[i];

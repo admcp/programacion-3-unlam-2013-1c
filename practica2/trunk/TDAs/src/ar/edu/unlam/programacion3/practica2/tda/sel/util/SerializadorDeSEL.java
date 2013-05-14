@@ -8,16 +8,18 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizCuadrada;
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizIdentidad;
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizInvertible;
-import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath;
 import ar.edu.unlam.programacion3.practica2.tda.sel.SistemaLinealDeEcuaciones;
 import ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna;
+import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.FilaDeCerosException;
+import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.MatrizSingularException;
 
 public class SerializadorDeSEL {
 
-	private final static String inPath = "loteDePruebas/entradas/";
-	private final static String outPath = "loteDePruebas/SalidasGeneradas/";
+	private final static String inPath = "doc/loteDePruebas/entradas/";
+	private final static String outPath = "doc/loteDePruebas/SalidasGeneradas/";
 	private final static String inExtension = ".in";
 	private final static String outExtension = ".out";
 
@@ -34,9 +36,14 @@ public class SerializadorDeSEL {
 		for (String nombreArchivo : archivosDeEntrada) {
 			try {
 				// Generamos los paths completos
-				String fullInPath = new StringBuffer().append(inPath).append(nombreArchivo).toString();
-				String fullOutPath = new StringBuffer().append(outPath)
-						.append(nombreArchivo.replace(inExtension, outExtension)).toString();
+				String fullInPath = new StringBuffer()
+										.append(inPath)
+										.append(nombreArchivo)
+										.toString();
+				String fullOutPath = new StringBuffer()
+										.append(outPath)
+										.append(nombreArchivo.replace(inExtension, outExtension))
+										.toString();
 
 				// Abrimos el archivo in para lectura
 				file = new File(fullInPath);
@@ -71,11 +78,11 @@ public class SerializadorDeSEL {
 						buffer = bufferedReader.readLine();
 						splitBuffer = buffer.split(" ");
 						ii = Integer.parseInt(splitBuffer[0]);
-						jj = Integer.parseInt(splitBuffer[0]);
+						jj = Integer.parseInt(splitBuffer[1]);
 						if (ii != i || jj != j) {
 							throw new Error("Archivo mal formado");
 						}
-						matriz[i][j] = Double.parseDouble(splitBuffer[3]);
+						matriz[i][j] = Double.parseDouble(splitBuffer[2]);
 					}
 				}
 
@@ -100,12 +107,20 @@ public class SerializadorDeSEL {
 				VectorColumna vectorSolucion = sistemaLineal.resolver(vectorIndependiente);
 				
 				// Calcular error de solución
-				MatrizInvertible matrizInvertible = new MatrizInvertible(matriz);
-				MatrizInvertible inversa = matrizInvertible.invertir();
+				MatrizCuadrada matrizInvertible = new MatrizInvertible(matriz);
+				MatrizCuadrada inversa = ((MatrizInvertible) matrizInvertible).invertir();
+				MatrizCuadrada identidadPrima = MatrizCuadrada.producto(matrizInvertible, inversa);
 				
-				MatrizIdentidad matrizIdentidad = new MatrizIdentidad(dimension);
+				MatrizCuadrada matrizIdentidad = new MatrizIdentidad(dimension);
 				
-				double error = MatrizMath.restar(matrizIdentidad, inversa).normaDos();
+				MatrizInvertible matrizParaCalculoDeError = new MatrizInvertible(MatrizCuadrada.restar(identidadPrima, matrizIdentidad).obtenerComoMatriz());
+				
+				VectorColumna vectorInicial = new VectorColumna(dimension);
+				for(int i = 0; i < dimension; i++) {
+					vectorInicial.setValorEn(i, 1);
+				}
+				
+				double error = matrizParaCalculoDeError.normaDos(vectorInicial, 0.0001);
 				
 				/*
 				 * Estructura esperada del archivo "*.out": 
@@ -118,14 +133,22 @@ public class SerializadorDeSEL {
 				for(int i = 0; i < dimension; i++) {
 					printWriter.println(vectorSolucion.getValorEn(i));
 				}
-				printWriter.print(error);
+				
+				printWriter.print(error != Double.NaN ? error : 0);
 				
 
-			} catch (FileNotFoundException ex) {
+			} catch(FileNotFoundException ex) {
 				ex.printStackTrace();
-			} catch (IOException ex) {
+			} catch(IOException ex) {
 				ex.printStackTrace();
-			} finally {
+			} catch(NumberFormatException ex) {
+				ex.printStackTrace();
+			} catch(MatrizSingularException ex) {
+				printWriter.println("Matriz Singular");
+			} catch(FilaDeCerosException ex) {
+				printWriter.println("Imposible resolver por Factorizacion LU");
+			}
+			finally {
 				if (bufferedReader != null) {
 					try {
 						bufferedReader.close();

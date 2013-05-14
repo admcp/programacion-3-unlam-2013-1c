@@ -1,5 +1,7 @@
 package ar.edu.unlam.programacion3.practica2.tda.sel;
 
+import java.util.Arrays;
+
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.DimensionInvalidaException;
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.RangoInvalidoException;
 import ar.edu.unlam.programacion3.practica2.tda.tests.sel.TestMatrizMath;
@@ -243,6 +245,19 @@ public class MatrizMath {
 
 		return aux;
 	}
+	
+	public static MatrizMath transponer(MatrizMath matriz) {
+		validarReferencia(matriz);
+		
+		double[][] matrizTranspuesta = new double[matriz.cantidadColumnas][matriz.cantidadFilas];
+		for(int i = 0; i < matriz.cantidadFilas; i++) {
+			for(int j = 0; j < matriz.cantidadColumnas; j++) {
+				matrizTranspuesta[j][i] = matriz.coeficientes[i][j];
+			}
+		}
+		
+		return new MatrizMath(matrizTranspuesta);
+	}
 
 	public double normaUno() {
 		// Es la máxima suma absoluta de las columnas de la matriz.
@@ -262,6 +277,7 @@ public class MatrizMath {
 		return norma;
 	}
 
+	/*
 	public double normaDos() {
 		double norma = 0;
 
@@ -272,6 +288,7 @@ public class MatrizMath {
 		}
 		return Math.sqrt(norma);
 	}
+	*/
 
 	public double normaInfinito() {
 		// Es la máxima suma absoluta de las filas de la matriz.
@@ -310,6 +327,64 @@ public class MatrizMath {
 			throw new DimensionInvalidaException(valor1, valor2);
 		}
 	}
+	
+	// MÉTODOS HEREDADOS DE OBJECT
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{");
+		for(int i = 0; i < cantidadFilas; i++) {
+			if(i == 0)
+				builder.append("{");
+			else
+				builder.append(" {");
+			for(int j = 0; j < cantidadColumnas; j++) {
+				// Formato lindo: 
+				builder.append(String.format("% 13.7f", coeficientes[i][j]) + ", ");
+				// Formato comun: builder.append(valores[i][j] + ", ");
+			}
+			builder.replace(builder.lastIndexOf(", "), builder.length(), "");
+			builder.append("}, \n");
+		}
+		builder.replace(builder.lastIndexOf("}, "), builder.length(), "}");
+		builder.append("}");
+		builder.append(" (" + cantidadFilas + "x" + cantidadColumnas + ")");
+		return builder.toString();
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + cantidadColumnas;
+		result = prime * result + cantidadFilas;
+		result = prime * result + Arrays.hashCode(coeficientes);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof MatrizMath))
+			return false;
+		MatrizMath other = (MatrizMath) obj;
+		if (cantidadColumnas != other.cantidadColumnas)
+			return false;
+		if (cantidadFilas != other.cantidadFilas)
+			return false;
+		for(int i = 0; i < cantidadFilas; i++) {
+			for(int j = 0; j < cantidadColumnas; j++) {
+				if(coeficientes[i][j] != other.coeficientes[i][j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}	
 
 	// MAIN
 

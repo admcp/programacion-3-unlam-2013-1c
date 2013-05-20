@@ -31,5 +31,23 @@ public class PilaDinamica<T> implements Pila<T> {
 		// TODO PilaDinamica: void clear()
 		
 	}
+	
+	//------------------------------
+	// Clase interna para los nodos
+	//------------------------------
+	
+	private static class Nodo<T> {
+
+		Nodo<T> anterior;
+		T elemento;
+		Nodo<T> siguiente;
+		
+		Nodo(Nodo<T> anterior, T elemento, Nodo<T> siguiente) {
+			this.anterior = anterior;
+			this.elemento = elemento;
+			this.siguiente = siguiente;
+		}
+		
+	}
 
 }

@@ -3,32 +3,32 @@ package ar.edu.unlam.programacion3.practica2.tda.cola;
 public class ColaDinamica<T> implements Cola<T> {
 
 	@Override
-	public boolean empty() {
-		// TODO Auto-generated method stub
+	public boolean isEmpty() {
+		// TODO ColaDinamica: boolean empty()
 		return false;
 	}
 
 	@Override
 	public void offer(T elemento) {
-		// TODO Auto-generated method stub
+		// TODO ColaDinamica: void offer(T elemento)
 		
 	}
 
 	@Override
 	public T poll() {
-		// TODO Auto-generated method stub
+		// TODO ColaDinamica: T poll()
 		return null;
 	}
 
 	@Override
 	public T peek() {
-		// TODO Auto-generated method stub
+		// TODO ColaDinamica: T peek()
 		return null;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		// TODO ColaDinamica: void clear()
 		
 	}
 

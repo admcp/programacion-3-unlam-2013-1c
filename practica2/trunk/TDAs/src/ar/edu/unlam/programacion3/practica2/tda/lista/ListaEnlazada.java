@@ -1,7 +1,5 @@
 package ar.edu.unlam.programacion3.practica2.tda.lista;
 
-import java.util.NoSuchElementException;
-
 public class ListaEnlazada<T> implements Lista<T> {
 
 	private int size = 0;
@@ -9,6 +7,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 	private Nodo<T> ultimoNodo;
 	
 	public ListaEnlazada() {
+		// TODO ListaEnlazada: constructor
 	}
 
 	//-----------------------------------------
@@ -20,11 +19,8 @@ public class ListaEnlazada<T> implements Lista<T> {
 	 * @return primer nodo de la lista (si la lista está vacía: excepción).
 	 */
 	public T getFirst() {
-		Nodo<T> nodo = this.primerNodo;
-		if(nodo == null) {
-			throw new NoSuchElementException();
-		}
-		return nodo.elemento;
+		// TODO ListaEnlazada: T getFirst()
+		return null;
 	}
 	
 	/**
@@ -32,11 +28,8 @@ public class ListaEnlazada<T> implements Lista<T> {
 	 * @return último nodo de la lista (si la lista está vacía: excepción).
 	 */
 	public T getLast() {
-		Nodo<T> nodo = this.ultimoNodo;
-		if(nodo == null) {
-			throw new NoSuchElementException();
-		}
-		return nodo.elemento;
+		// TODO ListaEnlazada: T getLast()
+		return null;
 	}
 	
 	/**
@@ -44,10 +37,8 @@ public class ListaEnlazada<T> implements Lista<T> {
 	 * @return nodo quitado de la lista (si la lista está vacía: excepción).
 	 */
 	public T removeFirst() {
-		Nodo<T> aux = primerNodo;
-        if (aux == null)
-            throw new NoSuchElementException();
-		return desenlazarPrimero(aux);
+		// TODO ListaEnlazada: T removeFirst()
+		return null;
 	}
 	
 	/**
@@ -55,10 +46,8 @@ public class ListaEnlazada<T> implements Lista<T> {
 	 * @return nodo quitado de la lista (si la lista está vacía: excepción).
 	 */
 	public T removeLast() {
-		Nodo<T> aux = ultimoNodo;
-        if (aux == null)
-            throw new NoSuchElementException();
-		return desenlazarUltimo(aux);
+		// TODO ListaEnlazada: T removeLast()
+		return null;
 	}
 	
     /**
@@ -67,7 +56,8 @@ public class ListaEnlazada<T> implements Lista<T> {
      * @param elemento es el elemento a insertar.
      */
 	public void addFirst(T elemento) {
-		enlazarPrimero(elemento);
+		// TODO ListaEnlazada: void addFirst(T elemento)
+		
 	}
 	
     /**
@@ -76,7 +66,8 @@ public class ListaEnlazada<T> implements Lista<T> {
      * @param elemento es el elemento a insertar.
      */
 	public void addLast(T elemento) {
-		enlazarUltimo(elemento);
+		// TODO ListaEnlazada: addLast(T elemento)
+		
 	}
 	
 	//----------------------------------------------------
@@ -85,131 +76,74 @@ public class ListaEnlazada<T> implements Lista<T> {
 	
 	@Override
 	public int size() {
-		return size;
+		// TODO ListaEnlazada: int size()
+		return 0;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return size() == 0;
+		// TODO ListaEnlazada: boolean isEmpty()
+		return false;
 	}
 
 	@Override
 	public boolean add(T elemento) {
-		enlazarUltimo(elemento);
-		return true;
+		// TODO ListaEnlazada: boolean add(T elemento)
+		return false;
 	}
 
 	@Override
 	public boolean remove(Object elemento) {
-		if(elemento == null) {
-			for(Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente) {
-				if(nodo.elemento == null) {
-					desenlazar(nodo);
-					return true;
-				}
-			}
-		} else {
-			for(Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente) {
-				if(elemento.equals(nodo.elemento)) {
-					desenlazar(nodo);
-					return true;
-				}
-			}
-		}
+		// TODO ListaEnlazada: boolean remove(Object elemento)
 		return false;
 	}
 
 	@Override
 	public void reverse() {
-		Nodo<T> aux = primerNodo;
-		primerNodo = ultimoNodo;
-		ultimoNodo = aux;
+		// TODO ListaEnlazada: void reverse()
+		
 	}
 
 	@Override
 	public void clear() {
-		for(Nodo<T> nodo = primerNodo; nodo != null; ) {
-			Nodo<T> nodoSiguiente = nodo.siguiente;
-			nodo.elemento = null;
-			nodo.siguiente = null;
-			nodo.anterior = null;
-			nodo = nodoSiguiente;
-		}
-		primerNodo = ultimoNodo = null;
-		size = 0;
+		// TODO ListaEnlazada: void clear()
+		
 	}
 
 	@Override
 	public T get(int index) {
-		chequearIndiceElemento(index);
-		return nodo(index).elemento;
+		// TODO ListaEnlazada: T get(int index)
+		return null;
 	}
 
 	@Override
 	public T set(int index, T elemento) {
-		chequearIndiceElemento(index);
-		Nodo<T> aux = nodo(index);
-		T contenidoViejo = aux.elemento;
-		aux.elemento = elemento;
-		return contenidoViejo;
+		// TODO ListaEnlazada: T set(int index, T elemento)
+		return null;
 	}
 
 	@Override
 	public void add(int index, T elemento) {
-		chequearIndicePosicion(index);
-		if(index == size) {
-			enlazarUltimo(elemento);
-		} else {
-			enlazarAntesDe(elemento, nodo(index));
-		}
+		// TODO ListaEnlazada: void add(int index, T elemento)
+		
 	}
 
 	@Override
 	public T remove(int index) {
-		chequearIndiceElemento(index);
-		return desenlazar(nodo(index));
+		// TODO ListaEnlazada: T remove(int index)
+		return null;
 	}
 
 	@Override
 	public int indexOf(Object elemento) {
-		int index = 0;
-		if(elemento == null) {
-			for(Nodo<T> aux = primerNodo; aux != null; aux = aux.siguiente) {
-				if(aux.elemento == null) {
-					return index;
-				}
-				index++;
-			}
-		} else {
-			for(Nodo<T> aux = primerNodo; aux != null; aux = aux.siguiente) {
-				if(elemento.equals(aux.elemento)) {
-					return index;
-				}
-				index++;
-			}
-		}
-		return -1;
+		// TODO ListaEnlazada: int indexOf(Object elemento)
+		return 0;
 	}
 
 	@Override
 	public int lastIndexOf(Object elemento) {
-		int index = size;
-		if(elemento == null) {
-			for(Nodo<T> aux = ultimoNodo; aux != null; aux = aux.anterior) {
-				index--;
-				if(aux.elemento == null) {
-					return index;
-				}
-			}
-		} else {
-			for(Nodo<T> aux = ultimoNodo; aux != null; aux = aux.anterior) {
-				index--;
-				if(elemento.equals(aux.elemento)) {
-					return index;
-				}
-			}
-		}
-		return -1;
+		// TODO ListaEnlazada: int lastIndexOf(Object elemento)
+		return 0;
 	}
 	
 	//------------------------------
@@ -229,134 +163,5 @@ public class ListaEnlazada<T> implements Lista<T> {
 		}
 		
 	}
-	
-	//------------------------
-	// Métodos de uso interno
-	//------------------------
-	
-	private void enlazarPrimero(T elemento) {
-		Nodo<T> aux = primerNodo;
-		Nodo<T> nodoNuevo = new Nodo<T>(null, elemento, aux);
-		primerNodo = nodoNuevo;
-		if(aux == null) {
-			ultimoNodo = nodoNuevo;
-		} else {
-			aux.anterior = nodoNuevo;
-		}
-		size++;
-	}
-	
-	private void enlazarUltimo(T elemento) {
-		Nodo<T> aux = ultimoNodo;
-		Nodo<T> nodoNuevo = new Nodo<T>(aux, elemento, null);
-		ultimoNodo = nodoNuevo;
-		if(aux == null) {
-			primerNodo = nodoNuevo;
-		} else {
-			aux.siguiente = nodoNuevo;
-		}
-		size++;
-		
-	}
-	
-	private T desenlazarPrimero(Nodo<T> nodo) {
-		T elemento = nodo.elemento;
-		Nodo<T> nodoSiguiente = nodo.siguiente;
-		nodo.elemento = null;
-		nodo.siguiente = null;
-		primerNodo = nodoSiguiente;
-		if(nodoSiguiente == null) {
-			ultimoNodo = null;
-		} else {
-			nodoSiguiente.anterior = null;
-		}
-		size--;
-		return elemento;
-	}
-	
-	private T desenlazarUltimo(Nodo<T> nodo) {
-        T elemento = nodo.elemento;
-        Nodo<T> nodoAnterior = nodo.anterior;
-        nodo.elemento = null;
-        nodo.anterior = null;
-        ultimoNodo = nodoAnterior;
-        if (nodoAnterior == null) {
-            primerNodo = null;
-        } else {
-            nodoAnterior.siguiente = null;
-        }
-        size--;
-        return elemento;
-	}
-	
-	private T desenlazar(Nodo<T> nodo) {
-        T elemento = nodo.elemento;
-        Nodo<T> nodoSiguiente = nodo.siguiente;
-        Nodo<T> nodoAnterior = nodo.anterior;
-
-        if (nodoAnterior == null) {
-            primerNodo = nodoSiguiente;
-        } else {
-            nodoAnterior.siguiente = nodoSiguiente;
-            nodo.anterior = null;
-        }
-
-        if (nodoSiguiente == null) {
-            ultimoNodo = nodoAnterior;
-        } else {
-            nodoSiguiente.anterior = nodoAnterior;
-            nodo.siguiente = null;
-        }
-
-        nodo.elemento = null;
-        size--;
-        return elemento;
-    }
-	
-	private void enlazarAntesDe(T elemento, Nodo<T> nodo) {
-		Nodo<T> nodoAnterior = nodo.anterior;
-		Nodo<T> nodoNuevo = new Nodo<T>(nodoAnterior, elemento, nodo);
-		nodo.anterior = nodoNuevo;
-		if(nodoAnterior == null) {
-			primerNodo = nodoNuevo;
-		} else {
-			nodoAnterior.siguiente = nodoNuevo;
-		}
-		size++;
-	}
-
-    private Nodo<T> nodo(int index) {
-    	if(index < (size / 2)) {
-    		Nodo<T> aux = primerNodo;
-    		for(int i = 0; i < index; i++) {
-    			aux = aux.siguiente;
-    		}
-    		return aux;
-    	} else {
-    		Nodo<T> aux = ultimoNodo;
-    		for(int i = size - 1; i > index; i--) {
-    			aux = aux.anterior;
-    		}
-    		return aux;
-    	}
-    }
-	
-    private boolean isIndiceElemento(int index) {
-        return index >= 0 && index < size;
-    }
-	
-    private void chequearIndiceElemento(int index) {
-        if (!isIndiceElemento(index))
-            throw new IndexOutOfBoundsException("Idx: " + index + " - Tam: " + size);
-    }
-    
-    private boolean isIndicePosicion(int index) {
-        return index >= 0 && index <= size;
-    }
-	
-    private void chequearIndicePosicion(int index) {
-        if (!isIndicePosicion(index))
-            throw new IndexOutOfBoundsException("Idx: " + index + " - Tam: " + size);
-    }
   
 }

@@ -1,11 +1,11 @@
 package ar.edu.unlam.programacion3.practica2.tda.tests.cola;
 
-import ar.edu.unlam.programacion3.practica2.tda.cola.ColaEstatica;
+import ar.edu.unlam.programacion3.practica2.tda.cola.ColaDinamica;
 
-public class TestColaEstatica {
+public class TestColaDinamica {
 
 	public static void main(String[] args) {
-		ColaEstatica<String> cola = new ColaEstatica<String>(10);
+		ColaDinamica<String> cola = new ColaDinamica<String>();
 		
 		System.out.println("Encolando...");
 		for(int i = 0; i < 10; i++) {

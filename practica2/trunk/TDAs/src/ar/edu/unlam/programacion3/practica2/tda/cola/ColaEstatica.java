@@ -1,35 +1,83 @@
 package ar.edu.unlam.programacion3.practica2.tda.cola;
 
+import java.nio.BufferOverflowException;
+import java.nio.BufferUnderflowException;
+
 public class ColaEstatica<T> implements Cola<T> {
+
+	// MIEMBROS PRIVADOS
+	private int dimension;
+	private T cola [];
+	private int primero;
+	private int ultimo;
+	
+	@SuppressWarnings("unchecked")
+   public ColaEstatica(int dimension) {
+	   if (dimension == 0) {
+	   	throw new IllegalArgumentException();
+	   }
+	   
+		this.dimension = dimension;
+	   cola = (T[]) new Object[dimension];
+	   primero = 0;
+	   ultimo = -1;
+   }
 
 	@Override
 	public boolean isEmpty() {
-		// TODO ColaEstatica: boolean empty()
-		return false;
+		return (primero == 0) && (ultimo == -1);
 	}
 
 	@Override
 	public void offer(T elemento) {
-		// TODO ColaEstatica: void offer(T elemento)
+		if (primero == 0 && ultimo == (dimension - 1) || 
+			 ultimo != -1 && (ultimo + 1) == primero) {
+			throw new BufferOverflowException();
+		}
 		
+		ultimo = (ultimo + 1) % dimension;
+		cola[ultimo] = elemento;
 	}
 
 	@Override
 	public T poll() {
-		// TODO ColaEstatica: T poll()
-		return null;
+		if ((primero == 0) && (ultimo == -1)) {
+			throw new BufferUnderflowException();
+		}
+		
+		T elemento = cola[primero];
+		cola[primero] = null;
+		
+		if (primero == ultimo) {
+			primero = 0;
+			ultimo = -1;
+		} else {
+			primero = (primero + 1) % dimension;
+		}
+		
+		return elemento;
 	}
 
 	@Override
 	public T peek() {
-		// TODO ColaEstatica: T peek()
-		return null;
+		if ((primero == 0) && (ultimo == -1)) {
+			throw new BufferUnderflowException();
+		}
+
+		return cola[primero];
 	}
 
 	@Override
 	public void clear() {
-		// TODO ColaEstatica: void clear()
-		
+		while ((primero != 0) && (ultimo != -1)) {
+			cola[primero] = null;
+			
+			if (primero == ultimo) {
+				primero = 0;
+				ultimo = -1;
+			} else {
+				primero = (primero + 1) % dimension;
+			}
+		}		
 	}
-
 }

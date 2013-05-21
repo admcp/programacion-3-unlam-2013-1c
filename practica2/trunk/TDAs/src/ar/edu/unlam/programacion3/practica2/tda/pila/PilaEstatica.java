@@ -11,7 +11,10 @@ public class PilaEstatica<T> implements Pila<T> {
 	
 	@SuppressWarnings("unchecked")
    public PilaEstatica(int dimension) {
-	   this.dimension = dimension;
+	   if (dimension == 0) {
+	   	throw new IllegalArgumentException();
+	   }
+		this.dimension = dimension;
 	   pila = (T[]) new Object [dimension];	
 	   tope = -1;
    }

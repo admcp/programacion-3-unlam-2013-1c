@@ -1,35 +1,64 @@
 package ar.edu.unlam.programacion3.practica2.tda.pila;
 
-public class PilaDinamica<T> implements Pila<T> {
+import java.nio.BufferUnderflowException;
 
+public class PilaDinamica<T> implements Pila<T> {
+	
+	// MIEMBROS PRIVADOS
+	private Nodo<T> pila;
+	
+	// CONSTRUCTORES
+	public PilaDinamica() {
+		pila = null;
+	}
+	
+	// METODOS
 	@Override
 	public boolean isEmpty() {
-		// TODO PilaDinamica: boolean isEmpty()
-		return false;
+		return (pila == null);
 	}
 
 	@Override
 	public void push(T elemento) {
-		// TODO PilaDinamica: void push(T elemento)
+		if (elemento == null) {
+			throw new IllegalArgumentException();
+		}
 		
+		Nodo<T> nodo = new Nodo<T>(null, elemento, null);
+		
+		if (pila != null) {
+			nodo.anterior = pila;
+		}
+		
+		pila = nodo;
 	}
 
 	@Override
 	public T pop() {
-		// TODO PilaDinamica: T pop()
-		return null;
+		if (pila == null) {
+			throw new BufferUnderflowException();
+		}
+		
+		T elemento = pila.elemento;
+		pila = pila.anterior;		
+		
+		return elemento;
 	}
 
 	@Override
 	public T peek() {
-		// TODO PilaDinamica: T peek()
-		return null;
+		if	(pila == null) {
+			throw new BufferUnderflowException();
+		}
+		
+		return pila.elemento;
 	}
 
 	@Override
 	public void clear() {
-		// TODO PilaDinamica: void clear()
-		
+		while (pila != null) {
+			pila = null;
+		}
 	}
 	
 	//------------------------------

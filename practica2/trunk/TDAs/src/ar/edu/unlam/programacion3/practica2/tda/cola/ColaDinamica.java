@@ -1,35 +1,73 @@
 package ar.edu.unlam.programacion3.practica2.tda.cola;
 
-public class ColaDinamica<T> implements Cola<T> {
+import java.nio.BufferUnderflowException;
 
+public class ColaDinamica<T> implements Cola<T> {
+	
+	// MIEMBROS PRIVADOS
+	private Nodo <T> primero;
+	private Nodo <T> ultimo; 
+	
+	// CONSTRUCTORES
+	public ColaDinamica() {
+		primero = null;
+		ultimo = null;
+	}
+	// METODOS
 	@Override
 	public boolean isEmpty() {
-		// TODO ColaDinamica: boolean empty()
-		return false;
+		return (primero == null);
 	}
 
 	@Override
 	public void offer(T elemento) {
-		// TODO ColaDinamica: void offer(T elemento)
+		Nodo<T> nodo = new Nodo<T>(null, elemento, null);
 		
+		if (primero == null) {
+			primero = nodo;
+		} else {
+			ultimo.siguiente = nodo;
+		}
+		ultimo = nodo;
 	}
 
 	@Override
 	public T poll() {
-		// TODO ColaDinamica: T poll()
-		return null;
+		if (primero == null) {
+			throw new BufferUnderflowException();
+		}
+		
+		T elemento = primero.elemento;
+		
+		if (primero == ultimo) {
+			primero = null;
+			ultimo = null;
+		} else {
+			primero = primero.siguiente;
+		}
+		
+		return elemento;
 	}
 
 	@Override
 	public T peek() {
-		// TODO ColaDinamica: T peek()
-		return null;
+		if (primero == null) {
+			throw new BufferUnderflowException();
+		}
+		
+		return primero.elemento;
 	}
 
 	@Override
 	public void clear() {
-		// TODO ColaDinamica: void clear()
-		
+		while (primero != null) {
+			if (primero == ultimo) {
+				primero = null;
+				ultimo = null;
+			} else {
+				primero = primero.siguiente;
+			}			
+		}		
 	}
 	
 	//------------------------------

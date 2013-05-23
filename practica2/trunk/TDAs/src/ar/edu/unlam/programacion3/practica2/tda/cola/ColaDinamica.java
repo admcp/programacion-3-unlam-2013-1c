@@ -1,18 +1,17 @@
 package ar.edu.unlam.programacion3.practica2.tda.cola;
 
-import java.nio.BufferUnderflowException;
-
 public class ColaDinamica<T> implements Cola<T> {
-	
+
 	// MIEMBROS PRIVADOS
-	private Nodo <T> primero;
-	private Nodo <T> ultimo; 
-	
+	private Nodo<T> primero;
+	private Nodo<T> ultimo;
+
 	// CONSTRUCTORES
 	public ColaDinamica() {
 		primero = null;
 		ultimo = null;
 	}
+
 	// METODOS
 	@Override
 	public boolean isEmpty() {
@@ -21,8 +20,12 @@ public class ColaDinamica<T> implements Cola<T> {
 
 	@Override
 	public void offer(T elemento) {
-		Nodo<T> nodo = new Nodo<T>(null, elemento, null);
+		if (elemento == null) {
+			throw new NullPointerException();
+		}
 		
+		Nodo<T> nodo = new Nodo<T>(null, elemento, null);
+
 		if (primero == null) {
 			primero = nodo;
 		} else {
@@ -34,27 +37,27 @@ public class ColaDinamica<T> implements Cola<T> {
 	@Override
 	public T poll() {
 		if (primero == null) {
-			throw new BufferUnderflowException();
+			return null;
 		}
-		
+
 		T elemento = primero.elemento;
-		
+
 		if (primero == ultimo) {
 			primero = null;
 			ultimo = null;
 		} else {
 			primero = primero.siguiente;
 		}
-		
+
 		return elemento;
 	}
 
 	@Override
 	public T peek() {
 		if (primero == null) {
-			throw new BufferUnderflowException();
+			return null;
 		}
-		
+
 		return primero.elemento;
 	}
 
@@ -66,26 +69,26 @@ public class ColaDinamica<T> implements Cola<T> {
 				ultimo = null;
 			} else {
 				primero = primero.siguiente;
-			}			
-		}		
+			}
+		}
 	}
-	
-	//------------------------------
+
+	// ------------------------------
 	// Clase interna para los nodos
-	//------------------------------
-	
+	// ------------------------------
+
 	private static class Nodo<T> {
 
 		Nodo<T> anterior;
 		T elemento;
 		Nodo<T> siguiente;
-		
+
 		Nodo(Nodo<T> anterior, T elemento, Nodo<T> siguiente) {
 			this.anterior = anterior;
 			this.elemento = elemento;
 			this.siguiente = siguiente;
 		}
-		
+
 	}
 
 }

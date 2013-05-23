@@ -1,6 +1,6 @@
 package ar.edu.unlam.programacion3.practica2.tda.lista;
 
-public class ListaArray<T> implements Lista<T> {
+public class ListaArray<T> implements ListaVieja<T> {
 
 	private int size;
 	private Object[] arrayElementos;

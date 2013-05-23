@@ -24,14 +24,15 @@ public class ColaDinamica<T> implements Cola<T> {
 			throw new NullPointerException();
 		}
 		
-		Nodo<T> nodo = new Nodo<T>(null, elemento, null);
+		Nodo<T> nodoNuevo = new Nodo<T>(null, elemento, null);
 
 		if (primero == null) {
-			primero = nodo;
+			primero = nodoNuevo;
 		} else {
-			ultimo.siguiente = nodo;
+			nodoNuevo.anterior = ultimo;
+			ultimo.siguiente = nodoNuevo;
 		}
-		ultimo = nodo;
+		ultimo = nodoNuevo;
 	}
 
 	@Override
@@ -40,13 +41,19 @@ public class ColaDinamica<T> implements Cola<T> {
 			return null;
 		}
 
+		Nodo<T> nodoSiguiente = primero.siguiente;
 		T elemento = primero.elemento;
 
+		primero.elemento = null;
+		primero.siguiente = null;
+		primero.anterior = null;
+		
 		if (primero == ultimo) {
 			primero = null;
 			ultimo = null;
 		} else {
-			primero = primero.siguiente;
+			primero = null;
+			primero = nodoSiguiente;
 		}
 
 		return elemento;
@@ -64,19 +71,21 @@ public class ColaDinamica<T> implements Cola<T> {
 	@Override
 	public void clear() {
 		while (primero != null) {
-			if (primero == ultimo) {
-				primero = null;
-				ultimo = null;
-			} else {
-				primero = primero.siguiente;
-			}
+			Nodo<T> nodoSiguiente = primero.siguiente;
+			primero.elemento = null;
+			primero.siguiente = null;
+			primero.anterior = null;
+			primero = nodoSiguiente;
 		}
+		primero = null;
+		ultimo = null;
 	}
 
 	// ------------------------------
 	// Clase interna para los nodos
 	// ------------------------------
 
+	@SuppressWarnings("unused")
 	private static class Nodo<T> {
 
 		Nodo<T> anterior;

@@ -10,7 +10,9 @@ public class PilaDinamica<T> implements Pila<T> {
 		tope = null;
 	}
 
-	// METODOS
+	//--------------------------------------------------
+	// Comportamiento derivado del contrato con <<Pila>>
+	//--------------------------------------------------
 	@Override
 	public boolean isEmpty() {
 		return (tope == null);
@@ -22,13 +24,14 @@ public class PilaDinamica<T> implements Pila<T> {
 			throw new NullPointerException();
 		}
 
-		Nodo<T> nodo = new Nodo<T>(null, elemento, null);
+		Nodo<T> nodoNuevo = new Nodo<T>(null, elemento, null);
 
 		if (tope != null) {
-			nodo.anterior = tope;
+			nodoNuevo.anterior = tope;
+			tope.siguiente = nodoNuevo;
 		}
 
-		tope = nodo;
+		tope = nodoNuevo;
 	}
 
 	@Override
@@ -37,8 +40,14 @@ public class PilaDinamica<T> implements Pila<T> {
 			return null;
 		}
 
+		Nodo<T> nodoAnterior = tope.anterior;
 		T elemento = tope.elemento;
-		tope = tope.anterior;
+		
+		tope.elemento = null;
+		tope.anterior = null;
+		tope.siguiente = null;
+		
+		tope = nodoAnterior;
 
 		return elemento;
 	}
@@ -55,14 +64,20 @@ public class PilaDinamica<T> implements Pila<T> {
 	@Override
 	public void clear() {
 		while (tope != null) {
-			tope = null;
+			Nodo<T> nodoAnterior = tope.anterior;
+			tope.elemento = null;
+			tope.anterior = null;
+			tope.siguiente = null;
+			tope = nodoAnterior;
 		}
+		tope = null;
 	}
 
 	// ------------------------------
 	// Clase interna para los nodos
 	// ------------------------------
 
+	@SuppressWarnings("unused")
 	private static class Nodo<T> {
 
 		Nodo<T> anterior;

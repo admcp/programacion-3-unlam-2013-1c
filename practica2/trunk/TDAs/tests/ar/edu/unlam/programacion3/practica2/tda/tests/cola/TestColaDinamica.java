@@ -54,5 +54,6 @@ public class TestColaDinamica {
 		System.out.println();
 		
 		System.out.println(cola.isEmpty() + " - isEmpty");
+	
 	}
 }

@@ -1,11 +1,11 @@
 package ar.edu.unlam.programacion3.practica2.tda.tests.pila;
 
-import ar.edu.unlam.programacion3.practica2.tda.pila.PilaEstatica;
+import ar.edu.unlam.programacion3.practica2.tda.pila.PilaDinamica;
 
 public class TestPilaDinamica {
 
 	public static void main(String[] args) {
-		PilaEstatica<String> pila = new PilaEstatica<String>(10);
+		PilaDinamica<String> pila = new PilaDinamica<String>();
 		
 		System.out.println("Apilando...");
 		for(int i = 0; i < 10; i++) {
@@ -54,7 +54,6 @@ public class TestPilaDinamica {
 		System.out.println();
 		
 		System.out.println(pila.isEmpty() + " - isEmpty");
-
 	}
 
 }

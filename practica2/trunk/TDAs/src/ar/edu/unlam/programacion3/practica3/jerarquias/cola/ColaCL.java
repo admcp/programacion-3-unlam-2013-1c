@@ -1,5 +1,6 @@
-package ar.edu.unlam.programacion3.practica2.tda.cola;
+package ar.edu.unlam.programacion3.practica3.jerarquias.cola;
 
+import ar.edu.unlam.programacion3.practica2.tda.cola.Cola;
 import ar.edu.unlam.programacion3.practica2.tda.lista.ListaEnlazada;
 
 public class ColaCL<T> implements Cola<T> {

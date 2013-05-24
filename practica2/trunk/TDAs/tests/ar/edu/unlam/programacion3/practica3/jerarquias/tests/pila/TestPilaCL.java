@@ -1,11 +1,11 @@
-package ar.edu.unlam.programacion3.practica2.tda.tests.pila;
+package ar.edu.unlam.programacion3.practica3.jerarquias.tests.pila;
 
-import ar.edu.unlam.programacion3.practica2.tda.pila.PilaHL;
+import ar.edu.unlam.programacion3.practica3.jerarquias.pila.PilaCL;
 
-public class TestPilaHL {
+public class TestPilaCL {
 
 	public static void main(String[] args) {
-		PilaHL<String> pila = new PilaHL<String>();
+		PilaCL<String> pila = new PilaCL<String>();
 		
 		System.out.println("Apilando...");
 		for(int i = 0; i < 10; i++) {

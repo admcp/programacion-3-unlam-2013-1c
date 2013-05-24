@@ -1,6 +1,6 @@
-package ar.edu.unlam.programacion3.practica2.tda.tests.cola;
+package ar.edu.unlam.programacion3.practica3.jerarquias.tests.cola;
 
-import ar.edu.unlam.programacion3.practica2.tda.cola.ColaCL;
+import ar.edu.unlam.programacion3.practica3.jerarquias.cola.ColaCL;
 
 public class TestColaCL {
 

@@ -1,6 +1,7 @@
-package ar.edu.unlam.programacion3.practica2.tda.pila;
+package ar.edu.unlam.programacion3.practica3.jerarquias.pila;
 
 import ar.edu.unlam.programacion3.practica2.tda.lista.ListaEnlazada;
+import ar.edu.unlam.programacion3.practica2.tda.pila.Pila;
 
 public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T>{
 

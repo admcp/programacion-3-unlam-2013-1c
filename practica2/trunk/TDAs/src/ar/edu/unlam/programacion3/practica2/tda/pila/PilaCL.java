@@ -47,8 +47,6 @@ public class PilaCL<T> implements Pila<T>{
 
 	@Override
    public void clear() {
-		while (!pila.isEmpty()) {
-			pila.removeFirst();
-		}	   
-   }
+		pila.clear();
+	}
 }

@@ -1,9 +1,9 @@
 package ar.edu.unlam.programacion3.practica2.tda.lista;
 
-public class ListaArray<T> implements ListaVieja<T> {
+public class ListaArray<T> implements Lista<T> {
 
 	private int size;
-	private Object[] arrayElementos;
+	private T[] arrayElementos;
 	
 	public ListaArray(int capacidadInicial) {
 		// TODO ListaArray: constructor con capacidad inicial
@@ -36,7 +36,7 @@ public class ListaArray<T> implements ListaVieja<T> {
 	}
 
 	@Override
-	public boolean remove(Object elemento) {
+	public boolean remove(T elemento) {
 		// TODO ListaArray: boolean remove(Object elemento)
 		return false;
 	}
@@ -78,13 +78,13 @@ public class ListaArray<T> implements ListaVieja<T> {
 	}
 
 	@Override
-	public int indexOf(Object elemento) {
+	public int indexOf(T elemento) {
 		// TODO ListaArray: int indexOf(Object elemento)
 		return 0;
 	}
 
 	@Override
-	public int lastIndexOf(Object elemento) {
+	public int lastIndexOf(T elemento) {
 		// TODO ListaArray: int lastIndexOf(Object elemento)
 		return 0;
 	}

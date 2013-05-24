@@ -141,7 +141,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 	}
 
 	@Override
-	public boolean remove(Object elemento) {
+	public boolean remove(T elemento) {
 		for(Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente){
 			if(elemento.equals(nodo.elemento)){
 				if(nodo.anterior == null || nodo.siguiente == null){
@@ -279,7 +279,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 	}
 
 	@Override
-	public int indexOf(Object elemento) {
+	public int indexOf(T elemento) {
 		int index = 0;
 		for(Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente){
 			if(elemento.equals(nodo.elemento)){
@@ -291,7 +291,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 	}
 
 	@Override
-	public int lastIndexOf(Object elemento) {
+	public int lastIndexOf(T elemento) {
 		int index = size;
 		for(Nodo<T> nodo = ultimoNodo; nodo != null; nodo = nodo.anterior){
 			if(elemento.equals(nodo.elemento)){

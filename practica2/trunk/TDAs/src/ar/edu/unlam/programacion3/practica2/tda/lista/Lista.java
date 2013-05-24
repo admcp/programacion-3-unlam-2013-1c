@@ -34,7 +34,7 @@ public interface Lista<T> {
      * @param elemento es el elemento a ser quitado (si existe).
      * @return <tt>true</tt> si el elemento existe en la lista.
      */
-    public boolean remove(Object elemento);
+    public boolean remove(T elemento);
     
     //------------------------------------
     // Modificando masivamente a la Lista
@@ -97,7 +97,7 @@ public interface Lista<T> {
      * @param elemento es el elemento a buscar.
      * @return índice de dicho elemento o -1 si no existe.
      */
-    public int indexOf(Object elemento);
+    public int indexOf(T elemento);
     
     /**
      * Devuelve el índice de la última aparición del elemento dado, o -1 si no se
@@ -105,6 +105,6 @@ public interface Lista<T> {
      * @param elemento es el elemento a buscar.
      * @return índice de dicho elemento o -1 si no existe.
      */
-    public int lastIndexOf(Object elemento);
+    public int lastIndexOf(T elemento);
     
 }

@@ -5,9 +5,9 @@ import ar.edu.unlam.programacion3.practica2.tda.lista.ListaEnlazada;
 
 public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	
-	//-----------------------------------------------------------------------
-	// Comportamiento esperado de Cola (parte por la interfaz, parte heredado
-	//-----------------------------------------------------------------------
+	//------------------------------------------------------------------------
+	// Comportamiento esperado de Cola (parte por la interfaz, parte heredado)
+	//------------------------------------------------------------------------
 
 	@Override
 	public void offer(T elemento) {
@@ -23,7 +23,7 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 		if(this.isEmpty()) {
 			return null;
 		}
-		return removeFirst();
+		return super.removeFirst();
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 		if(this.isEmpty()) {
 			return null;
 		}
-		return getFirst();
+		return super.getFirst();
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	 */
 	@Override
 	public T getFirst() {
-		return super.getFirst();
+		return this.peek();
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	 */
 	@Override
 	public T removeFirst() {
-		return super.removeFirst();
+		return this.poll();
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	 */
 	@Override
 	public void addLast(T elemento) {
-		super.addLast(elemento);
+		this.offer(elemento);
 	}
 
 	@Override
@@ -68,13 +68,14 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Agregar elemento a la cola. Es el equivalente de {@link #offer}.
+	 * Agregar elemento a la cola. Es el equivalente de {@link #offer}, pero devuelve true.
 	 * @param elemento es el elemento a ser encolado.
 	 * @return <tt>true</tt>.
 	 */
 	@Override
 	public boolean add(T elemento) {
-		return super.add(elemento);
+		this.offer(elemento);
+		return true;
 	}
 
 	@Override

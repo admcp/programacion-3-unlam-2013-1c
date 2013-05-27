@@ -15,7 +15,7 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 			throw new NullPointerException();
 		}
 		
-		add(elemento);
+		super.addLast(elemento);
 	}
 
 	@Override

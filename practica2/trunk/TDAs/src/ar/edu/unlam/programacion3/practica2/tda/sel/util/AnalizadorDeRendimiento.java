@@ -3,29 +3,44 @@ package ar.edu.unlam.programacion3.practica2.tda.sel.util;
 import java.util.Random;
 
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizCuadrada;
-import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizIdentidad;
-import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizInvertible;
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath;
 import ar.edu.unlam.programacion3.practica2.tda.sel.SistemaLinealDeEcuaciones;
 import ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna;
 
 public class AnalizadorDeRendimiento {
+	
+	private final static int CANTIDAD_MEDICIONES = 3;
+	private final static boolean MATRIZ_DENSA = true;
+	private final static int MAX_VALOR_ALEATORIO = 100;
 
 	public static void main(String[] args) {
 		Random random = new Random(System.currentTimeMillis());
-		int[] dimensiones = new int[] { 5, 10, 50, 100, 150, 250, 350, 450, 500, 600, 700 };
+		int[] dimensiones = new int[] { 5, 10, 50, 100, 150, 250, 350, 450, 500, 600, 700, 800, 900, 1000 };
 		long tiempoInicial, tiempoFinal;
 		double error = 0, tiempoPromedio = 0;
 		
 		for(int k = 0; k < dimensiones.length; k++) {
 			tiempoInicial = 0;
 			tiempoFinal = 0;
+			error = 0;
 			
 			// Generamos una matriz
 			double[][] matriz = new double[dimensiones[k]][dimensiones[k]];
-			for(int i = 0; i < dimensiones[k]; i++) {
-				for(int j = 0; j < dimensiones[k]; j++) {
-					matriz[i][j] = random.nextDouble();
+			if(MATRIZ_DENSA) {
+				for(int i = 0; i < dimensiones[k]; i++) {
+					for(int j = 0; j < dimensiones[k]; j++) {
+						matriz[i][j] = random.nextInt(MAX_VALOR_ALEATORIO);
+					}
+				}
+			} else {
+				for(int i = 0; i < dimensiones[k]; i++) {
+					if(i + 1 != dimensiones[k]) {
+						matriz[i][i+1] = random.nextInt(MAX_VALOR_ALEATORIO);
+					}
+					matriz[i][i] = random.nextInt(100);
+					if(i - 1 >= 0) {
+						matriz[i][i-1] = random.nextInt(MAX_VALOR_ALEATORIO);
+					}
 				}
 			}
 			
@@ -34,7 +49,7 @@ public class AnalizadorDeRendimiento {
 			// Generamos un vector solución para dicha matriz
 			double[] vectorSolucion = new double[dimensiones[k]];
 			for(int i = 0; i < dimensiones[k]; i++) {
-				vectorSolucion[i] = random.nextDouble();
+				vectorSolucion[i] = random.nextInt(MAX_VALOR_ALEATORIO);
 			}
 			
 			VectorColumna vectorColumnaSolucion = new VectorColumna(vectorSolucion);
@@ -46,65 +61,35 @@ public class AnalizadorDeRendimiento {
 			}
 
 			// Calentamos la JVM
-			for(int i = 0; i < 2; i++) {
+			for(int i = 0; i < CANTIDAD_MEDICIONES; i++) {
 				resolver(dimensiones[k], matriz, vectorIndependiente);
 			}
 
-			// Y tomamos dos mediciones
-			tiempoInicial = System.nanoTime();
-			for(int i = 0; i < 2; i++) {
-				error = resolver(dimensiones[k], matriz, vectorIndependiente);
+			// Y tomamos las mediciones
+			tiempoInicial = System.currentTimeMillis();
+			for(int i = 0; i < CANTIDAD_MEDICIONES; i++) {
+				error += resolver(dimensiones[k], matriz, vectorIndependiente);
 			}
-			tiempoFinal = System.nanoTime();
+			tiempoFinal = System.currentTimeMillis();
 			
 			// Mostramos las estadísticas
-			tiempoPromedio = (tiempoFinal - tiempoInicial) / 2.0;
+			tiempoPromedio = (tiempoFinal - tiempoInicial) / (double) CANTIDAD_MEDICIONES;
 			System.out.println("Dimension: " + dimensiones[k] 
-					+ " -- Tiempo promedio: " + tiempoPromedio + "ns"
-					+ " -- Error: " + error);			
-			
-			// Desinicialización para evitar un OutOfMemoryError con matrices muy grandes
-			matriz = null;
-			matrizMath = null;
-
+					+ " -- Tiempo promedio: " + tiempoPromedio + "ms"
+					+ " -- Error: " + error / CANTIDAD_MEDICIONES);			
+		
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	private static double resolver(int dimension, double[][] matriz, double[] vector) {
-		SistemaLinealDeEcuaciones sistemaLineal = new SistemaLinealDeEcuaciones(dimension);
-		sistemaLineal.setCoeficientes(matriz);
-
-		VectorColumna vectorIndependiente = new VectorColumna(dimension);
-		vectorIndependiente.inicializarConVector(vector);
+		SistemaLinealDeEcuaciones sistemaLineal = 
+				new SistemaLinealDeEcuaciones(new MatrizCuadrada(matriz), new VectorColumna(vector));
 		
 		// Resolver sistema
-		VectorColumna vectorSolucion = sistemaLineal.resolver(vectorIndependiente);
+		sistemaLineal.resolver();
 		
-		// Calcular error de solución
-		MatrizCuadrada matrizInvertible = new MatrizInvertible(matriz);
-		MatrizCuadrada inversa = ((MatrizInvertible) matrizInvertible).invertir();
-		MatrizCuadrada identidadPrima = MatrizCuadrada.producto(matrizInvertible, inversa);
-		
-		MatrizCuadrada matrizIdentidad = new MatrizIdentidad(dimension);
-		
-		MatrizInvertible matrizParaCalculoDeError = new MatrizInvertible(MatrizCuadrada.restar(identidadPrima, matrizIdentidad).obtenerComoMatriz());
-		
-		VectorColumna vectorInicial = new VectorColumna(dimension);
-		for(int i = 0; i < dimension; i++) {
-			vectorInicial.setValorEn(i, 1);
-		}
-		
-		double error = matrizParaCalculoDeError.normaDos(vectorInicial, 0.0001);
-		
-		// Desinicialización para evitar un OutOfMemoryError con matrices muy grandes
-		sistemaLineal = null;
-		matrizInvertible = null;
-		inversa = null;
-		identidadPrima = null;
-		matrizParaCalculoDeError = null;
-		
-		return error;
+		// Calcular error de solución y devolver
+		return sistemaLineal.getError();
 	}
 	
 }

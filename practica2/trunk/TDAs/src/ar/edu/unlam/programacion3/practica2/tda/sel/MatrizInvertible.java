@@ -2,10 +2,10 @@ package ar.edu.unlam.programacion3.practica2.tda.sel;
 
 public class MatrizInvertible extends MatrizCuadrada {
 
-	public MatrizInvertible(int dimension) {
-		super(dimension);
+	public MatrizInvertible(int cantidadFilas) {
+		super(cantidadFilas);
 	}
-	
+
 	public MatrizInvertible(double[][] coeficientes) {
 		super(coeficientes);
 	}
@@ -13,21 +13,23 @@ public class MatrizInvertible extends MatrizCuadrada {
 	public MatrizInvertible invertir() {
 		MatrizInvertible matrizInversa = new MatrizInvertible(cantidadFilas);
 		MatrizIdentidad matrizIdentidad = new MatrizIdentidad(cantidadFilas);
-		SistemaLinealDeEcuaciones sistemaLineal = new SistemaLinealDeEcuaciones(cantidadFilas);
-		sistemaLineal.setCoeficientes(this.coeficientes);
+		SistemaLinealDeEcuaciones sistemaLineal = new SistemaLinealDeEcuaciones(this);
 		
 		for(int i = 0; i < cantidadColumnas; i++) {
-			VectorColumna vectorAux = sistemaLineal.resolver(matrizIdentidad.getColumna(i));
+			sistemaLineal.setVectorDeTerminosIndependientes(matrizIdentidad.getColumna(i));
+			VectorColumna vectorAux = sistemaLineal.resolver();
 			matrizInversa.setColumna(vectorAux, i);
 		}
+		
+		matrizIdentidad = null;
+		sistemaLineal = null;
 	
 		return matrizInversa;
 	}
 	
 	public double determinante() {
-		SistemaLinealDeEcuaciones sistemaLineal = new SistemaLinealDeEcuaciones(cantidadFilas);
-		sistemaLineal.setCoeficientes(this.coeficientes);
-		
+		SistemaLinealDeEcuaciones sistemaLineal = new SistemaLinealDeEcuaciones(this);
+				
 		sistemaLineal.factorizarSistema();
 		
 		// Compensar el cambio de signo del determinante por cada intercambio de filas durante la factorización LU

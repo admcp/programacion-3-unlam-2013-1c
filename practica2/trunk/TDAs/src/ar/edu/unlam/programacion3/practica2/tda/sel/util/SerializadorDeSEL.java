@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizCuadrada;
-import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizIdentidad;
-import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizInvertible;
 import ar.edu.unlam.programacion3.practica2.tda.sel.SistemaLinealDeEcuaciones;
 import ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna;
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.FilaDeCerosException;
@@ -85,9 +83,8 @@ public class SerializadorDeSEL {
 						matriz[i][j] = Double.parseDouble(splitBuffer[2]);
 					}
 				}
-
-				// Creamos un vector para contener los valores del vector
-				// solución
+				
+				// Creamos un vector para contener los valores del vector solución
 				double[] vector = new double[dimension];
 
 				// Llenamos el vector con los valores del archivo
@@ -97,30 +94,14 @@ public class SerializadorDeSEL {
 				}
 
 				// Deserializamos ambas estructuras
-				SistemaLinealDeEcuaciones sistemaLineal = new SistemaLinealDeEcuaciones(dimension);
-				sistemaLineal.setCoeficientes(matriz);
-
-				VectorColumna vectorIndependiente = new VectorColumna(dimension);
-				vectorIndependiente.inicializarConVector(vector);
+				SistemaLinealDeEcuaciones sistemaLineal =
+						new SistemaLinealDeEcuaciones(new MatrizCuadrada(matriz), new VectorColumna(vector));
 				
 				// Resolver sistema
-				VectorColumna vectorSolucion = sistemaLineal.resolver(vectorIndependiente);
+				VectorColumna vectorSolucion = sistemaLineal.resolver();
 				
 				// Calcular error de solución
-				MatrizCuadrada matrizInvertible = new MatrizInvertible(matriz);
-				MatrizCuadrada inversa = ((MatrizInvertible) matrizInvertible).invertir();
-				MatrizCuadrada identidadPrima = MatrizCuadrada.producto(matrizInvertible, inversa);
-				
-				MatrizCuadrada matrizIdentidad = new MatrizIdentidad(dimension);
-				
-				MatrizInvertible matrizParaCalculoDeError = new MatrizInvertible(MatrizCuadrada.restar(identidadPrima, matrizIdentidad).obtenerComoMatriz());
-				
-				VectorColumna vectorInicial = new VectorColumna(dimension);
-				for(int i = 0; i < dimension; i++) {
-					vectorInicial.setValorEn(i, 1);
-				}
-				
-				double error = matrizParaCalculoDeError.normaDos(vectorInicial, 0.0001);
+				double error = sistemaLineal.getError();
 				
 				/*
 				 * Estructura esperada del archivo "*.out": 

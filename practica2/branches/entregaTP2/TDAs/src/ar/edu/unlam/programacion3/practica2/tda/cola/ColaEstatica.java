@@ -27,10 +27,10 @@ public class ColaEstatica<T> implements Cola<T> {
 
 	@Override
 	public void offer(T elemento) {
-		if(elemento == null) {
+		if (elemento == null) {
 			throw new NullPointerException();
 		}
-		
+
 		if (primero == 0 && ultimo == (dimension - 1) || ultimo != -1 && (ultimo + 1) == primero) {
 			throw new IllegalStateException();
 		}
@@ -79,5 +79,57 @@ public class ColaEstatica<T> implements Cola<T> {
 				primero = (primero + 1) % dimension;
 			}
 		}
+	}
+
+	public static void main(String[] args) {
+		Cola<String> cola = new ColaEstatica<String>(10);
+
+		System.out.println("Encolando...");
+		for (int i = 0; i < 10; i++) {
+			System.out.println(i + " - offer");
+			cola.offer(Integer.toString(i));
+		}
+
+		System.out.println();
+
+		System.out.println(cola.peek() + " - Peek");
+
+		System.out.println();
+
+		System.out.println(cola.poll() + " - poll");
+
+		System.out.println();
+
+		System.out.println("Nuevo elemento - offer");
+
+		cola.offer("Nuevo elemento");
+
+		System.out.println(cola.peek() + " - Peek");
+
+		System.out.println();
+
+		System.out.println("Desencolando...");
+		while (!cola.isEmpty()) {
+			System.out.println(cola.poll() + " - poll");
+		}
+
+		System.out.println();
+
+		System.out.println("Encolando...");
+		for (int i = 0; i < 10; i++) {
+			System.out.println(i + " - offer");
+			cola.offer(Integer.toString(i));
+		}
+
+		System.out.println();
+
+		System.out.println(cola.peek() + " - Peek");
+
+		System.out.println("clear");
+		cola.clear();
+
+		System.out.println();
+
+		System.out.println(cola.isEmpty() + " - isEmpty");
 	}
 }

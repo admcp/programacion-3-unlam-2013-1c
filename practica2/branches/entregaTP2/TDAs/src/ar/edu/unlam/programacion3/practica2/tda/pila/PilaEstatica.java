@@ -29,7 +29,7 @@ public class PilaEstatica<T> implements Pila<T> {
 
 	@Override
 	public void push(T elemento) {
-		if(elemento == null) {
+		if (elemento == null) {
 			throw new NullPointerException();
 		}
 		if (tope == dimension) {
@@ -54,7 +54,7 @@ public class PilaEstatica<T> implements Pila<T> {
 		if (tope == -1) {
 			return null;
 		}
-		
+
 		return pila[tope];
 	}
 
@@ -65,4 +65,55 @@ public class PilaEstatica<T> implements Pila<T> {
 		}
 	}
 
+	public static void main(String[] args) {
+		Pila<String> pila = new PilaEstatica<String>(10);
+
+		System.out.println("Apilando...");
+		for (int i = 0; i < 10; i++) {
+			System.out.println(i + " - Push");
+			pila.push(Integer.toString(i));
+		}
+
+		System.out.println();
+
+		System.out.println(pila.peek() + " - Peek");
+
+		System.out.println();
+
+		System.out.println(pila.pop() + " - Pop");
+
+		System.out.println();
+
+		System.out.println("Nuevo elemento - Push");
+
+		pila.push("Nuevo elemento");
+
+		System.out.println(pila.peek() + " - Peek");
+
+		System.out.println();
+
+		System.out.println("Desapilando...");
+		while (!pila.isEmpty()) {
+			System.out.println(pila.pop() + " - Pop");
+		}
+
+		System.out.println();
+
+		System.out.println("Apilando...");
+		for (int i = 0; i < 10; i++) {
+			System.out.println(i + " - Push");
+			pila.push(Integer.toString(i));
+		}
+
+		System.out.println();
+
+		System.out.println(pila.peek() + " - Peek");
+
+		System.out.println("clear");
+		pila.clear();
+
+		System.out.println();
+
+		System.out.println(pila.isEmpty() + " - isEmpty");
+	}
 }

@@ -7,51 +7,54 @@ public class ListaEnlazada<T> implements Lista<T> {
 	private int size = 0;
 	private Nodo<T> primerNodo;
 	private Nodo<T> ultimoNodo;
-	
+
 	public ListaEnlazada() {
 		primerNodo = null;
 		ultimoNodo = null;
 	}
 
-	//-----------------------------------------
+	// -----------------------------------------
 	// Comportamiento propio de Lista Enlazada
-	//-----------------------------------------
-	
+	// -----------------------------------------
+
 	/**
 	 * Obtener el primer nodo.
+	 * 
 	 * @return primer nodo de la lista (si la lista está vacía: excepción).
 	 */
-	public T getFirst(){
+	public T getFirst() {
 		Nodo<T> aux = this.primerNodo;
-		if(aux == null){
+		if (aux == null) {
 			throw new NoSuchElementException();
 		}
 		return aux.elemento;
 	}
-	
+
 	/**
 	 * Obtener el último nodo.
+	 * 
 	 * @return último nodo de la lista (si la lista está vacía: excepción).
 	 */
 	public T getLast() {
 		Nodo<T> aux = this.ultimoNodo;
-		if(aux == null){
+		if (aux == null) {
 			throw new NoSuchElementException();
 		}
 		return aux.elemento;
 	}
-	
+
 	/**
 	 * Quitar el primer nodo.
+	 * 
 	 * @return nodo quitado de la lista (si la lista está vacía: excepción).
 	 */
 	public T removeFirst() {
 		Nodo<T> aux = this.primerNodo;
-		if (aux == null){
+		if (aux == null) {
 			throw new NoSuchElementException();
 		}
 		T elemento = aux.elemento;
-		if(aux.siguiente == null){
+		if (aux.siguiente == null) {
 			this.primerNodo = null;
 			this.ultimoNodo = null;
 		} else {
@@ -60,22 +63,23 @@ public class ListaEnlazada<T> implements Lista<T> {
 		}
 		aux.elemento = null;
 		aux.siguiente = null;
-		size --;
+		size--;
 		return elemento;
 	}
-	
+
 	/**
 	 * Obtener el último nodo.
+	 * 
 	 * @return nodo quitado de la lista (si la lista está vacía: excepción).
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public T removeLast() {
 		Nodo<T> aux = this.ultimoNodo;
-		if (aux == null){
+		if (aux == null) {
 			throw new NoSuchElementException();
 		}
 		T elemento = aux.elemento;
-		if(aux.anterior == null){
+		if (aux.anterior == null) {
 			this.primerNodo = null;
 			this.ultimoNodo = null;
 		} else {
@@ -84,18 +88,19 @@ public class ListaEnlazada<T> implements Lista<T> {
 		}
 		aux.elemento = null;
 		aux.anterior = null;
-		size --;
+		size--;
 		return elemento;
 	}
-	
-    /**
-     * Insertar al principio de la lista.
-     *
-     * @param elemento es el elemento a insertar.
-     */
+
+	/**
+	 * Insertar al principio de la lista.
+	 * 
+	 * @param elemento
+	 *            es el elemento a insertar.
+	 */
 	public void addFirst(T elemento) {
 		Nodo<T> nuevo = new Nodo<T>(null, elemento, primerNodo);
-		if(primerNodo == null){
+		if (primerNodo == null) {
 			ultimoNodo = nuevo;
 		} else {
 			primerNodo.anterior = nuevo;
@@ -103,15 +108,16 @@ public class ListaEnlazada<T> implements Lista<T> {
 		primerNodo = nuevo;
 		size++;
 	}
-	
-    /**
-     * Insertar al final de la lista. Es equivalente a {@link #add}.
-     *
-     * @param elemento es el elemento a insertar.
-     */
+
+	/**
+	 * Insertar al final de la lista. Es equivalente a {@link #add}.
+	 * 
+	 * @param elemento
+	 *            es el elemento a insertar.
+	 */
 	public void addLast(T elemento) {
 		Nodo<T> nuevo = new Nodo<T>(ultimoNodo, elemento, null);
-		if(ultimoNodo == null){
+		if (ultimoNodo == null) {
 			primerNodo = nuevo;
 		} else {
 			ultimoNodo.siguiente = nuevo;
@@ -119,11 +125,11 @@ public class ListaEnlazada<T> implements Lista<T> {
 		ultimoNodo = nuevo;
 		size++;
 	}
-	
-	//----------------------------------------------------
+
+	// ----------------------------------------------------
 	// Comportamiento derivado del contrato con <<Lista>>
-	//----------------------------------------------------
-	
+	// ----------------------------------------------------
+
 	@Override
 	public int size() {
 		return size;
@@ -142,13 +148,13 @@ public class ListaEnlazada<T> implements Lista<T> {
 
 	@Override
 	public boolean remove(T elemento) {
-		for(Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente){
-			if(elemento.equals(nodo.elemento)){
-				if(nodo.anterior == null || nodo.siguiente == null){
-					if(nodo.anterior == null){
+		for (Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente) {
+			if (elemento.equals(nodo.elemento)) {
+				if (nodo.anterior == null || nodo.siguiente == null) {
+					if (nodo.anterior == null) {
 						primerNodo = nodo.siguiente;
-					} 
-					if(nodo.siguiente == null){
+					}
+					if (nodo.siguiente == null) {
 						ultimoNodo = nodo.anterior;
 					}
 				} else {
@@ -171,7 +177,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 		Nodo<T> ultimo = ultimoNodo;
 		Nodo<T> nodo = primerNodo;
 		Nodo<T> aux;
-		for(int i = 0; i < size; i++){
+		for (int i = 0; i < size; i++) {
 			aux = nodo.siguiente;
 			nodo.siguiente = nodo.anterior;
 			nodo.anterior = aux;
@@ -183,7 +189,7 @@ public class ListaEnlazada<T> implements Lista<T> {
 
 	@Override
 	public void clear() {
-		for(Nodo<T> nodo = primerNodo; nodo != null; ) {
+		for (Nodo<T> nodo = primerNodo; nodo != null;) {
 			Nodo<T> nodoSiguiente = nodo.siguiente;
 			nodo.elemento = null;
 			nodo.siguiente = null;
@@ -197,14 +203,14 @@ public class ListaEnlazada<T> implements Lista<T> {
 	@Override
 	public T get(int index) {
 		chequearIndice(index);
-		if(index == 0){
+		if (index == 0) {
 			return primerNodo.elemento;
 		}
-		if(index == size){
+		if (index == size) {
 			return ultimoNodo.elemento;
 		}
 		Nodo<T> aux = primerNodo;
-		for(int i = 0; i < index; i++){
+		for (int i = 0; i < index; i++) {
 			aux = aux.siguiente;
 		}
 		return aux.elemento;
@@ -214,16 +220,16 @@ public class ListaEnlazada<T> implements Lista<T> {
 	public T set(int index, T elemento) {
 		chequearIndice(index);
 		T elementoActual;
-		if(index == 0){
+		if (index == 0) {
 			elementoActual = primerNodo.elemento;
 			primerNodo.elemento = elemento;
 		}
-		if(index == size){
+		if (index == size) {
 			elementoActual = ultimoNodo.elemento;
 			ultimoNodo.elemento = elemento;
 		}
 		Nodo<T> aux = primerNodo;
-		for(int i = 0; i < index; i++){
+		for (int i = 0; i < index; i++) {
 			aux = aux.siguiente;
 		}
 		elementoActual = aux.elemento;
@@ -234,16 +240,16 @@ public class ListaEnlazada<T> implements Lista<T> {
 	@Override
 	public void add(int index, T elemento) {
 		chequearIndice(index);
-		if(index == 0 || index == size){
-			if(index == 0){
+		if (index == 0 || index == size) {
+			if (index == 0) {
 				addFirst(elemento);
 			}
-			if(index == size){
+			if (index == size) {
 				addLast(elemento);
 			}
 		} else {
 			Nodo<T> aux = primerNodo;
-			for(int i = 0; i < index; i++){
+			for (int i = 0; i < index; i++) {
 				aux = aux.siguiente;
 			}
 			Nodo<T> nuevo = new Nodo<T>(aux.anterior, elemento, aux);
@@ -258,15 +264,15 @@ public class ListaEnlazada<T> implements Lista<T> {
 		chequearIndice(index);
 		Nodo<T> aux = primerNodo;
 		T elementoActual;
-		if(index == 0 || index == size){
-			if(index == 0){
+		if (index == 0 || index == size) {
+			if (index == 0) {
 				aux.siguiente.anterior = null;
 			}
-			if(index == size){
+			if (index == size) {
 				aux.anterior.siguiente = null;
 			}
 		} else {
-			for(int i = 0; i < index; i++){
+			for (int i = 0; i < index; i++) {
 				aux = aux.siguiente;
 			}
 			aux.anterior.siguiente = aux.siguiente;
@@ -281,8 +287,8 @@ public class ListaEnlazada<T> implements Lista<T> {
 	@Override
 	public int indexOf(T elemento) {
 		int index = 0;
-		for(Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente){
-			if(elemento.equals(nodo.elemento)){
+		for (Nodo<T> nodo = primerNodo; nodo != null; nodo = nodo.siguiente) {
+			if (elemento.equals(nodo.elemento)) {
 				return index;
 			}
 			index++;
@@ -293,40 +299,94 @@ public class ListaEnlazada<T> implements Lista<T> {
 	@Override
 	public int lastIndexOf(T elemento) {
 		int index = size;
-		for(Nodo<T> nodo = ultimoNodo; nodo != null; nodo = nodo.anterior){
-			if(elemento.equals(nodo.elemento)){
+		for (Nodo<T> nodo = ultimoNodo; nodo != null; nodo = nodo.anterior) {
+			if (elemento.equals(nodo.elemento)) {
 				return index;
 			}
 			index--;
 		}
 		return -1;
 	}
-	
-	//------------------------------
+
+	// ------------------------------
 	// Clase interna para los nodos
-	//------------------------------
-	
+	// ------------------------------
+
 	private static class Nodo<T> {
 
 		Nodo<T> anterior;
 		T elemento;
 		Nodo<T> siguiente;
-		
+
 		Nodo(Nodo<T> anterior, T elemento, Nodo<T> siguiente) {
 			this.anterior = anterior;
 			this.elemento = elemento;
 			this.siguiente = siguiente;
 		}
-		
+
 	}
-	
+
 	private boolean esIndice(int index) {
-        return index >= 0 && index <= size;
-    }
-	
+		return index >= 0 && index <= size;
+	}
+
 	private void chequearIndice(int index) {
-        if (!esIndice(index))
-            throw new IndexOutOfBoundsException("Idx: " + index + " - Tam: " + size);
-    }
-	
+		if (!esIndice(index))
+			throw new IndexOutOfBoundsException("Idx: " + index + " - Tam: " + size);
+	}
+
+	public static void main(String[] args) {
+
+		Lista<String> lista = new ListaEnlazada<String>();
+		ListaEnlazada<String> listaEnlazada = (ListaEnlazada<String>) lista;
+		// cargo la lista con 5 nombres
+		listaEnlazada.addFirst("Jose");
+		lista.add("Marcos");
+		lista.add("Raul");
+		lista.add("Zaul");
+		lista.add(1, "Gimena");
+
+		// imprimo en pantalla la lista cargada
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
+
+		// invierto la lista
+		lista.reverse();
+		System.out.println("Lista invertida: ");
+
+		// imprimo en pantalla la lista cargada
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
+
+		// Obtengo el indice de gimena y lo remuevo
+		lista.remove(lista.indexOf("Gimena"));
+		listaEnlazada.removeFirst();
+		listaEnlazada.removeLast();
+		lista.remove("Marcos");
+
+		// imprimo en pantalla la lista tras eliminar
+		System.out.println("Lista tras eliminar Gimena, El primero, el Ultimo y a Marcos: ");
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
+
+		// Seteo a Raul con el nombre Javier
+		System.out.println("Seteo Javier al elemento Raul");
+		lista.set(0, "Javier");
+
+		// Uso getter para traer el elemento de la lista e imprimirlo
+		System.out.println("El elemento de la posicion 0 es:" + lista.get(0));
+
+		// Vacio la lista
+		lista.clear();
+
+		// Muestro la lista
+		System.out.println("Listra tras hacer un clear:");
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
+
+	}
 }

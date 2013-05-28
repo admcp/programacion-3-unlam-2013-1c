@@ -1,6 +1,5 @@
 package ar.edu.unlam.programacion3.practica2.tda.lista;
 
-
 public class ListaArray<T> implements Lista<T> {
 
 	private int size;
@@ -49,8 +48,8 @@ public class ListaArray<T> implements Lista<T> {
 		if (elemento == null) {
 			throw new NullPointerException();
 		}
-		
-		if(size == 0) { // Lista vacía
+
+		if (size == 0) { // Lista vacía
 			throw new IllegalStateException();
 		}
 
@@ -60,7 +59,7 @@ public class ListaArray<T> implements Lista<T> {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -76,7 +75,7 @@ public class ListaArray<T> implements Lista<T> {
 
 	@Override
 	public void reverse() {
-		for(int i = 0, j = size - 1; i < j; i++, j--) {
+		for (int i = 0, j = size - 1; i < j; i++, j--) {
 			T aux = arrayElementos[i];
 			arrayElementos[i] = arrayElementos[j];
 			arrayElementos[j] = aux;
@@ -97,8 +96,8 @@ public class ListaArray<T> implements Lista<T> {
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
-		
-		if(size == 0) { // Lista vacía
+
+		if (size == 0) { // Lista vacía
 			throw new IllegalStateException();
 		}
 
@@ -114,14 +113,14 @@ public class ListaArray<T> implements Lista<T> {
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
-		
-		if(size == 0) { // Lista vacía
+
+		if (size == 0) { // Lista vacía
 			throw new IllegalStateException();
 		}
 
 		T antiguoElemento = arrayElementos[index];
 		arrayElementos[index] = elemento;
-		
+
 		return antiguoElemento;
 	}
 
@@ -134,11 +133,11 @@ public class ListaArray<T> implements Lista<T> {
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
-		
-		if(size + 1 == arrayElementos.length) { // Lista llena
+
+		if (size + 1 == arrayElementos.length) { // Lista llena
 			throw new IllegalStateException();
 		}
-		
+
 		System.arraycopy(arrayElementos, index, arrayElementos, index + 1, size);
 		arrayElementos[index] = elemento;
 		size++;
@@ -149,21 +148,21 @@ public class ListaArray<T> implements Lista<T> {
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
-		
-		if(size == 0) { // Lista vacía
+
+		if (size == 0) { // Lista vacía
 			throw new IllegalStateException();
 		}
-		
+
 		T elemento = arrayElementos[index];
-		
-		for(int i = index; i < size - 1; i++) {
+
+		for (int i = index; i < size - 1; i++) {
 			arrayElementos[i] = arrayElementos[i + 1];
 		}
-		
+
 		arrayElementos[size - 1] = null;
-		
+
 		size--;
-		
+
 		return elemento;
 	}
 
@@ -172,17 +171,17 @@ public class ListaArray<T> implements Lista<T> {
 		if (elemento == null) {
 			throw new NullPointerException();
 		}
-		
-		if(size == 0) { // Lista vacía
+
+		if (size == 0) { // Lista vacía
 			throw new IllegalStateException();
 		}
-		
-		for(int i = 0; i < size; i++) {
-			if(arrayElementos[i].equals(elemento)) {
+
+		for (int i = 0; i < size; i++) {
+			if (arrayElementos[i].equals(elemento)) {
 				return i;
 			}
 		}
-		
+
 		return -1;
 	}
 
@@ -191,18 +190,69 @@ public class ListaArray<T> implements Lista<T> {
 		if (elemento == null) {
 			throw new NullPointerException();
 		}
-		
-		if(size == 0) { // Lista vacía
+
+		if (size == 0) { // Lista vacía
 			throw new IllegalStateException();
 		}
-		
-		for(int i = size; i > 0; i--) {
-			if(arrayElementos[i].equals(elemento)) {
+
+		for (int i = size; i > 0; i--) {
+			if (arrayElementos[i].equals(elemento)) {
 				return i;
 			}
 		}
-		
+
 		return -1;
 	}
 
+	public static void main(String[] args) {
+
+		Lista<String> lista = new ListaArray<String>();
+		// cargo la lista con 5 nombres
+		lista.add("Jose");
+		lista.add("Marcos");
+		lista.add("Raul");
+		lista.add("Zaul");
+		lista.add(1, "Gimena");
+
+		// imprimo en pantalla la lista cargada
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
+
+		// invierto la lista
+		lista.reverse();
+		System.out.println("Lista invertida: ");
+
+		// imprimo en pantalla la lista cargada
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
+
+		// Obtengo el indice de gimena y lo remuevo
+		lista.remove(lista.indexOf("Gimena"));
+		lista.remove("Marcos");
+
+		// imprimo en pantalla la lista tras eliminar
+		System.out.println("Lista tras eliminar Gimena y a Marcos: ");
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
+
+		// Seteo a Raul con el nombre Javier
+		System.out.println("Seteo Javier al elemento Raul");
+		lista.set(0, "Javier");
+
+		// Uso getter para traer el elemento de la lista e imprimirlo
+		System.out.println("El elemento de la posicion 0 es:" + lista.get(0));
+
+		// Vacio la lista
+		lista.clear();
+
+		// Muestro la lista
+		System.out.println("Listra tras hacer un clear:");
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
+
+	}
 }

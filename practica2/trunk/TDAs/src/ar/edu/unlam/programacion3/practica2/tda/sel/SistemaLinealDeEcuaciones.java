@@ -1,5 +1,8 @@
 package ar.edu.unlam.programacion3.practica2.tda.sel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -274,6 +277,73 @@ public class SistemaLinealDeEcuaciones {
 		
 		// Calculamos el error
 		error = matrizParaCalculoDeError.normaDos(vectorInicial, 0.0001);
+	}
+	
+	public static void resolverSELDesdeArchivo(BufferedReader archivoEntrada, PrintWriter archivoSalida) throws IOException {
+		String buffer;
+		String[] splitBuffer;
+
+		/*
+		 * Estructura esperada del archivo "*.in": 
+		 * n (dimensión del sistema) 
+		 * i j <valor> (i-fila j-columna valor) x n^2 -matriz de coeficientes- 
+		 * i (i-fila) x n -vector independiente-
+		 */
+
+		// Leemos la primer línea del archivo de entrada
+		buffer = archivoEntrada.readLine();
+		int dimension = Integer.parseInt(buffer);
+
+		// Creamos una matriz para contener los coeficientes
+		double[][] matriz = new double[dimension][dimension];
+
+		// Llenamos la matriz con los valores del archivo
+		int ii, jj;
+		for (int i = 0; i < dimension; i++) {
+			for (int j = 0; j < dimension; j++) {
+				buffer = archivoEntrada.readLine();
+				splitBuffer = buffer.split(" ");
+				ii = Integer.parseInt(splitBuffer[0]);
+				jj = Integer.parseInt(splitBuffer[1]);
+				if (ii != i || jj != j) {
+					throw new Error("Archivo mal formado");
+				}
+				matriz[i][j] = Double.parseDouble(splitBuffer[2]);
+			}
+		}
+		
+		// Creamos un vector para contener los valores del vector solución
+		double[] vector = new double[dimension];
+
+		// Llenamos el vector con los valores del archivo
+		for (int i = 0; i < dimension; i++) {
+			buffer = archivoEntrada.readLine();
+			vector[i] = Double.parseDouble(buffer);
+		}
+
+		// Deserializamos ambas estructuras
+		SistemaLinealDeEcuaciones sistemaLineal =
+				new SistemaLinealDeEcuaciones(new MatrizCuadrada(matriz), new VectorColumna(vector));
+		
+		// Resolver sistema
+		VectorColumna vectorSolucion = sistemaLineal.resolver();
+		
+		// Calcular error de solución
+		double error = sistemaLineal.getError();
+		
+		/*
+		 * Estructura esperada del archivo "*.out": 
+		 * n (dimensión del sistema) 
+		 * i (i-fila) x n -vector solución-
+		 * e (error)
+		 */
+		
+		archivoSalida.println(dimension);
+		for(int i = 0; i < dimension; i++) {
+			archivoSalida.println(vectorSolucion.getValorEn(i));
+		}
+		
+		archivoSalida.print(error != Double.NaN ? error : 0);
 	}
 	
 	public static void main(String[] args) {

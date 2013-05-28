@@ -10,9 +10,9 @@ public class PilaDinamica<T> implements Pila<T> {
 		tope = null;
 	}
 
-	//--------------------------------------------------
+	// --------------------------------------------------
 	// Comportamiento derivado del contrato con <<Pila>>
-	//--------------------------------------------------
+	// --------------------------------------------------
 	@Override
 	public boolean isEmpty() {
 		return (tope == null);
@@ -42,11 +42,11 @@ public class PilaDinamica<T> implements Pila<T> {
 
 		Nodo<T> nodoAnterior = tope.anterior;
 		T elemento = tope.elemento;
-		
+
 		tope.elemento = null;
 		tope.anterior = null;
 		tope.siguiente = null;
-		
+
 		tope = nodoAnterior;
 
 		return elemento;
@@ -90,6 +90,58 @@ public class PilaDinamica<T> implements Pila<T> {
 			this.siguiente = siguiente;
 		}
 
+	}
+
+	public static void main(String[] args) {
+		Pila<String> pila = new PilaDinamica<String>();
+
+		System.out.println("Apilando...");
+		for (int i = 0; i < 10; i++) {
+			System.out.println(i + " - Push");
+			pila.push(Integer.toString(i));
+		}
+
+		System.out.println();
+
+		System.out.println(pila.peek() + " - Peek");
+
+		System.out.println();
+
+		System.out.println(pila.pop() + " - Pop");
+
+		System.out.println();
+
+		System.out.println("Nuevo elemento - Push");
+
+		pila.push("Nuevo elemento");
+
+		System.out.println(pila.peek() + " - Peek");
+
+		System.out.println();
+
+		System.out.println("Desapilando...");
+		while (!pila.isEmpty()) {
+			System.out.println(pila.pop() + " - Pop");
+		}
+
+		System.out.println();
+
+		System.out.println("Apilando...");
+		for (int i = 0; i < 10; i++) {
+			System.out.println(i + " - Push");
+			pila.push(Integer.toString(i));
+		}
+
+		System.out.println();
+
+		System.out.println(pila.peek() + " - Peek");
+
+		System.out.println("clear");
+		pila.clear();
+
+		System.out.println();
+
+		System.out.println(pila.isEmpty() + " - isEmpty");
 	}
 
 }

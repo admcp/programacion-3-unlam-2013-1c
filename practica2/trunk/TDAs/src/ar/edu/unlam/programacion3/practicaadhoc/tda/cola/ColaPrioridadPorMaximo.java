@@ -63,6 +63,14 @@ public class ColaPrioridadPorMaximo<T extends Comparable<T>> implements Cola<T> 
 		for(int i = 0; i < 100; i++) {
 			System.out.println(cola.poll());
 		}
+		System.out.println("Agregamos dos valores mas: 27 y 6");
+		cola.offer(new WeirdInteger(27, 1));
+		cola.offer(new WeirdInteger(6, 1));
+		System.out.println("Vaciamos Cola de Prioridad");
+		cola.clear();
+		if(cola.isEmpty() == true){
+			System.out.println("Cola vacía");
+		}
 	}
 	
 	static class WeirdInteger implements Comparable<WeirdInteger> {

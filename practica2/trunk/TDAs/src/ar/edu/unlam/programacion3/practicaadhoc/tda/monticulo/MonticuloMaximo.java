@@ -15,6 +15,11 @@ public class MonticuloMaximo<T extends Comparable<T>> implements Monticulo<T> {
 	}
 
 	@Override
+   public boolean isEmpty() {
+	   return size == 0;
+   }
+
+	@Override
 	public void add(T item) {	
 		if (item == null) { // Failfast en nulos
 			throw new NullPointerException();
@@ -59,7 +64,7 @@ public class MonticuloMaximo<T extends Comparable<T>> implements Monticulo<T> {
 					esMenor(indice, indiceHijoDerecho(indiceActual))) { // ... izquierdo < derecho 
 				indice = indiceHijoDerecho(indiceActual); // Probar con el derecho.
 			}
-			if(esMayor(indiceActual, indice)) { // Si el indice actual es mayor que el mayor de los hijos
+			if(esMayor(indiceActual, indice) || esIgual(indiceActual, indice)) { // Si el indice actual es mayor que el mayor de los hijos
 				break; // Ya esta organizado el "arbol"
 			}
 			intercambiar(indiceActual, indice); // Intercambiar actual por el major de los hijos
@@ -81,9 +86,13 @@ public class MonticuloMaximo<T extends Comparable<T>> implements Monticulo<T> {
 	}
 	
 	private boolean esMayor(int indice1, int indice2) {
-		return monticulo[indice1].compareTo(monticulo[indice2]) >= 0;
+		return monticulo[indice1].compareTo(monticulo[indice2]) > 0;
 	}
 
+	private boolean esIgual(int indice1, int indice2) {
+		return monticulo[indice1].compareTo(monticulo[indice2]) == 0;
+	}
+	
 	private int indiceHijoIzquierdo(int indicePadre) {
 		return indicePadre * 2;
 	}
@@ -121,7 +130,19 @@ public class MonticuloMaximo<T extends Comparable<T>> implements Monticulo<T> {
 	}
 
 	public static void main(String[] args) {
-		// TODO: Hacer un test
+		Monticulo<Integer> monticuloMax = new MonticuloMaximo<Integer>();
+		monticuloMax.add(20);
+		monticuloMax.add(7);
+		monticuloMax.add(15);
+		monticuloMax.add(6);
+		monticuloMax.add(2);
+		monticuloMax.add(8);
+		monticuloMax.add(9);
+		monticuloMax.add(5);
+		
+		while (!monticuloMax.isEmpty()) {
+			System.out.println(monticuloMax);
+			monticuloMax.remove();
+		}
 	}
-
 }

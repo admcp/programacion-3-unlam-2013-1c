@@ -4,7 +4,7 @@
   <class id="1" language="java" name="ar.edu.unlam.programacion3.practica2.tda.cola.ColaDinamica" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/cola/ColaDinamica.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="157" y="338"/>    
+    <position height="-1" width="-1" x="117" y="441"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -13,7 +13,7 @@
   </class>  
   <interface id="2" language="java" name="ar.edu.unlam.programacion3.practica2.tda.cola.Cola" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/cola/Cola.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="291" y="93"/>    
+    <position height="-1" width="-1" x="339" y="198"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -23,7 +23,7 @@
   <class id="3" language="java" name="ar.edu.unlam.programacion3.practica2.tda.cola.ColaEstatica" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/cola/ColaEstatica.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="435" y="356"/>    
+    <position height="-1" width="-1" x="344" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -32,7 +32,7 @@
   </class>  
   <interface id="4" language="java" name="ar.edu.unlam.programacion3.practica2.tda.lista.Lista" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/lista/Lista.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="899" y="154"/>    
+    <position height="-1" width="-1" x="315" y="1343"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -42,7 +42,7 @@
   <class id="5" language="java" name="ar.edu.unlam.programacion3.practica2.tda.lista.ListaEnlazada" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/lista/ListaEnlazada.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1048" y="626"/>    
+    <position height="-1" width="-1" x="464" y="1815"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -51,7 +51,7 @@
   </class>  
   <class id="6" language="java" name="ar.edu.unlam.programacion3.practica2.tda.lista.ListaArray" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/lista/ListaArray.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="759" y="581"/>    
+    <position height="-1" width="-1" x="175" y="1770"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -60,7 +60,7 @@
   </class>  
   <interface id="7" language="java" name="ar.edu.unlam.programacion3.practica2.tda.pila.Pila" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/pila/Pila.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="292" y="630"/>    
+    <position height="-1" width="-1" x="296" y="734"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -70,7 +70,7 @@
   <class id="8" language="java" name="ar.edu.unlam.programacion3.practica2.tda.pila.PilaEstatica" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/pila/PilaEstatica.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="141" y="905"/>    
+    <position height="-1" width="-1" x="145" y="1009"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -80,36 +80,118 @@
   <class id="9" language="java" name="ar.edu.unlam.programacion3.practica2.tda.pila.PilaDinamica" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/pila/PilaDinamica.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="418" y="887"/>    
+    <position height="-1" width="-1" x="422" y="991"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <realization id="10">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <realization id="11">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="12">    
+  <class id="10" language="java" name="ar.edu.unlam.programacion3.practicaadhoc.tda.cola.ColaPrioridadPorMaximo" 
+    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practicaadhoc/tda/cola/ColaPrioridadPorMaximo.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="655" y="75"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="11" language="java" name="ar.edu.unlam.programacion3.practicaadhoc.tda.monticulo.Monticulo" 
+    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practicaadhoc/tda/monticulo/Monticulo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1082" y="180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="12" language="java" name="ar.edu.unlam.programacion3.practicaadhoc.tda.monticulo.MonticuloMaximo" 
+    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practicaadhoc/tda/monticulo/MonticuloMaximo.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="964" y="543"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="ar.edu.unlam.programacion3.practicaadhoc.tda.monticulo.MonticuloMinimo" 
+    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practicaadhoc/tda/monticulo/MonticuloMinimo.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1238" y="543"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="ar.edu.unlam.programacion3.practicaadhoc.tda.cola.ColaPrioridadPorMinimo" 
+    project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practicaadhoc/tda/cola/ColaPrioridadPorMinimo.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="649" y="380"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <realization id="15">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="7"/>  
   </realization>  
-  <realization id="13">    
-    <end type="SOURCE" refId="1"/>    
+  <realization id="16">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <realization id="17">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <realization id="18">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="19">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <realization id="20">    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <realization id="14">    
+  <association id="21">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="22" name="cola"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="24">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
-  <realization id="15">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="4"/>  
+  <association id="25">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="26" name="cola"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="28">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="29">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="30">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="2"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    

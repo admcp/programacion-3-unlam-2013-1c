@@ -1,19 +1,25 @@
 package ar.edu.unlam.programacion3.practica2.tda.pila;
 
+import java.util.Arrays;
+
 public class PilaEstatica<T> implements Pila<T> {
 
 	// Miembros Privados.
-	private int dimension;
+	private int dimensionReal;
 	private int tope;
 	private T pila[];
 
+	public PilaEstatica() {
+		this(10);
+	}
+	
 	@SuppressWarnings("unchecked")
-	public PilaEstatica(int dimension) {
-		if (dimension <= 0) {
+	public PilaEstatica(int dimensionInicial) {
+		if (dimensionInicial <= 0) {
 			throw new IllegalArgumentException();
 		}
-		this.dimension = dimension;
-		pila = (T[]) new Object[dimension];
+		this.dimensionReal = 0;
+		pila = (T[]) new Object[dimensionInicial];
 		tope = -1;
 	}
 
@@ -22,20 +28,15 @@ public class PilaEstatica<T> implements Pila<T> {
 		return (tope == -1);
 	}
 
-	// TODO Hay que ver como manejamos los casos en los que queremos apilar
-	// y esta llena o cuando queremos desapilar y esta vacia. Antes estos
-	// metodos devolvian un entero indicando si se pudo apilar o desapilar
-	// con exito.
-
 	@Override
 	public void push(T elemento) {
 		if(elemento == null) {
 			throw new NullPointerException();
 		}
-		if (tope == dimension) {
-			throw new IllegalStateException();
+		if (dimensionReal == pila.length) {
+			resize(pila.length * 2);
 		}
-
+		dimensionReal++;
 		pila[++tope] = elemento;
 	}
 
@@ -46,6 +47,10 @@ public class PilaEstatica<T> implements Pila<T> {
 		}
 		T elemento = pila[tope];
 		pila[tope--] = null;
+		dimensionReal--;
+		if(dimensionReal == pila.length / 4) {
+			resize(pila.length / 2);
+		}
 		return elemento;
 	}
 
@@ -63,6 +68,21 @@ public class PilaEstatica<T> implements Pila<T> {
 		while (tope != -1) {
 			pila[tope--] = null;
 		}
+		dimensionReal = 0;
+	}
+	
+	@Override
+	public String toString() {
+		return Arrays.toString(pila) + "(T= " + tope + ", " + dimensionReal + "/" + pila.length + ")";
+	}
+
+	@SuppressWarnings("unchecked")
+	private void resize(int newSize) {
+		T[] newArray = (T[]) new Object[newSize];
+		for (int i = 0; i < dimensionReal; i++) {
+			newArray[i] = pila[i];
+		}
+		pila = newArray;
 	}
 
 }

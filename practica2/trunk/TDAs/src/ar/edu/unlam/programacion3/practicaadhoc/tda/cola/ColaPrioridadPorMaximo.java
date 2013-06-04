@@ -51,6 +51,7 @@ public class ColaPrioridadPorMaximo<T extends Comparable<T>> implements Cola<T> 
 		for(int i = 0; i < size; i++) {
 			cola.remove();
 		}
+		size = 0;
 	}
 	
 	public static void main(String[] args) {

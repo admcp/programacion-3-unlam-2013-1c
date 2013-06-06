@@ -227,6 +227,11 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	public static void main(String[] args) {
+		testRegular();
+		testRendimiento();
+	}
+	
+	private static void testRegular() {
 		Cola<Integer> cola = new ColaHL<Integer>();
 
 		for (int i = 0; i < 10; i++) {
@@ -251,6 +256,36 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 		cola.clear();
 
 		System.out.println("Cola vacia: " + (cola.isEmpty() == true ? "Si" : "No"));
+		
+		cola = null;
+	}
+	
+	private static void testRendimiento() {
+		long tiempoInicial = 0;
+		long tiempoFinal = 0;
+		final int dimension = 1000000;
+		
+		Cola<Integer> colaMillon = new ColaHL<Integer>();
+		
+		System.out.println("Rendimiento de ColaHL con " + dimension + " de elementos.");
+		
+		tiempoInicial = System.currentTimeMillis();
+		for (int i = 0; i < dimension; i++) {
+			colaMillon.offer(i);
+		}
+		tiempoFinal = System.currentTimeMillis();
+		
+		System.out.println("Tiempo Total (offer): " + (tiempoFinal - tiempoInicial) + " ms");
+		
+		tiempoInicial = System.currentTimeMillis();
+		for (int i = 0; i < dimension; i++) {
+			colaMillon.poll();			
+		}
+		tiempoFinal = System.currentTimeMillis();
+		
+		System.out.println("Tiempo Total (poll): " + (tiempoFinal - tiempoInicial) + " ms");
+		
+		colaMillon = null;
 	}
 
 }

@@ -228,6 +228,11 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	public static void main(String[] args) {
+		testRegular();
+		testRendimiento();
+	}
+	
+	private static void testRegular() {
 		Pila<String> pila = new PilaHL<String>();
 
 		System.out.println("Apilando...");
@@ -277,6 +282,36 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 		System.out.println();
 
 		System.out.println(pila.isEmpty() + " - isEmpty");
+		
+		pila = null;
+	}
+	
+	private static void testRendimiento() {
+		long tiempoInicial = 0;
+		long tiempoFinal = 0;
+		final int dimension = 1000000;
+		
+		Pila<Integer> pilaMillon = new PilaHL<Integer>();
+		
+		System.out.println("Rendimiento de PilaHL con " + dimension + " de elementos.");
+		
+		tiempoInicial = System.currentTimeMillis();
+		for (int i = 0; i < dimension; i++) {
+			pilaMillon.push(i);
+		}
+		tiempoFinal = System.currentTimeMillis();
+		
+		System.out.println("Tiempo Total (push): " + (tiempoFinal - tiempoInicial) + " ms");
+		
+		tiempoInicial = System.currentTimeMillis();
+		for (int i = 0; i < dimension; i++) {
+			pilaMillon.pop();			
+		}
+		tiempoFinal = System.currentTimeMillis();
+		
+		System.out.println("Tiempo Total (pop): " + (tiempoFinal - tiempoInicial) + " ms");
+		
+		pilaMillon = null;
 	}
 
 }

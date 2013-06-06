@@ -52,6 +52,11 @@ public class PilaCL<T> implements Pila<T> {
 	}
 
 	public static void main(String[] args) {
+		testRegular();
+		testRendimiento();				
+	}
+	
+	private static void testRegular() {
 		Pila<String> pila = new PilaCL<String>();
 
 		System.out.println("Apilando...");
@@ -101,5 +106,33 @@ public class PilaCL<T> implements Pila<T> {
 		System.out.println();
 
 		System.out.println(pila.isEmpty() + " - isEmpty");
+	}
+	
+	private static void testRendimiento() {
+		long tiempoInicial = 0;
+		long tiempoFinal = 0;
+		final int dimension = 1000000;
+		
+		Pila<Integer> pilaMillon = new PilaCL<Integer>();
+		
+		System.out.println("Rendimiento de PilaCL con " + dimension + " de elementos.");
+		
+		tiempoInicial = System.currentTimeMillis();
+		for (int i = 0; i < dimension; i++) {
+			pilaMillon.push(i);
+		}
+		tiempoFinal = System.currentTimeMillis();
+		
+		System.out.println("Tiempo Total (push): " + (tiempoFinal - tiempoInicial) + " ms");
+		
+		tiempoInicial = System.currentTimeMillis();
+		for (int i = 0; i < dimension; i++) {
+			pilaMillon.pop();			
+		}
+		tiempoFinal = System.currentTimeMillis();
+		
+		System.out.println("Tiempo Total (pop): " + (tiempoFinal - tiempoInicial) + " ms");
+		
+		pilaMillon = null;
 	}
 }

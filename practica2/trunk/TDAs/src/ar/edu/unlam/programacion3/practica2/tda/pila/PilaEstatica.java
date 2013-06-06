@@ -48,7 +48,7 @@ public class PilaEstatica<T> implements Pila<T> {
 		T elemento = pila[tope];
 		pila[tope--] = null;
 		dimensionReal--;
-		if(dimensionReal == pila.length / 4) {
+		if(dimensionReal > 0 && dimensionReal == pila.length / 4) {
 			resize(pila.length / 2);
 		}
 		return elemento;

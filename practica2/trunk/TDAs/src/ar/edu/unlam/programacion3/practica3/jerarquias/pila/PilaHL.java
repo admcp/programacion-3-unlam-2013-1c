@@ -5,10 +5,10 @@ import ar.edu.unlam.programacion3.practica2.tda.pila.Pila;
 
 public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 
-	//------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 	// Comportamiento esperado de Pila (parte por la interfaz, parte heredado)
-	//------------------------------------------------------------------------
-	
+	// ------------------------------------------------------------------------
+
 	@Override
 	public boolean isEmpty() {
 		return super.isEmpty();
@@ -47,42 +47,47 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	public void clear() {
 		super.clear();
 	}
-	
+
 	/**
-	 * Observar el elemento esperando a ser quitado de la pila. Es el equivalente
-	 * de {@link peek}.
+	 * Observar el elemento esperando a ser quitado de la pila. Es el
+	 * equivalente de {@link peek}.
+	 * 
 	 * @return primer elemento de la pila (si la pila está vacía: excepción).
 	 */
 	@Override
 	public T getFirst() {
 		return this.peek();
 	}
-	
+
 	/**
 	 * Quitar de la pila. Es el equivalente de {@link pop}.
+	 * 
 	 * @return elemento quitado de la pila (si la pila está vacía: excepción).
 	 */
 	@Override
 	public T removeFirst() {
 		return this.pop();
 	}
-	
+
 	/**
 	 * Agregar elemento a la pila. Es el equivalente de {@link #push}.
-	 * @param elemento es el elemento a ser apilado.
+	 * 
+	 * @param elemento
+	 *            es el elemento a ser apilado.
 	 */
 	@Override
 	public void addFirst(T elemento) {
 		this.push(elemento);
 	}
-	
-	//------------------------------------------------------------
+
+	// ------------------------------------------------------------
 	// Sobreescribiendo comportamiento libertino de Lista Enlazada
-	//------------------------------------------------------------
+	// ------------------------------------------------------------
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -91,8 +96,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -101,8 +107,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -111,8 +118,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -121,18 +129,20 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
 	public boolean add(T elemento) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -141,8 +151,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -151,8 +162,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -161,8 +173,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -171,8 +184,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -181,8 +195,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -191,8 +206,9 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -201,13 +217,14 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Pila. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Pila. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
 	public int lastIndexOf(T elemento) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 }

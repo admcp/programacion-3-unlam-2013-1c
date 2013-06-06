@@ -1,28 +1,34 @@
 package ar.edu.unlam.programacion3.practica2.tda.cola;
 
+import java.util.Arrays;
+
 public class ColaEstatica<T> implements Cola<T> {
 
 	// MIEMBROS PRIVADOS
-	private int dimension;
+	private int dimensionReal;
 	private T cola[];
 	private int primero;
 	private int ultimo;
 
+	public ColaEstatica() {
+		this(10);
+	}
+
 	@SuppressWarnings("unchecked")
-	public ColaEstatica(int dimension) {
-		if (dimension <= 0) {
+	public ColaEstatica(int dimensionInicial) {
+		if (dimensionInicial <= 0) {
 			throw new IllegalArgumentException();
 		}
 
-		this.dimension = dimension;
-		cola = (T[]) new Object[dimension];
+		this.dimensionReal = 0;
+		cola = (T[]) new Object[dimensionInicial];
 		primero = 0;
-		ultimo = -1;
+		ultimo = 0;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return (primero == 0) && (ultimo == -1);
+		return dimensionReal == 0;
 	}
 
 	@Override
@@ -31,28 +37,35 @@ public class ColaEstatica<T> implements Cola<T> {
 			throw new NullPointerException();
 		}
 
-		if (primero == 0 && ultimo == (dimension - 1) || ultimo != -1 && (ultimo + 1) == primero) {
-			throw new IllegalStateException();
+		if (dimensionReal == cola.length) {
+			resize(cola.length * 2);
 		}
 
-		ultimo = (ultimo + 1) % dimension;
-		cola[ultimo] = elemento;
+		cola[ultimo++] = elemento;
+		if (ultimo == cola.length) {
+			ultimo = 0;
+		}
+		dimensionReal++;
+
 	}
 
 	@Override
 	public T poll() {
-		if ((primero == 0) && (ultimo == -1)) {
+		if (dimensionReal == 0) {
 			return null;
 		}
 
 		T elemento = cola[primero];
 		cola[primero] = null;
+		dimensionReal--;
+		primero++;
 
-		if (primero == ultimo) {
+		if (primero == cola.length) {
 			primero = 0;
-			ultimo = -1;
-		} else {
-			primero = (primero + 1) % dimension;
+		}
+
+		if (dimensionReal > 0 && dimensionReal == cola.length / 4) {
+			resize(cola.length / 2);
 		}
 
 		return elemento;
@@ -60,7 +73,7 @@ public class ColaEstatica<T> implements Cola<T> {
 
 	@Override
 	public T peek() {
-		if ((primero == 0) && (ultimo == -1)) {
+		if (dimensionReal == 0) {
 			return null;
 		}
 
@@ -69,19 +82,35 @@ public class ColaEstatica<T> implements Cola<T> {
 
 	@Override
 	public void clear() {
-		while ((primero != 0) && (ultimo != -1)) {
-			cola[primero] = null;
-
-			if (primero == ultimo) {
-				primero = 0;
-				ultimo = -1;
-			} else {
-				primero = (primero + 1) % dimension;
-			}
+		for (int i = 0; i < dimensionReal; i++) {
+			cola[i] = null;
 		}
+		ultimo = 0;
+		dimensionReal = 0;
+	}
+
+	@Override
+	public String toString() {
+		return Arrays.toString(cola) + "(P=" + primero + ", U=" + ultimo + ", " + dimensionReal + "/" + cola.length	+ ")";
+	}
+
+	@SuppressWarnings("unchecked")
+	private void resize(int newSize) {
+		T[] nuevaCola = (T[]) new Object[newSize];
+		for (int i = 0; i < dimensionReal; i++) {
+			nuevaCola[i] = cola[(primero + i) % cola.length];
+		}
+		cola = nuevaCola;
+		primero = 0;
+		ultimo = dimensionReal;
 	}
 
 	public static void main(String[] args) {
+		testRegular();
+		testRendimiento();
+	}
+
+	private static void testRegular() {
 		Cola<String> cola = new ColaEstatica<String>(10);
 
 		System.out.println("Encolando...");
@@ -131,5 +160,36 @@ public class ColaEstatica<T> implements Cola<T> {
 		System.out.println();
 
 		System.out.println(cola.isEmpty() + " - isEmpty");
+
+		cola = null;
 	}
+
+	private static void testRendimiento() {
+		long tiempoInicial = 0;
+		long tiempoFinal = 0;
+		final int dimension = 1000000;
+
+		Cola<Integer> colaMillon = new ColaEstatica<Integer>(dimension);
+
+		System.out.println("Rendimiento de ColaEstatica con " + dimension + " de elementos.");
+
+		tiempoInicial = System.currentTimeMillis();
+		for (int i = 0; i < dimension; i++) {
+			colaMillon.offer(i);
+		}
+		tiempoFinal = System.currentTimeMillis();
+
+		System.out.println("Tiempo Total (offer): " + (tiempoFinal - tiempoInicial) + " ms");
+
+		tiempoInicial = System.currentTimeMillis();
+		for (int i = 0; i < dimension; i++) {
+			colaMillon.poll();
+		}
+		tiempoFinal = System.currentTimeMillis();
+
+		System.out.println("Tiempo Total (poll): " + (tiempoFinal - tiempoInicial) + " ms");
+
+		colaMillon = null;
+	}
+
 }

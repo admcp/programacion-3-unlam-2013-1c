@@ -4,23 +4,23 @@ import ar.edu.unlam.programacion3.practica2.tda.cola.Cola;
 import ar.edu.unlam.programacion3.practica2.tda.lista.ListaEnlazada;
 
 public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
-	
-	//------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------
 	// Comportamiento esperado de Cola (parte por la interfaz, parte heredado)
-	//------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 
 	@Override
 	public void offer(T elemento) {
-		if(elemento == null) {
+		if (elemento == null) {
 			throw new NullPointerException();
 		}
-		
+
 		super.addLast(elemento);
 	}
 
 	@Override
 	public T poll() {
-		if(this.isEmpty()) {
+		if (this.isEmpty()) {
 			return null;
 		}
 		return super.removeFirst();
@@ -28,15 +28,16 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 
 	@Override
 	public T peek() {
-		if(this.isEmpty()) {
+		if (this.isEmpty()) {
 			return null;
 		}
 		return super.getFirst();
 	}
-	
+
 	/**
-	 * Observar el elemento esperando a ser quitado de la cola. Es el equivalente
-	 * de {@link peek}.
+	 * Observar el elemento esperando a ser quitado de la cola. Es el
+	 * equivalente de {@link peek}.
+	 * 
 	 * @return primer elemento de la cola (si la cola está vacía: excepción).
 	 */
 	@Override
@@ -46,6 +47,7 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 
 	/**
 	 * Quitar de la cola. Es el equivalente de {@link poll}.
+	 * 
 	 * @return elemento quitado de la cola (si la cola está vacía: excepción).
 	 */
 	@Override
@@ -55,7 +57,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 
 	/**
 	 * Agregar elemento a la cola. Es el equivalente de {@link #offer}.
-	 * @param elemento es el elemento a ser encolado.
+	 * 
+	 * @param elemento
+	 *            es el elemento a ser encolado.
 	 */
 	@Override
 	public void addLast(T elemento) {
@@ -68,8 +72,11 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Agregar elemento a la cola. Es el equivalente de {@link #offer}, pero devuelve true.
-	 * @param elemento es el elemento a ser encolado.
+	 * Agregar elemento a la cola. Es el equivalente de {@link #offer}, pero
+	 * devuelve true.
+	 * 
+	 * @param elemento
+	 *            es el elemento a ser encolado.
 	 * @return <tt>true</tt>.
 	 */
 	@Override
@@ -82,14 +89,15 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	public void clear() {
 		super.clear();
 	}
-	
-	//------------------------------------------------------------
+
+	// ------------------------------------------------------------
 	// Sobreescribiendo comportamiento libertino de Lista Enlazada
-	//------------------------------------------------------------
+	// ------------------------------------------------------------
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -98,8 +106,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -108,8 +117,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -118,8 +128,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -128,8 +139,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -138,8 +150,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -148,8 +161,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -158,8 +172,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -168,8 +183,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -178,8 +194,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -188,8 +205,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override
@@ -198,8 +216,9 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 	}
 
 	/**
-	 * Este método no corresponde a Cola. Siempre arroja excepción si
-	 * se trata de usar.
+	 * Este método no corresponde a Cola. Siempre arroja excepción si se trata
+	 * de usar.
+	 * 
 	 * @throws UnsupportedOperationException
 	 */
 	@Override

@@ -1,0 +1,3 @@
+Ana 3
+Ricardo 2
+No hay mas nombres repetidos.

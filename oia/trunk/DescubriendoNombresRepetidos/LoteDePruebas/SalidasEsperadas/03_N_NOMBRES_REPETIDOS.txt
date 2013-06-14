@@ -1,0 +1,5 @@
+Ana 4
+Ricardo 7
+Juan 3
+Manuel 2
+Pilar 9

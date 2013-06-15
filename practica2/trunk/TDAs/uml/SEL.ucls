@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/MatrizMath.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1045" y="257"/>    
+    <position height="-1" width="-1" x="1046" y="257"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -82,7 +82,7 @@
   <class id="9" language="java" name="ar.edu.unlam.programacion3.practica2.tda.sel.SistemaLinealDeEcuaciones" 
     project="TDAs" file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/sel/SistemaLinealDeEcuaciones.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="163" y="686"/>    
+    <position height="-1" width="-1" x="165" y="687"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -120,37 +120,37 @@
     </display>  
   </class>  
   <generalization id="13">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <generalization id="14">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="15">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="16">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="17">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <generalization id="18">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <association id="14">    
+  <association id="19">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="15" name="factorizacionLU"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="20" name="factorizacionLU"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="19">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
-  <generalization id="21">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    

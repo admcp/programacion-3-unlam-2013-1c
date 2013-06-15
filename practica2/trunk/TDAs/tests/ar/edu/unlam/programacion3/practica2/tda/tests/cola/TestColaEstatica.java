@@ -69,7 +69,7 @@ public class TestColaEstatica {
 		long tiempoFinal = 0;
 		final int dimension = 1000000;
 
-		Cola<Integer> colaMillon = new ColaEstatica<Integer>(dimension);
+		Cola<Integer> colaMillon = new ColaEstatica<Integer>();
 
 		System.out.println("Rendimiento de ColaEstatica con " + dimension + " de elementos.");
 

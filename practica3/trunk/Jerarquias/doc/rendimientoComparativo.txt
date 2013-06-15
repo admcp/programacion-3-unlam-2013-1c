@@ -1,0 +1,57 @@
+Rendimiento de ColaEstatica con 1000000 de elementos.
+Tiempo Total (offer): 40 ms
+Tiempo Total (poll): 15 ms
+
+Rendimiento de ColaDinamica con 1000000 de elementos.
+Tiempo Total (offer): 239 ms
+Tiempo Total (poll): 18 ms
+
+Rendimiento de PilaEstatica con 1000000 de elementos.
+Tiempo Total (push): 35 ms
+Tiempo Total (pop): 13 ms
+
+Rendimiento de PilaDinamica con 1000000 de elementos.
+Tiempo Total (push): 419 ms
+Tiempo Total (pop): 15 ms
+
+Rendimiento de ColaCL con 1000000 de elementos.
+Tiempo Total (offer): 211 ms
+Tiempo Total (poll): 20 ms
+
+Rendimiento de ColaHL con 1000000 de elementos.
+Tiempo Total (offer): 208 ms
+Tiempo Total (poll): 20 ms
+
+Rendimiento de PilaCL con 1000000 de elementos.
+Tiempo Total (push): 207 ms
+Tiempo Total (pop): 21 ms
+
+Rendimiento de PilaHL con 1000000 de elementos.
+Tiempo Total (push): 211 ms
+Tiempo Total (pop): 20 ms
+
+Rendimiento de ColaPrioridadPorMaximo con 1000000 de elementos.
+Tiempo Total (offer): 114 ms
+Tiempo Total (poll): 1153 ms
+
+Rendimiento de ColaPrioridadPorMinimo con 1000000 de elementos.
+Tiempo Total (offer): 146 ms
+Tiempo Total (poll): 1142 ms
+
+Add/Remove usando índices.
+
+Rendimiento de LinkedList con 1000000 de elementos.
+Tiempo Total (add): 22 ms
+Tiempo Total (remove): 1287972 ms
+Rendimiento de ArrayList con 1000000 de elementos.
+Tiempo Total (add): 19 ms
+Tiempo Total (remove): 177575 ms
+
+Add/Remove usando objetos.
+
+Rendimiento de LinkedList con 1000000 de elementos.
+Tiempo Total (add): 21 ms
+Tiempo Total (remove): 21 ms
+Rendimiento de ArrayList con 1000000 de elementos.
+Tiempo Total (add): 306 ms
+Tiempo Total (remove): 435023 ms

@@ -226,7 +226,7 @@ public class PilaHL<T> extends ListaEnlazada<T> implements Pila<T> {
 	public int lastIndexOf(T elemento) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	public static void main(String[] args) {
 		testRegular();
 		testRendimiento();

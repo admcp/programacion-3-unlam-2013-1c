@@ -104,7 +104,7 @@ public class ColaEstatica<T> implements Cola<T> {
 		primero = 0;
 		ultimo = dimensionReal;
 	}
-
+	
 	public static void main(String[] args) {
 		testRegular();
 		testRendimiento();
@@ -169,7 +169,7 @@ public class ColaEstatica<T> implements Cola<T> {
 		long tiempoFinal = 0;
 		final int dimension = 1000000;
 
-		Cola<Integer> colaMillon = new ColaEstatica<Integer>(dimension);
+		Cola<Integer> colaMillon = new ColaEstatica<Integer>();
 
 		System.out.println("Rendimiento de ColaEstatica con " + dimension + " de elementos.");
 

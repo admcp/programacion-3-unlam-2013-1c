@@ -50,7 +50,7 @@ public class PilaCL<T> implements Pila<T> {
 	public void clear() {
 		pila.clear();
 	}
-
+	
 	public static void main(String[] args) {
 		testRegular();
 		testRendimiento();				
@@ -135,4 +135,5 @@ public class PilaCL<T> implements Pila<T> {
 		
 		pilaMillon = null;
 	}
+	
 }

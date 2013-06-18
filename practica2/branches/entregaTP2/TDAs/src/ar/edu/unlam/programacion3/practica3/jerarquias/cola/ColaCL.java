@@ -49,7 +49,7 @@ public class ColaCL<T> implements Cola<T> {
 	public void clear() {
 		cola.clear();
 	}
-
+	
 	public static void main(String[] args) {
 		testRegular();
 		testRendimiento();

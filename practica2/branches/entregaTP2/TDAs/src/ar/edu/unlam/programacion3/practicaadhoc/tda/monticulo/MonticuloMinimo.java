@@ -134,7 +134,7 @@ public class MonticuloMinimo<T extends Comparable<T>> implements Monticulo<T> {
 		}
 		return arrayPrint.toString();
 	}
-
+	
 	public static void main(String[] args) {
 		Monticulo<Integer> monticuloMin = new MonticuloMinimo<Integer>();
 		monticuloMin.add(20);
@@ -151,4 +151,5 @@ public class MonticuloMinimo<T extends Comparable<T>> implements Monticulo<T> {
 			monticuloMin.remove();
 		}
 	}
+	
 }

@@ -287,5 +287,5 @@ public class ColaHL<T> extends ListaEnlazada<T> implements Cola<T> {
 		
 		colaMillon = null;
 	}
-
+	
 }

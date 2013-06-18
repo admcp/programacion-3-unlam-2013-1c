@@ -128,7 +128,7 @@ public class MonticuloMaximo<T extends Comparable<T>> implements Monticulo<T> {
 		}
 		return arrayPrint.toString();
 	}
-
+	
 	public static void main(String[] args) {
 		Monticulo<Integer> monticuloMax = new MonticuloMaximo<Integer>();
 		monticuloMax.add(20);
@@ -145,4 +145,5 @@ public class MonticuloMaximo<T extends Comparable<T>> implements Monticulo<T> {
 			monticuloMax.remove();
 		}
 	}
+
 }

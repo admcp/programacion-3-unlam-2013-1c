@@ -18,10 +18,10 @@ public class NoSePuedeVivirAhi {
 		PrintWriter bufferOut = null;
 
 		try {
-			archIn = new File("clima.in");
+			archIn = new File(args.length == 0 ? "clima.in" : args[0]);
 			archReader = new FileReader(archIn);
 			bufferIn = new BufferedReader(archReader);
-			archOut = new File("clima.out");
+			archOut = new File(args.length == 0 ? "clima.out" : args[1]);
 			bufferOut = new PrintWriter(archOut);
 
 			String buffer;

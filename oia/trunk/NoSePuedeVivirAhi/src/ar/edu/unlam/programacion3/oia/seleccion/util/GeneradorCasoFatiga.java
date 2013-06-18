@@ -10,7 +10,7 @@ public class GeneradorCasoFatiga {
 		PrintWriter bufferOut = null;
 		
 		try {
-			file = new File("fatiga.in");
+			file = new File("Lote de Pruebas/Entradas/04_FATIGA_200000.in");
 			bufferOut = new PrintWriter(file);
 			
 			bufferOut.println("200000");
@@ -20,6 +20,22 @@ public class GeneradorCasoFatiga {
 					bufferOut.println("0 0");
 				}
 				bufferOut.println("-50 60");
+			}
+			
+		} catch(FileNotFoundException ex) {
+			ex.printStackTrace();
+		} finally {
+			if(bufferOut != null) {
+				bufferOut.close();
+			}
+		}
+		
+		try {
+			file = new File("Lote de Pruebas/Salidas Esperadas/04_FATIGA_200000.out");
+			bufferOut = new PrintWriter(file);
+			
+			for(int i = 0; i < 200000; i++) {
+				bufferOut.println((i + 1) + " 0");
 			}
 			
 		} catch(FileNotFoundException ex) {

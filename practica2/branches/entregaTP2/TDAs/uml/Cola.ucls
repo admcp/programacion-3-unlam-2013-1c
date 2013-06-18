@@ -4,8 +4,8 @@
   <class id="1" language="java" name="ar.edu.unlam.programacion3.practica3.jerarquias.cola.ColaHL" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica3/jerarquias/cola/ColaHL.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="429" y="1208"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+    <position height="459" width="233" x="313" y="978"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -33,29 +33,29 @@
   </class>  
   <interface id="4" language="java" name="ar.edu.unlam.programacion3.practica2.tda.lista.Lista" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/lista/Lista.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="429" y="193"/>    
+    <position height="-1" width="-1" x="430" y="194"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <generalization id="5">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <realization id="6">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="7">    
+  <association id="5">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="8" name="cola"/>      
-      <multiplicity id="9" minimum="0" maximum="1"/>    
+      <attribute id="6" name="cola"/>      
+      <multiplicity id="7" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="8">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <generalization id="9">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    

@@ -14,7 +14,7 @@
   <class id="2" language="java" name="ar.edu.unlam.programacion3.practica3.jerarquias.pila.PilaHL" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica3/jerarquias/pila/PilaHL.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="447" y="1191"/>    
+    <position height="-1" width="-1" x="444" y="1174"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -33,29 +33,29 @@
   </class>  
   <interface id="4" language="java" name="ar.edu.unlam.programacion3.practica2.tda.lista.Lista" project="TDAs" 
     file="/TDAs/src/ar/edu/unlam/programacion3/practica2/tda/lista/Lista.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="445" y="168"/>    
+    <position height="-1" width="-1" x="445" y="169"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <generalization id="5">    
+  <realization id="5">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <generalization id="6">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <association id="6">    
+  <association id="7">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="7" name="pila"/>      
-      <multiplicity id="8" minimum="0" maximum="1"/>    
+      <attribute id="8" name="pila"/>      
+      <multiplicity id="9" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="9">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    

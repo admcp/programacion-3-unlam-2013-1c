@@ -84,7 +84,7 @@ public class PilaEstatica<T> implements Pila<T> {
 		}
 		pila = newArray;
 	}
-
+	
 	public static void main(String[] args) {
 		testRegular();
 		testRendimiento();
@@ -169,4 +169,5 @@ public class PilaEstatica<T> implements Pila<T> {
 		
 		pilaMillon = null;
 	}
+
 }

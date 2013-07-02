@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-import ar.edu.unlam.programacion3.adt.conjuntos.ConjuntoDisjunto;
+import ar.edu.unlam.programacion3.adt.conjuntos.UnionBalanceadaRapida;
 
 public class GrafoSimplePesado extends GrafoSimple {
 	
@@ -209,7 +209,7 @@ public class GrafoSimplePesado extends GrafoSimple {
 		}
 		
 		// Conjuntos disjuntos de nodos
-		ConjuntoDisjunto conjuntosNodos = new ConjuntoDisjunto(cantidadNodos);
+		UnionBalanceadaRapida conjuntosNodos = new UnionBalanceadaRapida(cantidadNodos);
 		
 		// El recorrido para devolver
 		List<ArcoPesado> recorrido = new ArrayList<ArcoPesado>();
@@ -229,7 +229,7 @@ public class GrafoSimplePesado extends GrafoSimple {
 			// Si dicho arco no forma un ciclo con los que ya están en el recorrido lo agregamos
 			int nodoOrigen = arcoMenor.getNodoOrigen();
 			int nodoDestino = arcoMenor.getNodoDestino();
-			if(!conjuntosNodos.pertenecenAlMismoConjunto(nodoOrigen - 1, nodoDestino - 1)) {
+			if(!conjuntosNodos.estanConectados(nodoOrigen - 1, nodoDestino - 1)) {
 				conjuntosNodos.unir(nodoOrigen - 1, nodoDestino - 1);
 				recorrido.add(arcoMenor);
 			}

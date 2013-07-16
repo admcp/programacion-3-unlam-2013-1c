@@ -15,8 +15,10 @@ import ar.edu.unlam.programacion3.adt.grafo.GrafoNoPesado;
 
 public class GrafoRegularAleatorio {
 
+	private static final boolean DEBUG = true;
+
 	public static void main(String[] args) {
-		
+
 		// Para el archivo de salida
 		File file = null;
 		PrintWriter printWriter = null;
@@ -25,9 +27,8 @@ public class GrafoRegularAleatorio {
 		InputStreamReader inputStreamReader = null;
 		BufferedReader inputBufferedReader = null;
 
-		
 		// LECTURA DE PARÁMETROS DESDE LA CONSOLA
-		
+
 		int nodos = -1;
 		int grado = -1;
 
@@ -39,25 +40,25 @@ public class GrafoRegularAleatorio {
 			String buffer = null;
 
 			// Leemos la cantidad de nodos
-			while(nodos <= 0) {
+			while (nodos <= 0) {
 				System.out.print("Ingrese la cantidad de nodos: ");
 				buffer = inputBufferedReader.readLine();
 				nodos = Integer.parseInt(buffer);
-				if(nodos <= 0) {
+				if (nodos <= 0) {
 					System.out.println("La cantidad de nodos debe ser un entero positivo.");
 				}
 			}
-			
+
 			// Leemos el grado
-			while(grado < 0) {
+			while (grado < 0) {
 				System.out.print("Ingrese el grado: ");
 				buffer = inputBufferedReader.readLine();
 				grado = Integer.parseInt(buffer);
-				if(grado < 0) {
+				if (grado < 0) {
 					System.out.println("El grado debe ser un entero positivo.");
 				}
 			}
-			
+
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} catch (NumberFormatException ex) {
@@ -73,7 +74,7 @@ public class GrafoRegularAleatorio {
 		}
 
 		// CREACIÓN DEL GRAFO
-		
+
 		// Condiciones para que G(N, k) sea k-regular:
 		// 1. k + 1 <= N.
 		// 2. N * k par.
@@ -88,104 +89,148 @@ public class GrafoRegularAleatorio {
 		}
 
 		GrafoNoPesado grafo = new GrafoNoPesado(nodos);
-		
+
+		int cantidadReintentos = 0;
+		long tiempoInicial = 0;
+		long tiempoFinal = 0;
+
 		boolean primeraVez = true;
-		while(!grafo.esKRegular(grado)) {
+		tiempoInicial = System.currentTimeMillis();
+		while (!grafo.esKRegular(grado)) {
 			grafo.reinicializarGrafo();
-			
-			if(primeraVez) {
-				primeraVez = false;
-			} else {
-				System.out.println("Reintentando...");
+
+			if (DEBUG) {
+				if (primeraVez) {
+					primeraVez = false;
+				} else {
+					cantidadReintentos++;
+					System.out.println("Reintentando...");
+				}
 			}
-			
+
 			// Generamos una lista de nodos n * k: 0, 1, 2, .., n, 0, 1, 2, ...
 			List<Integer> listaNodos = new ArrayList<Integer>(nodos * grado);
-	
+
 			int j = 0;
-			for(int i = 0; i < nodos * grado; i++) {
+			for (int i = 0; i < nodos * grado; i++) {
 				listaNodos.add(j++);
-				if(j == nodos) {
+				if (j == nodos) {
 					j = 0;
 				}
 			}
-			
-			// Convertimos la lista de nodos a una lista de arcos
+
+			// Creamos la lista de arcos posibles
 			List<Arco> listaArcosPosibles = new ArrayList<Arco>(nodos * grado / 2);
-			
-			for(int i = 0; i < listaNodos.size(); i += 2) {
-				listaArcosPosibles.add(new Arco(listaNodos.get(i), listaNodos.get(i + 1)));
-			}
-			
+
 			// Empezamos a armar el grafo
 			Random random = new Random(System.currentTimeMillis());
-			
+
+			// Criterio arbitrario de reintento: si pasó un 1 seg sin cambios, reintentar.
+			boolean reintentarPorAgotamiento = false;
+			long t0 = System.currentTimeMillis();
+			boolean huboCambios = false;
+
 			// Mientras la lista de nodos universal no esté vacía
-			while(!listaNodos.isEmpty()) {
+			while (!listaNodos.isEmpty() && !reintentarPorAgotamiento) {
 				// Tomamos dos índices distintos al azar de dicha lista
 				int idx1 = random.nextInt(listaNodos.size());
 				int idx2 = random.nextInt(listaNodos.size());
-				while(idx1 == idx2) {
+				while (idx1 == idx2) { // Descartamos la elección del mismo
+										// índice
 					idx1 = random.nextInt(listaNodos.size());
 					idx2 = random.nextInt(listaNodos.size());
 				}
-				
+
 				// Con dichos índices obtenemos un par de nodos
 				int nodoOrigen = listaNodos.get(idx1);
 				int nodoDestino = listaNodos.get(idx2);
-				
-				// Si dichos nodos no forman un arco en los arcos aleatorios creados:
-				// Lo agregamos al grafo y quitamos los nodos de la lista de nodos
-				// NOTA: Si ya no hay forma de agregar el arco, empezamos de cero.
+
+				// Con dichos nodos creamos un arco
 				Arco arco = new Arco(nodoOrigen, nodoDestino);
 
-				if(!listaArcosPosibles.contains(arco) && nodoOrigen != nodoDestino) {
-					if(idx1 < idx2) {
+				// Si dicho arco no es un bucle y nuestra lista no lo contiene
+				if (nodoOrigen != nodoDestino && !listaArcosPosibles.contains(arco)) {
+					// Quitamos dichos nodos de la lista de nodos
+					if (idx1 < idx2) {
 						listaNodos.remove(idx1);
 						listaNodos.remove(idx2 - 1);
 					} else {
 						listaNodos.remove(idx1);
 						listaNodos.remove(idx2);
 					}
+
+					// Lo agregamos a la lista de arcos
+					listaArcosPosibles.add(arco);
+
+					// Creamos dicho arco en el grafo
 					grafo.agregarArco(nodoOrigen, nodoDestino);
-				} else if(listaNodos.size() == 2 && listaArcosPosibles.contains(arco)) {
-					listaNodos.clear();
+
+					huboCambios = true;
+					t0 = System.currentTimeMillis();
+
+					if (DEBUG) {
+						// Mostramos el progreso para grafos grandes
+						if (listaArcosPosibles.size() % 1000 == 0) {
+							System.out.println(String.format("%.2f",
+									(listaArcosPosibles.size() / ((nodos * grado) / 2.0)) * 100)
+									+ "% completo ("
+									+ String.format("%.2f", (System.currentTimeMillis() - tiempoInicial) / 1000.0)
+									+ " seg corriendo). ");
+						}
+					}
+				} else if (nodoOrigen == nodoDestino || listaArcosPosibles.contains(arco)) {
+					huboCambios = false;
 				}
+
+				// Si no hubo cambios durante 1 seg.
+				if (!huboCambios && System.currentTimeMillis() - t0 >= 1000) {
+					reintentarPorAgotamiento = true;
+				}
+
 			}
 		}
-	
+		tiempoFinal = System.currentTimeMillis();
+
 		// ESCRITURA DEL GRAFO A UN ARCHIVO
-		
+
 		try {
 			file = new File("grafoRegular.out");
 			printWriter = new PrintWriter(file);
-			
+
 			// Escribimos el encabezado
 			int cantidadDeNodos = nodos;
 			int cantidadDeArcos = grafo.cantidadDeArcos();
 			double porcentajeDeAdyacencia = cantidadDeArcos / ((nodos * (nodos - 1)) / 2.0);
 			int gradoMax = grado;
 			int gradoMin = grado;
-			
+
 			printWriter.println(cantidadDeNodos + " " +
-								cantidadDeArcos + " " + 
-								porcentajeDeAdyacencia + " " +
-								gradoMax + " " +
-								gradoMin);
-			
+							    cantidadDeArcos + " " +
+							    porcentajeDeAdyacencia + " " +
+							    gradoMax + " " +
+							    gradoMin);
+
 			List<Arco> conjuntoDeArcos = grafo.conjuntoArcos();
-			for(Arco arco : conjuntoDeArcos) {
+			for (Arco arco : conjuntoDeArcos) {
 				printWriter.println(arco.getNodoOrigen() + " " + arco.getNodoDestino());
 			}
-			
-		} catch(FileNotFoundException ex) {
+
+		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} finally {
-			if(printWriter != null) {
+			if (printWriter != null) {
 				printWriter.close();
 			}
 		}
 
-	}
+		if (DEBUG) {
+			// Mostrar estadísticas
+			System.out.println("El algoritmo tuvo que ser corrido " + (cantidadReintentos + 1)
+					+ ((cantidadReintentos + 1) == 1 ? " vez." : " veces."));
+			System.out.println("Se encontró un grafo " + grado + "-regular de " + nodos + " nodos.");
+			System.out.println("Dicho grafo requirió " + grafo.cantidadDeArcos() + " arcos.");
+			System.out.println("Y tomó " + (tiempoFinal - tiempoInicial) / 1000.0 + " seg en encontrarse una solución.");
+		}
 
+	}
 }

@@ -22,57 +22,66 @@ public class GrafoRegularAleatorio {
 		// Para el archivo de salida
 		File file = null;
 		PrintWriter printWriter = null;
+		String fileName = null;
 
 		// Para la lectura por consola
 		InputStreamReader inputStreamReader = null;
 		BufferedReader inputBufferedReader = null;
-
-		// LECTURA DE PARÁMETROS DESDE LA CONSOLA
-
+		
 		int nodos = -1;
 		int grado = -1;
-
-		try {
-			// Abrimos la consola
-			inputStreamReader = new InputStreamReader(System.in);
-			inputBufferedReader = new BufferedReader(inputStreamReader);
-
-			String buffer = null;
-
-			// Leemos la cantidad de nodos
-			while (nodos <= 0) {
-				System.out.print("Ingrese la cantidad de nodos: ");
-				buffer = inputBufferedReader.readLine();
-				nodos = Integer.parseInt(buffer);
-				if (nodos <= 0) {
-					System.out.println("La cantidad de nodos debe ser un entero positivo.");
+		
+		if(args.length != 0) {
+			// LECTURA DE PARÁMETROS DESDE MAIN
+			
+			nodos = Integer.parseInt(args[0]);
+			grado = Integer.parseInt(args[1]);
+			fileName = args[2];
+			
+		} else {
+			// LECTURA DE PARÁMETROS DESDE LA CONSOLA
+			
+			try {
+				// Abrimos la consola
+				inputStreamReader = new InputStreamReader(System.in);
+				inputBufferedReader = new BufferedReader(inputStreamReader);
+	
+				String buffer = null;
+	
+				// Leemos la cantidad de nodos
+				while (nodos <= 0) {
+					System.out.print("Ingrese la cantidad de nodos: ");
+					buffer = inputBufferedReader.readLine();
+					nodos = Integer.parseInt(buffer);
+					if (nodos <= 0) {
+						System.out.println("La cantidad de nodos debe ser un entero positivo.");
+					}
 				}
-			}
-
-			// Leemos el grado
-			while (grado < 0) {
-				System.out.print("Ingrese el grado: ");
-				buffer = inputBufferedReader.readLine();
-				grado = Integer.parseInt(buffer);
-				if (grado < 0) {
-					System.out.println("El grado debe ser un entero positivo.");
+	
+				// Leemos el grado
+				while (grado < 0) {
+					System.out.print("Ingrese el grado: ");
+					buffer = inputBufferedReader.readLine();
+					grado = Integer.parseInt(buffer);
+					if (grado < 0) {
+						System.out.println("El grado debe ser un entero positivo.");
+					}
 				}
-			}
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} catch (NumberFormatException ex) {
-			ex.printStackTrace();
-		} finally {
-			if (inputBufferedReader != null) {
-				try {
-					inputBufferedReader.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
+	
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+			} finally {
+				if (inputBufferedReader != null) {
+					try {
+						inputBufferedReader.close();
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
 				}
 			}
 		}
-
 		// CREACIÓN DEL GRAFO
 
 		// Condiciones para que G(N, k) sea k-regular:
@@ -194,7 +203,7 @@ public class GrafoRegularAleatorio {
 		// ESCRITURA DEL GRAFO A UN ARCHIVO
 
 		try {
-			file = new File("grafoRegular.out");
+			file = new File(fileName == null ? "grafoRegular.out" : fileName);
 			printWriter = new PrintWriter(file);
 
 			// Escribimos el encabezado

@@ -3,6 +3,7 @@ package ar.edu.unlam.programacion3.practica2.tda.sel;
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.FilaDeCerosException;
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.MatrizSingularException;
 
+// FIXME: No está funcionando, posiblemente eigenvalorDominante o invertir o determinante alteran la matriz original.
 public class MatrizInvertible extends MatrizCuadrada {
 	
 	// MIEMBROS "FACTORIZACIÓN LU"
@@ -294,6 +295,13 @@ public class MatrizInvertible extends MatrizCuadrada {
 		
 		MatrizInvertible matriz = new MatrizInvertible(new double[][] {{1, 1, 3}, {0, 5, 1}, {0, 7, 0}});
 		System.out.println(matriz.normaDos(new VectorMath(new double[] {1, 1, 1}), 0.00001));
+		
+		inversa = matriz.inversa();
+		
+		System.out.println(matriz);
+		System.out.println(inversa);
+		System.out.println(matriz.determinante());
+		
 	}
 
 }

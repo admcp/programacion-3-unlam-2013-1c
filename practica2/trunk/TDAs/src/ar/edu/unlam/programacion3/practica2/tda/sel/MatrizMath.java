@@ -217,13 +217,11 @@ public class MatrizMath implements Cloneable {
 		double sumatoria = 0;
 		VectorMath aux = new VectorMath(operando2.cantidadColumnas);
 		for (int i = 0; i < operando1.getCantidadComponentes(); i++) {
-			for (int j = 0; j < operando2.cantidadColumnas; j++) {
-				for (int k = 0; k < operando1.getCantidadComponentes(); k++) {
-					sumatoria += operando1.getValorEn(k) * operando2.coeficientes[k][j];
-				}
-				aux.setValorEn(i, sumatoria);
-				sumatoria = 0;
+			for (int k = 0; k < operando1.getCantidadComponentes(); k++) {
+				sumatoria += operando1.getValorEn(k) * operando2.coeficientes[k][i];
 			}
+			aux.setValorEn(i, sumatoria);
+			sumatoria = 0;
 		}
 
 		return aux;

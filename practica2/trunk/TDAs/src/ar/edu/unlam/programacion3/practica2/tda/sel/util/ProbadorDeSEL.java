@@ -8,14 +8,14 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath;
-import ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna;
+import ar.edu.unlam.programacion3.practica2.tda.sel.VectorMath;
 
 public class ProbadorDeSEL {
 
-	private final static String inPath = "doc/loteDePruebas/entradas/";
-	private final static String outPath = "doc/loteDePruebas/salidasGeneradas/";
-	private final static String inExtension = ".in";
-	private final static String outExtension = ".out";
+	private final static String IN_PATH = "doc/loteDePruebas/entradas/";
+	private final static String OUT_PATH = "doc/loteDePruebas/salidasGeneradas/";
+	private final static String IN_EXTENSION = ".in";
+	private final static String OUT_EXTENSION = ".out";
 
 	public static void main(String[] args) {
 		File file;
@@ -24,20 +24,14 @@ public class ProbadorDeSEL {
 		BufferedReader bufferedReaderOut = null;
 
 		// Listamos archivos en directorio de salida terminados en ".out".
-		file = new File(outPath);
-		String[] archivosDeEntrada = file.list(new FiltroPorExtension(outExtension));
+		file = new File(OUT_PATH);
+		String[] archivosDeEntrada = file.list(new FiltroPorExtension(OUT_EXTENSION));
 
 		for (String nombreArchivo : archivosDeEntrada) {
 			try {
 				// Generamos los paths completos
-				String fullOutPath = new StringBuffer()
-										.append(outPath)
-										.append(nombreArchivo)
-										.toString();
-				String fullInPath = new StringBuffer()
-										.append(inPath)
-										.append(nombreArchivo.replace(outExtension, inExtension))
-										.toString();
+				String fullOutPath = new StringBuffer().append(OUT_PATH).append(nombreArchivo).toString();
+				String fullInPath = new StringBuffer().append(IN_PATH).append(nombreArchivo.replace(OUT_EXTENSION, IN_EXTENSION)).toString();
 
 				// Abrimos el archivo in para lectura
 				file = new File(fullInPath);
@@ -50,15 +44,14 @@ public class ProbadorDeSEL {
 				bufferedReaderOut = new BufferedReader(fileReader);
 
 				System.out.println("Comparando: " + fullOutPath + " con " + fullInPath);
-				
+
 				String buffer;
 				String[] splitBuffer;
 
 				/*
-				 * Estructura esperada del archivo "*.in": 
-				 * n (dimensión del sistema) 
-				 * i j <valor> (i-fila j-columna valor) x n^2 -matriz de coeficientes- 
-				 * i (i-fila) x n -vector independiente-
+				 * Estructura esperada del archivo "*.in": n (dimensión del
+				 * sistema) i j <valor> (i-fila j-columna valor) x n^2 -matriz
+				 * de coeficientes- i (i-fila) x n -vector independiente-
 				 */
 
 				// Leemos la primer línea del archivo de entrada
@@ -82,8 +75,9 @@ public class ProbadorDeSEL {
 						matriz[i][j] = Double.parseDouble(splitBuffer[2]);
 					}
 				}
-				
-				// Creamos un vector para contener los valores del vector solución
+
+				// Creamos un vector para contener los valores del vector
+				// solución
 				double[] vector = new double[dimension];
 
 				// Llenamos el vector con los valores del archivo
@@ -91,25 +85,23 @@ public class ProbadorDeSEL {
 					buffer = bufferedReaderIn.readLine();
 					vector[i] = Double.parseDouble(buffer);
 				}
-				
+
 				/*
-				 * Estructura esperada del archivo "*.out": 
-				 * n (dimensión del sistema) 
-				 * i (i-fila) x n -vector solucion-
-				 * e (error)
-				 * ó RAZON
+				 * Estructura esperada del archivo "*.out": n (dimensión del
+				 * sistema) i (i-fila) x n -vector solucion- e (error) ó RAZON
 				 */
-				
+
 				// Leemos la primer línea del archivo de entrada
 				buffer = bufferedReaderOut.readLine();
-				
-				if(buffer.equals("Matriz Singular") || buffer.equals("Imposible resolver por Factorizacion LU")) {
+
+				if (buffer.equals("Matriz Singular") || buffer.equals("Imposible resolver por Factorizacion LU")) {
 					System.out.println("El archivo es válido.");
 				} else {
 					int dimension2 = Integer.parseInt(buffer);
-					
-					if(dimension2 == dimension) {
-						// Creamos un vector para contener los valores del vector solución
+
+					if (dimension2 == dimension) {
+						// Creamos un vector para contener los valores del
+						// vector solución
 						double[] vectorSalida = new double[dimension];
 
 						// Llenamos el vector con los valores del archivo
@@ -117,41 +109,43 @@ public class ProbadorDeSEL {
 							buffer = bufferedReaderOut.readLine();
 							vectorSalida[i] = Double.parseDouble(buffer);
 						}
-						
+
 						// Leemos el error
 						double error = 0;
 						buffer = bufferedReaderOut.readLine();
 						error = Double.parseDouble(buffer);
-						
-						if(error > 10e-12) {
+
+						if (error > 10e-12) {
 							System.out.println("Atención: el error es mayor que lo permitido.");
 						}
-						
+
 						// Verificamos si el vector de salida es una solución posible al sistema
-						VectorColumna vectorSolucionCalculada 
-							= MatrizMath.producto(new MatrizMath(matriz), new VectorColumna(vectorSalida));
-						VectorColumna vectorSolucionLeida = new VectorColumna(vector);
-						
-						for(int i = 0; i < dimension; i++) {
-							if(!aproximadamenteIguales(vectorSolucionCalculada.getValorEn(i), 
-									                   vectorSolucionLeida.getValorEn(i), 
-									                   10e-12)) {
-								System.out.println("Valor en " + (i + 1) + " difiere en " 
-									                   + Math.abs(vectorSolucionCalculada.getValorEn(i) - vectorSolucionLeida.getValorEn(i)));
+						VectorMath vectorSolucionCalculada = 
+								MatrizMath.producto(new MatrizMath(matriz),	new VectorMath(vectorSalida));
+						VectorMath vectorSolucionLeida = new VectorMath(vector);
+
+						for (int i = 0; i < dimension; i++) {
+							if (!aproximadamenteIguales(vectorSolucionCalculada.getValorEn(i),
+									vectorSolucionLeida.getValorEn(i), 10e-12)) {
+								System.out.println("Valor en "
+										+ (i + 1)
+										+ " difiere en "
+										+ Math.abs(vectorSolucionCalculada.getValorEn(i)
+												- vectorSolucionLeida.getValorEn(i)));
 							}
 						}
 						System.out.println("El archivo parece válido.");
-						
+
 					} else {
 						System.out.println("Error: dimensiones no compatibles.");
 					}
 				}
 
-			} catch(FileNotFoundException ex) {
+			} catch (FileNotFoundException ex) {
 				ex.printStackTrace();
-			} catch(IOException ex) {
+			} catch (IOException ex) {
 				ex.printStackTrace();
-			} catch(NumberFormatException ex) {
+			} catch (NumberFormatException ex) {
 				ex.printStackTrace();
 			} finally {
 				if (bufferedReaderIn != null) {
@@ -172,7 +166,7 @@ public class ProbadorDeSEL {
 		}
 
 	}
-	
+
 	private static boolean aproximadamenteIguales(double valor1, double valor2, double epsilon) {
 		return Math.abs(valor1 - valor2) <= epsilon;
 	}

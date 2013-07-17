@@ -1,8 +1,6 @@
 package ar.edu.unlam.programacion3.practica2.tda.tests.sel;
 
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath;
-import ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna;
-import ar.edu.unlam.programacion3.practica2.tda.sel.VectorFila;
 import ar.edu.unlam.programacion3.practica2.tda.sel.VectorMath;
 
 public class TestMatrizMath {
@@ -30,8 +28,8 @@ public class TestMatrizMath {
 		matriz1         = new MatrizMath( new double[][] { {-2, -2, -2}, {-2, -2, -2}, {-2, -2, -2} } );
 		matriz2         = new MatrizMath( new double[][] { { 2,  2,  2}, { 2,  2,  2}, { 2,  2,  2} } );
 		matrizIdentidad = new MatrizMath( new double[][] { { 1,  0,  0}, { 0,  1,  0}, { 0,  0,  1} } );
-		vectorColumna   = new VectorColumna( new double[] {2, 2, 2} );
-		vectorFila      = new VectorFila( new double[] {2, 2, 2} );
+		vectorColumna   = new VectorMath( new double[] {2, 2, 2} );
+		vectorFila      = new VectorMath( new double[] {2, 2, 2} );
 	}
 	
 	private static void testEquals() {
@@ -112,8 +110,8 @@ public class TestMatrizMath {
 	private static void testProductoVectorColumna() {
 		inicializar();
 		
-		VectorColumna resultado = MatrizMath.producto(matriz1, (VectorColumna) vectorColumna);
-		VectorColumna resultadoEsperado = new VectorColumna( new double[] {-12, -12, -12} );
+		VectorMath resultado = MatrizMath.producto(matriz1, vectorColumna);
+		VectorMath resultadoEsperado = new VectorMath( new double[] {-12, -12, -12} );
 		if(!resultado.equals(resultadoEsperado)) {
 			throw new AssertionError("Falla en el método producto(VectorColumna)");
 		}
@@ -125,8 +123,8 @@ public class TestMatrizMath {
 	private static void testProductoVectorFila() {
 		inicializar();
 		
-		VectorFila resultado = MatrizMath.producto((VectorFila) vectorFila, matriz1);
-		VectorFila resultadoEsperado = new VectorFila( new double[] {-12, -12, -12} );
+		VectorMath resultado = MatrizMath.producto(vectorFila, matriz1);
+		VectorMath resultadoEsperado = new VectorMath( new double[] {-12, -12, -12} );
 		if(!resultado.equals(resultadoEsperado)) {
 			throw new AssertionError("Falla en el método producto(VectorFila)");
 		}

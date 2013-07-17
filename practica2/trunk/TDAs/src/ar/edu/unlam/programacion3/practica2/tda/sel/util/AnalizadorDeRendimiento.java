@@ -5,7 +5,7 @@ import java.util.Random;
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizCuadrada;
 import ar.edu.unlam.programacion3.practica2.tda.sel.MatrizMath;
 import ar.edu.unlam.programacion3.practica2.tda.sel.SistemaLinealDeEcuaciones;
-import ar.edu.unlam.programacion3.practica2.tda.sel.VectorColumna;
+import ar.edu.unlam.programacion3.practica2.tda.sel.VectorMath;
 
 public class AnalizadorDeRendimiento {
 	
@@ -52,12 +52,12 @@ public class AnalizadorDeRendimiento {
 				vectorSolucion[i] = random.nextInt(MAX_VALOR_ALEATORIO);
 			}
 			
-			VectorColumna vectorColumnaSolucion = new VectorColumna(vectorSolucion);
+			VectorMath vectorColumnaSolucion = new VectorMath(vectorSolucion);
 			
 			// Calculamos el producto: vector independiente
 			double[] vectorIndependiente = new double[dimensiones[k]];
 			for(int i = 0; i < dimensiones[k]; i++) {
-				vectorIndependiente[i] = MatrizMath.producto(matrizMath, (VectorColumna) vectorColumnaSolucion).getValorEn(i);
+				vectorIndependiente[i] = MatrizMath.producto(matrizMath, vectorColumnaSolucion).getValorEn(i);
 			}
 
 			// Calentamos la JVM
@@ -75,15 +75,15 @@ public class AnalizadorDeRendimiento {
 			// Mostramos las estadísticas
 			tiempoPromedio = (tiempoFinal - tiempoInicial) / (double) CANTIDAD_MEDICIONES;
 			System.out.println("Dimension: " + dimensiones[k] 
-					+ " -- Tiempo promedio: " + tiempoPromedio + "ms"
-					+ " -- Error: " + error / CANTIDAD_MEDICIONES);			
+					+ " -- Tiempo promedio: " + String.format("%.2f", tiempoPromedio) + "ms"
+					+ " -- Error: " + String.format("%.6E", error / CANTIDAD_MEDICIONES));			
 		
 		}
 	}
 	
 	private static double resolver(int dimension, double[][] matriz, double[] vector) {
 		SistemaLinealDeEcuaciones sistemaLineal = 
-				new SistemaLinealDeEcuaciones(new MatrizCuadrada(matriz), new VectorColumna(vector));
+				new SistemaLinealDeEcuaciones(new MatrizCuadrada(matriz), new VectorMath(vector));
 		
 		// Resolver sistema
 		sistemaLineal.resolver();

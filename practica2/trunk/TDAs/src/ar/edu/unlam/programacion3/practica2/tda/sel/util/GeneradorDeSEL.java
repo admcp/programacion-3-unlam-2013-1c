@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class GeneradorDeSEL {
 	private static final String NEWLINE = System.getProperty("line.separator");
-	private final static String outPath = "doc/loteDePruebas/entradas/";
+	private final static String OUT_PATH = "doc/loteDePruebas/entradas/";
 
 	public static void main(String[] args) {
 		// Variables para escritura
@@ -87,7 +87,7 @@ public class GeneradorDeSEL {
 			}
 
 			// Abrimos el archivo de salida
-			file = new File(outPath + fileName + ".in");
+			file = new File(OUT_PATH + fileName + ".in");
 			printWriter = new PrintWriter(file);
 
 			// Primera linea indica la dimension del sistema

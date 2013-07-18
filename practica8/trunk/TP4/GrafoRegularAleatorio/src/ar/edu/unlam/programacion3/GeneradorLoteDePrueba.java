@@ -1,5 +1,6 @@
 package ar.edu.unlam.programacion3;
 
+
 public class GeneradorLoteDePrueba {
 
 	public static void main(String[] args) {

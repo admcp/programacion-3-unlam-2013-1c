@@ -6,12 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.PrintWriter;
+
+import ar.edu.unlam.programacion3.adt.grafo.GrafoNoPesado;
+import ar.edu.unlam.programacion3.adt.grafo.Nodo;
 
 public class ProbadorColoreo {
 	
 	private static final String IN_PATH = "lote/entradas/";
-	private static final String OUT_PATH = "lote/salidas/";
+	private static final String[] OUT_PATH = { "lote/salidas/secuencial/", "lote/salidas/matula/", "lote/salidas/powell/" };
 	private static final String IN_EXTENSION = ".in";
 	private static final String OUT_EXTENSION = ".out";
 	
@@ -19,33 +21,111 @@ public class ProbadorColoreo {
 		File file;
 		FileReader fileReader;
 		BufferedReader bufferEntrada = null;
-		PrintWriter bufferSalida = null;
-
-		// Listamos archivos en directorio de salida terminados en ".out".
-		file = new File(OUT_PATH);
-		String[] archivosDeEntrada = file.list(new FiltroPorExtension(OUT_EXTENSION));
+		
+		GrafoNoPesado grafo = null;
+		
+		// Listamos archivos en directorio de entrada terminados en ".in".
+		file = new File(IN_PATH);
+		String[] archivosDeEntrada = file.list(new FiltroPorExtension(IN_EXTENSION));
 		
 		for (String nombreArchivo : archivosDeEntrada) {
 			try {
-				// Generamos los paths completos
-				String fullOutPath = new StringBuffer().append(OUT_PATH)
-													   .append(nombreArchivo)
-													   .toString();
+				// Generamos un grafo con la entrada
 				String fullInPath = new StringBuffer().append(IN_PATH)
-													  .append(nombreArchivo.replace(OUT_EXTENSION, IN_EXTENSION))
-													  .toString();
-
-				// Abrimos el archivo in para lectura
-				file = new File(fullInPath);
-				fileReader = new FileReader(file);
-				bufferEntrada = new BufferedReader(fileReader);
-
-				// Abrimos el archivo out para escritura
-				file = new File(fullOutPath);
-				bufferSalida = new PrintWriter(file);
-
+						  							  .append(nombreArchivo)
+						  							  .toString();
+				
+				grafo = new GrafoNoPesado(fullInPath);
+				
+				
 				String buffer;
 				String[] splitBuffer;
+				
+				// Generamos los paths de los archivos de coloreo correspondientes
+				String[] fullOutPath = { 
+						new StringBuffer().append(OUT_PATH[0]).append(nombreArchivo.replace(IN_EXTENSION, OUT_EXTENSION)).toString(),
+						new StringBuffer().append(OUT_PATH[1]).append(nombreArchivo.replace(IN_EXTENSION, OUT_EXTENSION)).toString(),
+						new StringBuffer().append(OUT_PATH[2]).append(nombreArchivo.replace(IN_EXTENSION, OUT_EXTENSION)).toString()
+						};
+				
+				for(int i = 0; i < fullOutPath.length; i++) {
+					file = new File(fullOutPath[i]);
+					fileReader = new FileReader(file);
+					bufferEntrada = new BufferedReader(fileReader);
+					
+					System.out.print("Chequeando " + fullOutPath[i]);
+					
+					// Leemos el encabezado
+					buffer = bufferEntrada.readLine();
+					splitBuffer = buffer.split(" ");
+					
+					int cantidadDeNodos = Integer.parseInt(splitBuffer[0]);
+					int numeroCromatico = Integer.parseInt(splitBuffer[1]);
+					int gradoMaximo = Integer.parseInt(splitBuffer[2]);
+					int gradoMinimo = Integer.parseInt(splitBuffer[3]);
+					
+					// Chequeamos lo que podemos de momento: cantidad de nodos y grados.
+					if(cantidadDeNodos != grafo.cantidadDeNodos()) {
+						System.err.println("Cantidad de nodos incorrecta.");
+						break;
+					}
+					if(gradoMaximo != grafo.gradoMaximo()) {
+						System.err.println("Error en grado máximo.");
+						break;
+					}
+					if(gradoMinimo != grafo.gradoMinimo()) {
+						System.err.println("Error en grado mínimo.");
+						break;
+					}
+					
+					// Leemos los nodos y sus colores
+					Nodo[] listaNodos = new Nodo[cantidadDeNodos];
+					int colorMaximo = Integer.MIN_VALUE;
+					
+					for(int j = 0; j < cantidadDeNodos; j++) {
+						buffer = bufferEntrada.readLine();
+						splitBuffer = buffer.split(" ");
+						
+						int nodo = Integer.parseInt(splitBuffer[0]);
+						int color = Integer.parseInt(splitBuffer[1]);
+						
+						if(color > colorMaximo) {
+							colorMaximo = color;
+						}
+						
+						listaNodos[j] = new Nodo(nodo);
+						listaNodos[j].setColor(color);
+					}
+					
+					// Verificamos el número cromático obtenido
+					if(colorMaximo != numeroCromatico) {
+						System.err.println("No coincide el número cromático con la cantidad de colores asignados.");
+						break;
+					}
+					
+					// Verificamos que TODOS los nodos estén coloreados
+					for(Nodo nodo : listaNodos) {
+						if(nodo.getColor() == 0) {
+							System.err.println("Nodo " + nodo.getNombre() + " no coloreado.");
+							break;
+						}
+					}
+					
+					// Verificamos que no haya dos nodos adyacentes con el mismo color
+					for(Nodo nodo : listaNodos) {
+						Nodo[] nodosAdyacentes = grafo.obtenerAdyacentes(nodo.getNombre());
+						for(Nodo nodoAdy : nodosAdyacentes) {
+							if(nodo.getColor() == nodoAdy.getColor()) {
+								System.err.println("Nodo " + nodo.getNombre() + " tiene el mismo color que " + nodoAdy.getNombre() + ".");
+								break;
+							}
+						}
+					}
+					
+					System.out.println("  ...  OK");
+					
+				}
+				
 				
 			} catch (FileNotFoundException ex) {
 				ex.printStackTrace();
@@ -60,9 +140,6 @@ public class ProbadorColoreo {
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}
-				}
-				if (bufferSalida != null) {
-					bufferSalida.close();
 				}
 			}
 		}

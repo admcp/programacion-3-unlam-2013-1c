@@ -9,7 +9,7 @@ public class Nodo implements Cloneable, Comparable<Nodo> {
 	
 	public Nodo(int nombre) {
 		this.nombre = nombre;
-		this.color = -1;
+		this.color = 0;
 		this.grado = 0;
 		
 	}

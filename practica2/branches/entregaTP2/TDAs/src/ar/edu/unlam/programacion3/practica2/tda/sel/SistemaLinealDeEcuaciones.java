@@ -2,11 +2,10 @@ package ar.edu.unlam.programacion3.practica2.tda.sel;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Random;
 
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.FilaDeCerosException;
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.MatrizSingularException;
@@ -22,39 +21,21 @@ public class SistemaLinealDeEcuaciones {
 
 	// MIEMBROS "PÚBLICOS"
 	private MatrizCuadrada matrizDeCoeficientes;
-	private VectorColumna vectorDeTerminosIndependientes; 
-	private VectorColumna vectorSolucion;
+	private VectorMath vectorDeTerminosIndependientes; 
+	private VectorMath vectorSolucion;
 	private double error;
 
-	
 	// MIEMBROS "FACTORIZACIÓN LU"
 	private MatrizCuadrada factorizacionLU;
 	private int[] vectorDePermutaciones;
-	private int intercambiosEnFilas;
+	@SuppressWarnings("unused") private int intercambiosEnFilas;
 
 	// CONSTRUCTORES
-	public SistemaLinealDeEcuaciones(MatrizCuadrada matrizDeCoeficientes, VectorColumna vectorDeTerminosIndependientes) {
-		if(matrizDeCoeficientes == null || vectorDeTerminosIndependientes == null) {
-			throw new NullPointerException();
-		}
-		
-		MatrizMath.validarDimension(vectorDeTerminosIndependientes.cantidadFilas, matrizDeCoeficientes.cantidadFilas);
-		
-		this.matrizDeCoeficientes = matrizDeCoeficientes;
-		this.vectorDeTerminosIndependientes = vectorDeTerminosIndependientes;
-		reiniciarSistemaLineal();
-	}
-
-	public SistemaLinealDeEcuaciones(MatrizCuadrada matrizDeCoeficientes) {
-		if(matrizDeCoeficientes == null) {
-			throw new NullPointerException();
-		}
-		
-		this.matrizDeCoeficientes = matrizDeCoeficientes;
-		reiniciarSistemaLineal();
-	}
-	
-	public SistemaLinealDeEcuaciones(String uriArchivoEntrada) throws IOException {
+	public SistemaLinealDeEcuaciones(String uriArchivoEntrada) throws FileNotFoundException,
+																	  IOException,
+																	  NumberFormatException,
+																	  FilaDeCerosException,
+																	  MatrizSingularException {
 		BufferedReader archivoEntrada = 
 				new BufferedReader(new FileReader(new File(uriArchivoEntrada)));
 		
@@ -109,43 +90,39 @@ public class SistemaLinealDeEcuaciones {
 		MatrizMath.validarDimension(matriz.length, vector.length);
 		
 		this.matrizDeCoeficientes = new MatrizCuadrada(matriz);
-		this.vectorDeTerminosIndependientes = new VectorColumna(vector);
+		this.vectorDeTerminosIndependientes = new VectorMath(vector);
 		reiniciarSistemaLineal();
-		
+				
+		// Cerramos el archivo
 		archivoEntrada.close();
-	}	
-
-	// SETTERS
-	public void setVectorDeTerminosIndependientes(VectorColumna vectorDeTerminosIndependientes) {
+		
+		// Resolvemos el SEL
+		try {
+			resolver();
+		} catch(MatrizSingularException ex) {
+			System.err.println("Matriz Singular");
+			throw new MatrizSingularException(ex);
+		} catch(FilaDeCerosException ex) {
+			System.err.println("Imposible resolver por Factorizacion LU");
+			throw new FilaDeCerosException(ex);
+		}
+	}
+	
+	public SistemaLinealDeEcuaciones(MatrizCuadrada matrizDeCoeficientes, VectorMath vectorDeTerminosIndependientes) {
+		if(matrizDeCoeficientes == null || vectorDeTerminosIndependientes == null) {
+			throw new NullPointerException();
+		}
+		
+		MatrizMath.validarDimension(vectorDeTerminosIndependientes.getCantidadComponentes(), matrizDeCoeficientes.cantidadFilas);
+		
+		this.matrizDeCoeficientes = matrizDeCoeficientes;
 		this.vectorDeTerminosIndependientes = vectorDeTerminosIndependientes;
+		reiniciarSistemaLineal();
 	}
 	
-	// GETTERS
-	public int[] getPermutacion() {
-		return Arrays.copyOf(vectorDePermutaciones, vectorDePermutaciones.length);
-	}
+	// MÉTODOS PÚBLICOS
 
-	public MatrizCuadrada getFactorizacionLU() {
-		return factorizacionLU;
-	}
-	
-	public MatrizCuadrada getMatrizDeCoeficientes() {
-		return matrizDeCoeficientes;
-	}
-
-	public int getIntercambiosEnFilas() {
-		return intercambiosEnFilas;
-	}
-	
-	public double getError() {
-		return factorizacionLU == null ? 0 : error;
-	}
-
-	public VectorColumna getVectorDeTerminosIndependientes() {
-		return vectorDeTerminosIndependientes;
-	}
-
-	public VectorColumna resolver() {
+	public void resolver() throws FilaDeCerosException, MatrizSingularException {
 		if(vectorDeTerminosIndependientes == null) {
 			throw new IllegalStateException("Inicialice el vector de términos independientes.");
 		}
@@ -154,27 +131,74 @@ public class SistemaLinealDeEcuaciones {
 			factorizarSistema();
 		}
 		
-		VectorColumna solucionIntermedia = sustitucionHaciaAdelante(vectorDeTerminosIndependientes);
-		VectorColumna vectorSolucion = sustitucionHaciaAtras(solucionIntermedia);
+		VectorMath solucionIntermedia = sustitucionHaciaAdelante(vectorDeTerminosIndependientes);
+		VectorMath vectorSolucion = sustitucionHaciaAtras(solucionIntermedia);
 		
 		// Calcular error en la solución
 		calcularError();
 		
 		// Guardar solucion temporal
 		this.vectorSolucion = vectorSolucion;
-		
-		return vectorSolucion;
 	}
 	
-	public VectorColumna getVectorSolucion() {
+	public static void resolverSELDesdeArchivo(String uriArchivoEntrada, String uriArchivoSalida) throws FileNotFoundException,
+																										 IOException,
+																										 NumberFormatException {
+		PrintWriter bufferSalida = null;
+		try {
+			
+			bufferSalida = new PrintWriter(new File(uriArchivoSalida));
+			
+			// Levantamos el archivo y resolvemos el SEL.
+			SistemaLinealDeEcuaciones sistemaLineal = new SistemaLinealDeEcuaciones(uriArchivoEntrada);
+			
+			/*
+			 * Estructura esperada del archivo "*.out": 
+			 * n (dimensiónn del sistema) 
+			 * i (i-fila) x n -vector solución-
+			 * e (error)
+			 */
+			
+			int dimension = sistemaLineal.matrizDeCoeficientes.cantidadFilas;
+			VectorMath vectorSolucion = sistemaLineal.getVectorSolucion();
+			double error = sistemaLineal.getError();
+			
+			bufferSalida.println(dimension);
+			for(int i = 0; i < dimension; i++) {
+				bufferSalida.println(vectorSolucion.getValorEn(i));
+			}
+			
+			bufferSalida.print(error != Double.NaN ? error : 0);
+		} catch(MatrizSingularException ex) {
+			bufferSalida.println("Matriz Singular");
+		} catch(FilaDeCerosException ex) {
+			bufferSalida.println("Imposible resolver por Factorizacion LU");
+		} finally {
+			if(bufferSalida != null) {
+				bufferSalida.close();
+			}
+		}
+	}
+
+	// GETTERS
+	
+	public MatrizCuadrada getMatrizDeCoeficientes() {
+		return matrizDeCoeficientes;
+	}
+	
+	public VectorMath getVectorDeTerminosIndependientes() {
+		return vectorDeTerminosIndependientes;
+	}
+
+	public VectorMath getVectorSolucion() {
 		if(vectorSolucion == null) {
 			this.resolver();
 		}
 		return vectorSolucion;
 	}
 	
-	public String mostrarFactorizacionLU() {
-		return factorizacionLU.toString();
+	public double getError() {
+		return factorizacionLU == null ? 0 : error;
 	}
 
 	// MÉTODOS UTILITARIOS
@@ -184,7 +208,7 @@ public class SistemaLinealDeEcuaciones {
 		this.intercambiosEnFilas = 0;
 	}
 	
-	protected void factorizarSistema() {
+	protected void factorizarSistema() throws FilaDeCerosException, MatrizSingularException {
 		// Si ya está factorizada reiniciar
 		if (factorizacionLU != null)
 			reiniciarSistemaLineal();
@@ -295,40 +319,40 @@ public class SistemaLinealDeEcuaciones {
 		}
 	}
 
-	private VectorColumna sustitucionHaciaAdelante(VectorColumna vectorTerminosIndependientes) {
+	private VectorMath sustitucionHaciaAdelante(VectorMath vectorTerminosIndependientes) {
 		int cantidadFilasDelSistema = matrizDeCoeficientes.cantidadFilas;
 
-		VectorColumna vectorAuxiliar = new VectorColumna(cantidadFilasDelSistema);
+		VectorMath vectorAuxiliar = new VectorMath(cantidadFilasDelSistema);
 
 		for (int i = 0; i < cantidadFilasDelSistema; i++) {
 			int indicePermutacion = vectorDePermutaciones[i];
 			double productoPunto = 0;
 			for (int j = 0; j < i; j++) {
 				productoPunto += 
-						factorizacionLU.coeficientes[indicePermutacion][j] * vectorAuxiliar.coeficientes[j][0];
+						factorizacionLU.coeficientes[indicePermutacion][j] * vectorAuxiliar.getValorEn(j);
 			}
-			vectorAuxiliar.coeficientes[i][0] = 
-					vectorTerminosIndependientes.coeficientes[indicePermutacion][0]	- productoPunto;
+			vectorAuxiliar.setValorEn(i,  
+					vectorTerminosIndependientes.getValorEn(indicePermutacion) - productoPunto);
 		}
 
 		return vectorAuxiliar;
 	}
 
-	private VectorColumna sustitucionHaciaAtras(VectorColumna solucionIntermedia) {
+	private VectorMath sustitucionHaciaAtras(VectorMath solucionIntermedia) {
 		int cantidadFilasDelSistema = matrizDeCoeficientes.cantidadFilas;
 
-		VectorColumna vectorAuxiliar = new VectorColumna(cantidadFilasDelSistema);
+		VectorMath vectorAuxiliar = new VectorMath(cantidadFilasDelSistema);
 
 		for (int i = cantidadFilasDelSistema - 1; i >= 0; i--) {
 			int indicePermutacion = vectorDePermutaciones[i];
 			double productoPunto = 0;
 			for (int j = i + 1; j < cantidadFilasDelSistema; j++) {
 				productoPunto += 
-						factorizacionLU.coeficientes[indicePermutacion][j] * vectorAuxiliar.coeficientes[j][0];
+						factorizacionLU.coeficientes[indicePermutacion][j] * vectorAuxiliar.getValorEn(j);
 			}
-			vectorAuxiliar.coeficientes[i][0] = 
-					(solucionIntermedia.coeficientes[i][0] - productoPunto)
-					/ factorizacionLU.coeficientes[indicePermutacion][i];
+			vectorAuxiliar.setValorEn(i, 
+					(solucionIntermedia.getValorEn(i) - productoPunto)
+					/ factorizacionLU.coeficientes[indicePermutacion][i] );
 		}
 
 		return vectorAuxiliar;
@@ -351,7 +375,7 @@ public class SistemaLinealDeEcuaciones {
 				new MatrizInvertible(MatrizCuadrada.restar(identidadPrima, matrizIdentidad).obtenerComoMatriz());
 		
 		// Creamos un vector para usar como vector inicial de la norma 2
-		VectorColumna vectorInicial = new VectorColumna(matrizDeCoeficientes.cantidadFilas);
+		VectorMath vectorInicial = new VectorMath(matrizDeCoeficientes.cantidadFilas);
 		for(int i = 0; i < matrizDeCoeficientes.cantidadFilas; i++) {
 			vectorInicial.setValorEn(i, 1);
 		}
@@ -360,110 +384,7 @@ public class SistemaLinealDeEcuaciones {
 		error = matrizParaCalculoDeError.normaDos(vectorInicial, 0.0001);
 	}
 	
-	public static void resolverSELDesdeArchivo(BufferedReader archivoEntrada, PrintWriter archivoSalida) throws IOException {
-		String buffer;
-		String[] splitBuffer;
-
-		/*
-		 * Estructura esperada del archivo "*.in": 
-		 * n (dimensión del sistema) 
-		 * i j <valor> (i-fila j-columna valor) x n^2 -matriz de coeficientes- 
-		 * i (i-fila) x n -vector independiente-
-		 */
-
-		// Leemos la primer línea del archivo de entrada
-		buffer = archivoEntrada.readLine();
-		int dimension = Integer.parseInt(buffer);
-
-		// Creamos una matriz para contener los coeficientes
-		double[][] matriz = new double[dimension][dimension];
-
-		// Llenamos la matriz con los valores del archivo
-		int ii, jj;
-		for (int i = 0; i < dimension; i++) {
-			for (int j = 0; j < dimension; j++) {
-				buffer = archivoEntrada.readLine();
-				splitBuffer = buffer.split(" ");
-				ii = Integer.parseInt(splitBuffer[0]);
-				jj = Integer.parseInt(splitBuffer[1]);
-				if (ii != i || jj != j) {
-					throw new Error("Archivo mal formado");
-				}
-				matriz[i][j] = Double.parseDouble(splitBuffer[2]);
-			}
-		}
-		
-		// Creamos un vector para contener los valores del vector solución
-		double[] vector = new double[dimension];
-
-		// Llenamos el vector con los valores del archivo
-		for (int i = 0; i < dimension; i++) {
-			buffer = archivoEntrada.readLine();
-			vector[i] = Double.parseDouble(buffer);
-		}
-
-		// Deserializamos ambas estructuras
-		SistemaLinealDeEcuaciones sistemaLineal =
-				new SistemaLinealDeEcuaciones(new MatrizCuadrada(matriz), new VectorColumna(vector));
-		
-		// Resolver sistema
-		VectorColumna vectorSolucion = sistemaLineal.resolver();
-		
-		// Calcular error de solución
-		double error = sistemaLineal.getError();
-		
-		/*
-		 * Estructura esperada del archivo "*.out": 
-		 * n (dimensión del sistema) 
-		 * i (i-fila) x n -vector solución-
-		 * e (error)
-		 */
-		
-		archivoSalida.println(dimension);
-		for(int i = 0; i < dimension; i++) {
-			archivoSalida.println(vectorSolucion.getValorEn(i));
-		}
-		
-		archivoSalida.print(error != Double.NaN ? error : 0);
-	}
-	
 	public static void main(String[] args) {
-		probarUsandoMatrizRandom();
-		probarUsandoMatrizDesdeArchivo();		
-	}
-	
-	private static void probarUsandoMatrizRandom() {
-		// Generamos un vector con la solución correcta
-		VectorColumna solucionCorrecta = new VectorColumna(new double[] { 1, 2, 3 });
-		int n = solucionCorrecta.getCantidadComponentes();
-		
-		// Generamos una matriz de coeficientes aleatorios
-		Random random = new Random(System.currentTimeMillis());
-		MatrizCuadrada matrizA = new MatrizCuadrada(n);
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
-				matrizA.setValorEn(i, j, random.nextInt(100));
-			}
-		}
-		
-		SistemaLinealDeEcuaciones sistemaLineal = new SistemaLinealDeEcuaciones(matrizA);
-		
-		// Usando la solucion correcta y la matriz, creamos un vector de términos independientes
-		VectorColumna vectorB = MatrizMath.producto(matrizA, solucionCorrecta);
-		
-		System.out.println("Matriz de coef. A: \n" + sistemaLineal.matrizDeCoeficientes);
-		System.out.println("Vector b: \n" + vectorB);
-
-		sistemaLineal.setVectorDeTerminosIndependientes(vectorB);
-		VectorColumna solucionObtenida = sistemaLineal.resolver();
-
-		System.out.println("Factorización LU de A: \n" + sistemaLineal.mostrarFactorizacionLU());
-		System.out.println("Vector solucion: \n" + solucionObtenida);
-
-		System.out.println("Error: \n" + sistemaLineal.getError());
-	}
-	
-	private static void probarUsandoMatrizDesdeArchivo() {
 		SistemaLinealDeEcuaciones sistemaLineal = null;
 		
 		try {
@@ -477,9 +398,6 @@ public class SistemaLinealDeEcuaciones {
 			// Mostramos por pantalla los datos del archivo
 			System.out.println("Matriz de coef. A: \n" + sistemaLineal.getMatrizDeCoeficientes());
 			System.out.println("Vector b: \n" + sistemaLineal.getVectorDeTerminosIndependientes());
-			
-			// Resolvemos
-			sistemaLineal.resolver();
 			
 			// Mostramos el resultado por pantalla
 			System.out.println("Vector solucion: \n" + sistemaLineal.getVectorSolucion());

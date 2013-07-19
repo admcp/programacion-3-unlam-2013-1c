@@ -77,6 +77,7 @@ public class GrafoNoPesado {
 			int nodoDestino = Integer.parseInt(splitBuffer[1]);
 
 			matrizDeAdyacencia[nodoOrigen][nodoDestino] = true;
+			matrizDeAdyacencia[nodoDestino][nodoOrigen] = true;
 			conjuntoDeNodos[nodoOrigen].incrementarGrado();
 			conjuntoDeNodos[nodoDestino].incrementarGrado();
 		}

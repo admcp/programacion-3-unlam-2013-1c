@@ -39,14 +39,14 @@ public class GeneradorLoteDePrueba {
 			// Generamos un lote de 500, 1000, 5000, y 10000 nodos.
 			// Con un 50%, un 70% y un 90% de adyacencia
 			
-			int[] cantidadNodos = new int[] { 500, 1000, 5000, 10000 };
+			int[] cantidadNodos = new int[] { 100, 250, 500, 1000, 5000, 10000 };
 			double[] adyacencias = new double[] { 0.5, 0.7, 0.9 };
 			
 			for(int i = 0; i < cantidadNodos.length; i++) {
-				String nodos = String.valueOf(cantidadNodos[i]); // 500, 1000, 5000, 10000
+				String nodos = String.valueOf(cantidadNodos[i]); // 100, 250, 500, 1000, 5000, 10000
 				for(int j = 0; j < adyacencias.length; j++) {
 					String grado = String.valueOf(grado(adyacencias[j], cantidadNodos[i])); // depende de N
-					String nombreArchivo = "lote/C" + String.format("%02d", i - 1) +
+					String nombreArchivo = "lote/C" + String.format("%03d", (i + j + 1)) +
 							"-grafo-" + grado + "-regular-" + 
 							nodos + "-nodos.in";
 					GrafoRegularAleatorio.main(new String[] { nodos, grado, nombreArchivo });

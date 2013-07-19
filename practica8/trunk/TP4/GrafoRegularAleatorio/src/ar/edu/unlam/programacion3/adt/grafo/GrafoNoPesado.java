@@ -276,7 +276,8 @@ public class GrafoNoPesado {
 		
 		switch (tipoDeOrdenamiento) {
 			case 0:
-				break; // Orden natural de los nodos
+				Collections.shuffle(listaNodos); // Orden aleatorio de los nodos: Secuencial Aleatorio
+				break;
 			case 1:
 				Collections.sort(listaNodos); // Orden creciente por grado: Matula
 				break;

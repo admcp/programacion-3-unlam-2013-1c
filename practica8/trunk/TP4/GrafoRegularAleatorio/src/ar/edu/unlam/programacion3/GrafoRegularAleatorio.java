@@ -156,9 +156,11 @@ public class GrafoRegularAleatorio {
 
 				// Con dichos nodos creamos un arco
 				Arco arco = new Arco(nodoOrigen, nodoDestino);
+				
+				boolean contieneYaElArco = listaArcosPosibles.contains(arco);
 
 				// Si dicho arco no es un bucle y nuestra lista no lo contiene
-				if (nodoOrigen != nodoDestino && !listaArcosPosibles.contains(arco)) {
+				if (nodoOrigen != nodoDestino && !contieneYaElArco) {
 					// Quitamos dichos nodos de la lista de nodos
 					if (idx1 < idx2) {
 						listaNodos.remove(idx1);
@@ -187,7 +189,7 @@ public class GrafoRegularAleatorio {
 									+ " seg corriendo). ");
 						}
 					}
-				} else if (nodoOrigen == nodoDestino || listaArcosPosibles.contains(arco)) {
+				} else if (nodoOrigen == nodoDestino || contieneYaElArco) {
 					huboCambios = false;
 				}
 

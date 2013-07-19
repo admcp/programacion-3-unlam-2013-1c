@@ -1,6 +1,6 @@
 package ar.edu.unlam.programacion3.practica2.tda.sel;
 
-public class MatrizIdentidad extends MatrizCuadrada {
+public class MatrizIdentidad extends MatrizInvertible {
 	
 	public MatrizIdentidad(int dimension){
 		super(dimension);

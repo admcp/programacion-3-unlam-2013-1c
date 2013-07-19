@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.DimensionInvalidaException;
 import ar.edu.unlam.programacion3.practica2.tda.sel.exceptions.RangoInvalidoException;
+import ar.edu.unlam.programacion3.practica2.tda.tests.sel.TestMatrizMath;
 
 public class MatrizMath implements Cloneable {
 
@@ -11,15 +12,11 @@ public class MatrizMath implements Cloneable {
 	protected int cantidadFilas;
 	protected int cantidadColumnas;
 
-	protected MatrizMath() {
-		/*
-		 * No queremos que el usuario pueda alterar la estructura interna de la
-		 * matriz y controlar la creación desde el principio. Por ende, no se
-		 * puede usar este constructor desde afuera.
-		 */
-	}
-
 	// CONSTRUCTORES
+	
+	protected MatrizMath() {
+		// Necesario para MatrizCuadrada.
+	}
 
 	public MatrizMath(int cantidadFilas, int cantidadColumnas) {
 		validarRangoDimension(cantidadFilas, 1, Integer.MAX_VALUE);
@@ -48,30 +45,6 @@ public class MatrizMath implements Cloneable {
 
 	// GETTERS/SETTERS
 
-	public double[][] obtenerComoMatriz() {
-		double[][] copiaCoeficientes = new double[cantidadFilas][cantidadColumnas];
-
-		for (int i = 0; i < cantidadFilas; i++) {
-			for (int j = 0; j < cantidadColumnas; j++) {
-				copiaCoeficientes[i][j] = coeficientes[i][j];
-			}
-		}
-
-		return copiaCoeficientes;
-	}
-
-	public void inicializarConMatriz(double[][] coeficientes) {
-		validarReferencia(coeficientes);
-		validarRangoDimension(coeficientes.length, 1, cantidadFilas - 1);
-		validarRangoDimension(coeficientes[0].length, 1, cantidadColumnas - 1);
-
-		for (int i = 0; i < cantidadFilas; i++) {
-			for (int j = 0; j < cantidadColumnas; j++) {
-				this.coeficientes[i][j] = coeficientes[i][j];
-			}
-		}
-	}
-
 	public int getCantidadFilas() {
 		return cantidadFilas;
 	}
@@ -94,7 +67,7 @@ public class MatrizMath implements Cloneable {
 		coeficientes[fila][columna] = valor;
 	}
 	
-	public VectorColumna getColumna(int columna) {
+	public VectorMath getColumna(int columna) {
 		validarRangoDimension(columna, 0, cantidadColumnas - 1);
 		
 		double[] vector = new double[cantidadFilas];
@@ -103,12 +76,12 @@ public class MatrizMath implements Cloneable {
 			vector[i] = coeficientes[i][columna];
 		}
 		
-		return new VectorColumna(vector);
+		return new VectorMath(vector);
 	}
 
-	public void setColumna(VectorColumna vector, int columna) {
+	public void setColumna(VectorMath vector, int columna) {
 		validarReferencia(vector);
-		validarDimension(vector.cantidadFilas, cantidadFilas);
+		validarDimension(vector.getCantidadComponentes(), cantidadFilas);
 		validarRangoDimension(columna, 0, cantidadColumnas - 1);
 
 		for (int i = 0; i < cantidadFilas; i++) {
@@ -116,7 +89,7 @@ public class MatrizMath implements Cloneable {
 		}
 	}
 	
-	public VectorFila getFila(int fila) {
+	public VectorMath getFila(int fila) {
 		validarRangoDimension(fila, 0, cantidadFilas - 1);
 		
 		double[] vector = new double[cantidadColumnas];
@@ -125,16 +98,42 @@ public class MatrizMath implements Cloneable {
 			vector[i] = coeficientes[fila][i];
 		}
 		
-		return new VectorFila(vector);
+		return new VectorMath(vector);
 	}
 
-	public void setFila(VectorFila vector, int fila) {
+	public void setFila(VectorMath vector, int fila) {
 		validarReferencia(vector);
-		validarDimension(vector.cantidadColumnas, cantidadColumnas);
+		validarDimension(vector.getCantidadComponentes(), cantidadColumnas);
 		validarRangoDimension(fila, 0, cantidadFilas - 1);
 
 		for (int i = 0; i < cantidadColumnas; i++) {
 			coeficientes[fila][i] = vector.getValorEn(i);
+		}
+	}
+	
+	// MÉTODOS DE CONVERSIÓN
+	
+	public double[][] obtenerComoMatriz() {
+		double[][] copiaCoeficientes = new double[cantidadFilas][cantidadColumnas];
+
+		for (int i = 0; i < cantidadFilas; i++) {
+			for (int j = 0; j < cantidadColumnas; j++) {
+				copiaCoeficientes[i][j] = coeficientes[i][j];
+			}
+		}
+
+		return copiaCoeficientes;
+	}
+
+	public void inicializarConMatriz(double[][] coeficientes) {
+		validarReferencia(coeficientes);
+		validarRangoDimension(coeficientes.length, 1, cantidadFilas - 1);
+		validarRangoDimension(coeficientes[0].length, 1, cantidadColumnas - 1);
+
+		for (int i = 0; i < cantidadFilas; i++) {
+			for (int j = 0; j < cantidadColumnas; j++) {
+				this.coeficientes[i][j] = coeficientes[i][j];
+			}
 		}
 	}
 
@@ -192,41 +191,37 @@ public class MatrizMath implements Cloneable {
 		return aux;
 	}
 
-	public static VectorColumna producto(MatrizMath operando1, VectorColumna operando2) {
+	public static VectorMath producto(MatrizMath operando1, VectorMath operando2) {
 		validarReferencia(operando1);
 		validarReferencia(operando2);
-		validarDimension(operando1.cantidadColumnas, operando2.cantidadFilas);
+		validarDimension(operando1.cantidadColumnas, operando2.getCantidadComponentes());
 
 		double sumatoria = 0;
-		VectorColumna aux = new VectorColumna(operando1.cantidadColumnas);
-		for (int i = 0; i < operando1.cantidadFilas; i++) {
-			for (int j = 0; j < operando2.cantidadColumnas; j++) {
-				for (int k = 0; k < operando1.cantidadColumnas; k++) {
-					sumatoria += operando1.coeficientes[i][k] * operando2.coeficientes[k][j];
-				}
-				aux.coeficientes[i][j] = sumatoria;
-				sumatoria = 0;
+		VectorMath aux = new VectorMath(operando1.cantidadColumnas);
+		for (int j = 0; j < operando2.getCantidadComponentes(); j++) {
+			for (int k = 0; k < operando1.cantidadColumnas; k++) {
+				sumatoria += operando1.coeficientes[j][k] * operando2.getValorEn(k);
 			}
+			aux.setValorEn(j, sumatoria);
+			sumatoria = 0;
 		}
 
 		return aux;
 	}
 	
-	public static VectorFila producto(VectorFila operando1, MatrizMath operando2) {
+	public static VectorMath producto(VectorMath operando1, MatrizMath operando2) {
 		validarReferencia(operando1);
 		validarReferencia(operando2);
-		validarDimension(operando1.cantidadColumnas, operando2.cantidadFilas);
+		validarDimension(operando1.getCantidadComponentes(), operando2.cantidadFilas);
 
 		double sumatoria = 0;
-		VectorFila aux = new VectorFila(operando2.cantidadColumnas);
-		for (int i = 0; i < operando1.cantidadFilas; i++) {
-			for (int j = 0; j < operando2.cantidadColumnas; j++) {
-				for (int k = 0; k < operando1.cantidadColumnas; k++) {
-					sumatoria += operando1.coeficientes[i][k] * operando2.coeficientes[k][j];
-				}
-				aux.coeficientes[i][j] = sumatoria;
-				sumatoria = 0;
+		VectorMath aux = new VectorMath(operando2.cantidadColumnas);
+		for (int i = 0; i < operando1.getCantidadComponentes(); i++) {
+			for (int k = 0; k < operando1.getCantidadComponentes(); k++) {
+				sumatoria += operando1.getValorEn(k) * operando2.coeficientes[k][i];
 			}
+			aux.setValorEn(i, sumatoria);
+			sumatoria = 0;
 		}
 
 		return aux;
@@ -391,8 +386,8 @@ public class MatrizMath implements Cloneable {
 	}
 
 	// MAIN
-
-	private static MatrizMath matriz1;
+    
+    private static MatrizMath matriz1;
 	private static MatrizMath matriz2;
 	private static MatrizMath matrizIdentidad;
 	private static VectorMath vectorColumna;
@@ -415,8 +410,8 @@ public class MatrizMath implements Cloneable {
 		matriz1         = new MatrizMath( new double[][] { {-2, -2, -2}, {-2, -2, -2}, {-2, -2, -2} } );
 		matriz2         = new MatrizMath( new double[][] { { 2,  2,  2}, { 2,  2,  2}, { 2,  2,  2} } );
 		matrizIdentidad = new MatrizMath( new double[][] { { 1,  0,  0}, { 0,  1,  0}, { 0,  0,  1} } );
-		vectorColumna   = new VectorColumna( new double[] {2, 2, 2} );
-		vectorFila      = new VectorFila( new double[] {2, 2, 2} );
+		vectorColumna   = new VectorMath( new double[] {2, 2, 2} );
+		vectorFila      = new VectorMath( new double[] {2, 2, 2} );
 	}
 	
 	private static void testEquals() {
@@ -497,8 +492,8 @@ public class MatrizMath implements Cloneable {
 	private static void testProductoVectorColumna() {
 		inicializar();
 		
-		VectorColumna resultado = MatrizMath.producto(matriz1, (VectorColumna) vectorColumna);
-		VectorColumna resultadoEsperado = new VectorColumna( new double[] {-12, -12, -12} );
+		VectorMath resultado = MatrizMath.producto(matriz1, vectorColumna);
+		VectorMath resultadoEsperado = new VectorMath( new double[] {-12, -12, -12} );
 		if(!resultado.equals(resultadoEsperado)) {
 			throw new AssertionError("Falla en el método producto(VectorColumna)");
 		}
@@ -510,8 +505,8 @@ public class MatrizMath implements Cloneable {
 	private static void testProductoVectorFila() {
 		inicializar();
 		
-		VectorFila resultado = MatrizMath.producto((VectorFila) vectorFila, matriz1);
-		VectorFila resultadoEsperado = new VectorFila( new double[] {-12, -12, -12} );
+		VectorMath resultado = MatrizMath.producto(vectorFila, matriz1);
+		VectorMath resultadoEsperado = new VectorMath( new double[] {-12, -12, -12} );
 		if(!resultado.equals(resultadoEsperado)) {
 			throw new AssertionError("Falla en el método producto(VectorFila)");
 		}
